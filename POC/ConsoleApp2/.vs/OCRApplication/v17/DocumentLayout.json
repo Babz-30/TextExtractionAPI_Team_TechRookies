@@ -1,0 +1,53 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Babitha\\FraUAS\\SE\\tesseract-ocr\\TextExtractionAPI_Team_TechRookies\\POC\\ConsoleApp2\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{9BA9D5DE-E408-422C-942C-8491F251121F}|ConsoleApp2\\OCRApplication.csproj|d:\\babitha\\frauas\\se\\tesseract-ocr\\textextractionapi_team_techrookies\\poc\\consoleapp2\\consoleapp2\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9BA9D5DE-E408-422C-942C-8491F251121F}|ConsoleApp2\\OCRApplication.csproj|solutionrelative:consoleapp2\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9BA9D5DE-E408-422C-942C-8491F251121F}|ConsoleApp2\\OCRApplication.csproj|d:\\babitha\\frauas\\se\\tesseract-ocr\\textextractionapi_team_techrookies\\poc\\consoleapp2\\consoleapp2\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{9BA9D5DE-E408-422C-942C-8491F251121F}|ConsoleApp2\\OCRApplication.csproj|solutionrelative:consoleapp2\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "launchSettings.json",
+              "DocumentMoniker": "D:\\Babitha\\FraUAS\\SE\\tesseract-ocr\\TextExtractionAPI_Team_TechRookies\\POC\\ConsoleApp2\\ConsoleApp2\\Properties\\launchSettings.json",
+              "RelativeDocumentMoniker": "ConsoleApp2\\Properties\\launchSettings.json",
+              "ToolTip": "D:\\Babitha\\FraUAS\\SE\\tesseract-ocr\\TextExtractionAPI_Team_TechRookies\\POC\\ConsoleApp2\\ConsoleApp2\\Properties\\launchSettings.json",
+              "RelativeToolTip": "ConsoleApp2\\Properties\\launchSettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAACEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-01-10T09:18:18.042Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\Babitha\\FraUAS\\SE\\tesseract-ocr\\TextExtractionAPI_Team_TechRookies\\POC\\ConsoleApp2\\ConsoleApp2\\Program.cs",
+              "RelativeDocumentMoniker": "ConsoleApp2\\Program.cs",
+              "ToolTip": "D:\\Babitha\\FraUAS\\SE\\tesseract-ocr\\TextExtractionAPI_Team_TechRookies\\POC\\ConsoleApp2\\ConsoleApp2\\Program.cs",
+              "RelativeToolTip": "ConsoleApp2\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAA1AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-08T11:07:53.79Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

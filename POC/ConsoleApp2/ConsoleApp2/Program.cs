@@ -8,11 +8,11 @@ namespace OCRApplication
     {
         static void Main(string[] args)
         {
-            // Path to the tessdata folder
-            string tessDataPath = @"D:\OCR-SwEngg\tessdata";
+            // Path to the trained tessdata folder
+            string tessDataPath = @"path_to_tessdata";
 
             // Path to your image file
-            string imagePath = @"D:\Cultural Diversity-Akanksha\pics\1690377485631.png";
+            string imagePath = @"path_to_image\image4.jpg";
 
             try
             {

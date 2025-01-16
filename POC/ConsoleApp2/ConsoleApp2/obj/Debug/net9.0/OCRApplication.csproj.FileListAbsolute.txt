@@ -8,6 +8,7 @@ D:\Babitha\FraUAS\SE\tesseract-ocr\TextExtractionAPI_Team_TechRookies\POC\Consol
 D:\Babitha\FraUAS\SE\tesseract-ocr\TextExtractionAPI_Team_TechRookies\POC\ConsoleApp2\ConsoleApp2\bin\Debug\net9.0\OCRApplication.dll
 D:\Babitha\FraUAS\SE\tesseract-ocr\TextExtractionAPI_Team_TechRookies\POC\ConsoleApp2\ConsoleApp2\bin\Debug\net9.0\OCRApplication.pdb
 D:\Babitha\FraUAS\SE\tesseract-ocr\TextExtractionAPI_Team_TechRookies\POC\ConsoleApp2\ConsoleApp2\bin\Debug\net9.0\Microsoft.Win32.SystemEvents.dll
+D:\Babitha\FraUAS\SE\tesseract-ocr\TextExtractionAPI_Team_TechRookies\POC\ConsoleApp2\ConsoleApp2\bin\Debug\net9.0\SixLabors.ImageSharp.dll
 D:\Babitha\FraUAS\SE\tesseract-ocr\TextExtractionAPI_Team_TechRookies\POC\ConsoleApp2\ConsoleApp2\bin\Debug\net9.0\System.Drawing.Common.dll
 D:\Babitha\FraUAS\SE\tesseract-ocr\TextExtractionAPI_Team_TechRookies\POC\ConsoleApp2\ConsoleApp2\bin\Debug\net9.0\Tesseract.dll
 D:\Babitha\FraUAS\SE\tesseract-ocr\TextExtractionAPI_Team_TechRookies\POC\ConsoleApp2\ConsoleApp2\bin\Debug\net9.0\Tesseract.Drawing.dll

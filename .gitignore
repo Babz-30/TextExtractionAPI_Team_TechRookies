@@ -286,3 +286,7 @@ __pycache__/
 *.btm.cs
 *.odx.cs
 *.xsd.cs
+
+# Project specific path
+POC/ConsoleApp2/ConsoleApp2/obj/*
+POC/ConsoleApp2/.vs/ProjectEvaluation/*

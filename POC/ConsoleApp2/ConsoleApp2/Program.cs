@@ -1,45 +1,48 @@
-﻿using System;
-using Tesseract;
-using System.Drawing;
-
-namespace OCRApplication
+﻿namespace OCRApplication
 {
     class Program
     {
         static void Main(string[] args)
         {
-            // Path to the trained tessdata folder
-            string tessDataPath = @"path_to_tessdata";
+            // Path to input image directory
+            string inputImageDirectory = @"path_to_image\";
+
+            if (!Directory.Exists(inputImageDirectory))
+            {
+                Directory.CreateDirectory(inputImageDirectory);
+            }
 
             // Path to your image file
-            string imagePath = @"path_to_image\image4.jpg";
+            string inputImagePath = Path.Combine(inputImageDirectory, "image1.jpg");
+            
 
             try
             {
-                // Initialize the Tesseract engine
-                using (var ocrEngine = new TesseractEngine(tessDataPath, "eng", EngineMode.Default))
+                Console.WriteLine("Select type of preprocessing image?\n 1. Rotate \n 2. Mirror ");
+                var option = Console.ReadLine();
+                string preprocessedImagePath;
+
+                switch (option)
                 {
-                    Console.WriteLine("Tesseract engine initialized.");
+                    case "1":
+                        inputImagePath = Path.Combine(inputImageDirectory, "rotated_image.jpg");
+                        //Rotating input image with given angle
+                        IPreprocessing image = new RotateImage(inputImagePath, 45);
+                        preprocessedImagePath = image.Process();
+                        break;
 
-                    // Load the image file
-                    using (var image = Pix.LoadFromFile(imagePath))
-                    {
-                        Console.WriteLine("Image loaded successfully.");
+                    case "2":
+                        preprocessedImagePath = inputImagePath;
+                        break;
 
-                        // Perform OCR on the image
-                        using (var page = ocrEngine.Process(image))
-                        {
-                            // Extract and display text
-                            string extractedText = page.GetText();
-                            Console.WriteLine("Extracted Text:");
-                            Console.WriteLine(extractedText);
-
-                            // Display OCR confidence
-                            float confidence = page.GetMeanConfidence();
-                            Console.WriteLine($"Confidence: {confidence * 100:F2}%");
-                        }
-                    }
+                    default:
+                        preprocessedImagePath = inputImagePath;
+                        break;
                 }
+
+                //Extracting text from image
+                TextExtraction tx = new TextExtraction();
+                tx.extractText(preprocessedImagePath, "eng");
             }
             catch (Exception ex)
             {

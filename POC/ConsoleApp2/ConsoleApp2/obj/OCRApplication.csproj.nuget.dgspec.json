@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\SwProject_OCR_Final\\TextExtractionAPI_Team_TechRookies\\POC\\ConsoleApp2\\ConsoleApp2\\OCRApplication.csproj": {}
+    "D:\\Babitha\\FraUAS\\SE\\tesseract-ocr\\TextExtractionAPI_Team_TechRookies\\POC\\ConsoleApp2\\ConsoleApp2\\OCRApplication.csproj": {}
   },
   "projects": {
-    "D:\\SwProject_OCR_Final\\TextExtractionAPI_Team_TechRookies\\POC\\ConsoleApp2\\ConsoleApp2\\OCRApplication.csproj": {
+    "D:\\Babitha\\FraUAS\\SE\\tesseract-ocr\\TextExtractionAPI_Team_TechRookies\\POC\\ConsoleApp2\\ConsoleApp2\\OCRApplication.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\SwProject_OCR_Final\\TextExtractionAPI_Team_TechRookies\\POC\\ConsoleApp2\\ConsoleApp2\\OCRApplication.csproj",
+        "projectUniqueName": "D:\\Babitha\\FraUAS\\SE\\tesseract-ocr\\TextExtractionAPI_Team_TechRookies\\POC\\ConsoleApp2\\ConsoleApp2\\OCRApplication.csproj",
         "projectName": "OCRApplication",
-        "projectPath": "D:\\SwProject_OCR_Final\\TextExtractionAPI_Team_TechRookies\\POC\\ConsoleApp2\\ConsoleApp2\\OCRApplication.csproj",
-        "packagesPath": "C:\\Users\\Dell\\.nuget\\packages\\",
-        "outputPath": "D:\\SwProject_OCR_Final\\TextExtractionAPI_Team_TechRookies\\POC\\ConsoleApp2\\ConsoleApp2\\obj\\",
+        "projectPath": "D:\\Babitha\\FraUAS\\SE\\tesseract-ocr\\TextExtractionAPI_Team_TechRookies\\POC\\ConsoleApp2\\ConsoleApp2\\OCRApplication.csproj",
+        "packagesPath": "C:\\Users\\kathi\\.nuget\\packages\\",
+        "outputPath": "D:\\Babitha\\FraUAS\\SE\\tesseract-ocr\\TextExtractionAPI_Team_TechRookies\\POC\\ConsoleApp2\\ConsoleApp2\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Dell\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\kathi\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -25,8 +25,7 @@
           "net9.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\temp\\TestPackages": {},
+          "D:\\Babitha\\FraUAS\\LocalNugetPackages": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -51,6 +50,10 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "dependencies": {
+            "SixLabors.ImageSharp": {
+              "target": "Package",
+              "version": "[3.1.6, )"
+            },
             "Tesseract": {
               "target": "Package",
               "version": "[5.2.0, )"

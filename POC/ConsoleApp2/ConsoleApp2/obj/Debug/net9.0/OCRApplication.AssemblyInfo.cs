@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("OCRApplication")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+52b0cd02d62a3bdbceaf7af5c2f7598a951d1631")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4ab174b294d7f1ee977409fa174fce1835359055")]
 [assembly: System.Reflection.AssemblyProductAttribute("OCRApplication")]
 [assembly: System.Reflection.AssemblyTitleAttribute("OCRApplication")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

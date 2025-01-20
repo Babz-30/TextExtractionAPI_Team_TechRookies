@@ -292,23 +292,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\kathi\\.nuget\\packages\\": {},
+    "C:\\Users\\Dell\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Babitha\\FraUAS\\SE\\tesseract-ocr\\TextExtractionAPI_Team_TechRookies\\POC\\ConsoleApp2\\ConsoleApp2\\OCRApplication.csproj",
+      "projectUniqueName": "D:\\SwProject_OCR_Final\\TextExtractionAPI_Team_TechRookies\\POC\\ConsoleApp2\\ConsoleApp2\\OCRApplication.csproj",
       "projectName": "OCRApplication",
-      "projectPath": "D:\\Babitha\\FraUAS\\SE\\tesseract-ocr\\TextExtractionAPI_Team_TechRookies\\POC\\ConsoleApp2\\ConsoleApp2\\OCRApplication.csproj",
-      "packagesPath": "C:\\Users\\kathi\\.nuget\\packages\\",
-      "outputPath": "D:\\Babitha\\FraUAS\\SE\\tesseract-ocr\\TextExtractionAPI_Team_TechRookies\\POC\\ConsoleApp2\\ConsoleApp2\\obj\\",
+      "projectPath": "D:\\SwProject_OCR_Final\\TextExtractionAPI_Team_TechRookies\\POC\\ConsoleApp2\\ConsoleApp2\\OCRApplication.csproj",
+      "packagesPath": "C:\\Users\\Dell\\.nuget\\packages\\",
+      "outputPath": "D:\\SwProject_OCR_Final\\TextExtractionAPI_Team_TechRookies\\POC\\ConsoleApp2\\ConsoleApp2\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\kathi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Dell\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -316,7 +316,8 @@
         "net9.0"
       ],
       "sources": {
-        "D:\\Babitha\\FraUAS\\LocalNugetPackages": {},
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\temp\\TestPackages": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {

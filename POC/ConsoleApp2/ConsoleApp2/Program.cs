@@ -21,22 +21,27 @@
                 Console.WriteLine("Select type of preprocessing image?\n 1. Rotate \n 2. Mirror ");
                 var option = Console.ReadLine();
                 string preprocessedImagePath;
+                IPreprocessing image;
 
                 switch (option)
                 {
                     case "1":
                         inputImagePath = Path.Combine(inputImageDirectory, "rotated_image.jpg");
                         //Rotating input image with given angle
-                        IPreprocessing image = new RotateImage(inputImagePath, 45);
+                        image = new RotateImage(inputImagePath, 45);
                         preprocessedImagePath = image.Process();
                         break;
 
                     case "2":
-                        preprocessedImagePath = inputImagePath;
+                        inputImagePath = Path.Combine(inputImageDirectory, "mirror_image1.png");
+                        // Mirroring the input image
+                        image = new MirrorImage(inputImagePath);
+                        preprocessedImagePath = image.Process();
                         break;
 
                     default:
                         preprocessedImagePath = inputImagePath;
+                        Console.WriteLine("Invalid option selected. Using the original image without preprocessing.");
                         break;
                 }
 

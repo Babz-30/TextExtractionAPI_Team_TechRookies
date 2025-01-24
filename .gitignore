@@ -288,5 +288,10 @@ __pycache__/
 *.xsd.cs
 
 # Project specific path
-POC/ConsoleApp2/ConsoleApp2/obj/*
+ConsoleApp2/.vs/
+POC/ConsoleApp2/ConsoleApp2/obj/
+ConsoleApp2/ConsoleApp2/bin/
 POC/ConsoleApp2/.vs/ProjectEvaluation/*
+
+Source/OCRApplication/OCRApplication/bin/
+Source/OCRApplication/OCRApplication/obj/

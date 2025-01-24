@@ -18,7 +18,7 @@
 
             try
             {
-                Console.WriteLine("Select type of preprocessing image?\n 1. Rotate \n 2. Mirror ");
+                Console.WriteLine("Select type of preprocessing image?\n 1. Rotate \n 2. Mirror \n 3. Invert ");
                 var option = Console.ReadLine();
                 string preprocessedImagePath;
                 IPreprocessing image;
@@ -27,7 +27,7 @@
                 {
                     case "1":
                         inputImagePath = Path.Combine(inputImageDirectory, "rotated_image.jpg");
-                        //Rotating input image with given angle
+                        // Rotating input image with given angle
                         image = new RotateImage(inputImagePath, 45);
                         preprocessedImagePath = image.Process();
                         break;
@@ -39,6 +39,13 @@
                         preprocessedImagePath = image.Process();
                         break;
 
+                    case "3":
+                        inputImagePath = Path.Combine(inputImageDirectory, "image3.jpg");
+                        // Inverting the input image
+                        image = new InvertImage(inputImagePath);
+                        preprocessedImagePath = image.Process();
+                        break;
+
                     default:
                         preprocessedImagePath = inputImagePath;
                         Console.WriteLine("Invalid option selected. Using the original image without preprocessing.");
@@ -46,8 +53,8 @@
                 }
 
                 //Extracting text from image
-                TextExtraction tx = new TextExtraction();
-                tx.extractText(preprocessedImagePath, "eng");
+                TextExtraction tx = new();
+                tx.ExtractText(preprocessedImagePath, "eng");
             }
             catch (Exception ex)
             {

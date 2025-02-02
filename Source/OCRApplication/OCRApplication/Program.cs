@@ -25,7 +25,7 @@
                         break;
 
                     case "2":
-                        inputImagePath = UtilityClass.ImagePath("mirror_image3.png");
+                        inputImagePath = UtilityClass.ImagePath("mirrored_image_verticle3_cb.png");
 
                         // Check if the input image exists
                         if (!File.Exists(inputImagePath))

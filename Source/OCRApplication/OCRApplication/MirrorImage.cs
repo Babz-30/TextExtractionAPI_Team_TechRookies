@@ -1,5 +1,6 @@
 ﻿using System;
-using System.Drawing; // For Bitmap
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 
 namespace OCRApplication
@@ -16,7 +17,7 @@ namespace OCRApplication
             this.mirrorType = mirrorType;
 
             // Generate output path based on mirror type
-            this.mirrorImagePath = UtilityClass.ImagePath($"{mirrorType.ToLower()}_flipped_image.jpg");
+            this.mirrorImagePath = UtilityClass.ImagePath($"{mirrorType.ToLower()}_mirrored_image.jpg");
         }
 
         public string Process()
@@ -25,16 +26,18 @@ namespace OCRApplication
             {
                 // Load the input image
                 using Bitmap inputImage = new(inputImagePath);
-                Bitmap mirroredImage;
 
-                // Apply the specified mirror type
+                // Apply preprocessing (Grayscale + Binarization)
+                Bitmap preprocessedImage = ApplyPreprocessing(inputImage);
+
+                Bitmap mirroredImage;
                 if (mirrorType.Equals("Horizontal", StringComparison.OrdinalIgnoreCase))
                 {
-                    mirroredImage = ImageProcessing.MirrorImageHorizontal(inputImage);
+                    mirroredImage = ImageProcessing.MirrorImageHorizontal(preprocessedImage);
                 }
                 else if (mirrorType.Equals("Vertical", StringComparison.OrdinalIgnoreCase))
                 {
-                    mirroredImage = ImageProcessing.MirrorImageVertical(inputImage);
+                    mirroredImage = ImageProcessing.MirrorImageVertical(preprocessedImage);
                 }
                 else
                 {
@@ -42,16 +45,23 @@ namespace OCRApplication
                 }
 
                 // Save the mirrored image
-                mirroredImage.Save(mirrorImagePath);
+                mirroredImage.Save(mirrorImagePath, ImageFormat.Jpeg);
 
                 Console.WriteLine($"Mirrored image saved to: {mirrorImagePath}");
                 return mirrorImagePath;
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error during image mirroring: {ex.Message}");
+                Console.WriteLine($"Error during image processing: {ex.Message}");
                 throw;
             }
+        }
+
+        public Bitmap ApplyPreprocessing(Bitmap inputImage)
+        {
+            Bitmap grayscaleImage = Grayscale.ConvertToGrayscale(inputImage);
+            Bitmap binarizedImage = Binarization.ApplyBinarization(grayscaleImage);
+            return binarizedImage;
         }
     }
 
@@ -61,7 +71,7 @@ namespace OCRApplication
         public static Bitmap MirrorImageHorizontal(Bitmap inputImage)
         {
             Bitmap mirroredImage = new(inputImage);
-            mirroredImage.RotateFlip(RotateFlipType.RotateNoneFlipX); // Perform horizontal flip
+            mirroredImage.RotateFlip(RotateFlipType.RotateNoneFlipX);
             return mirroredImage;
         }
 
@@ -69,7 +79,7 @@ namespace OCRApplication
         public static Bitmap MirrorImageVertical(Bitmap inputImage)
         {
             Bitmap mirroredImage = new(inputImage);
-            mirroredImage.RotateFlip(RotateFlipType.RotateNoneFlipY); // Perform vertical flip
+            mirroredImage.RotateFlip(RotateFlipType.RotateNoneFlipY);
             return mirroredImage;
         }
     }

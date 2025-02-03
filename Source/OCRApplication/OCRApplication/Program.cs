@@ -56,6 +56,20 @@
                         preprocessedImagePath = image.Process();
                         break;
 
+                    case "4":
+                        inputImagePath = UtilityClass.ImagePath("image1.jpg");
+                        // Resize the input image
+                        image = new ResizeImage(inputImagePath);
+                        preprocessedImagePath = image.Process();
+                        break;
+
+                    case "5":
+                        inputImagePath = UtilityClass.ImagePath("image4.jpg");
+                        // Denoise the input image
+                        image = new DenoiseImage(inputImagePath);
+                        preprocessedImagePath = image.Process();
+                        break;
+
                     default:
                         preprocessedImagePath = inputImagePath;
                         Console.WriteLine("Default option selected. Using the original image without preprocessing.");

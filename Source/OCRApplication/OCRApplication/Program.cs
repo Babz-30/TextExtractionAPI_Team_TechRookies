@@ -10,7 +10,7 @@
                 // Path to your image file
                 string inputImagePath = UtilityClass.InputImagePath("image1.jpg");
 
-                Console.WriteLine("Select type of preprocessing image?\n 1. Rotate \n 2. Mirror \n 3. Invert ");
+                Console.WriteLine("Select type of preprocessing image?\n 1. Rotate \n 2. Mirror \n 3. Invert \n 4. Resize \n 5. Denoise");
                 var option = Console.ReadLine();
                 string preprocessedImagePath;
                 IPreprocessing image;
@@ -18,7 +18,7 @@
                 switch (option)
                 {
                     case "1":
-                        inputImagePath = UtilityClass.InputImagePath("rotated_image.jpg");
+                        inputImagePath = UtilityClass.InputImagePath("rotated_image1.jpg");
                         // Rotating input image with given angle
                         image = new RotateImage(inputImagePath, 45);
                         preprocessedImagePath = image.Process();

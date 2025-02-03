@@ -8,7 +8,7 @@
             try
             {
                 // Path to your image file
-                string inputImagePath = UtilityClass.ImagePath("image1.jpg");
+                string inputImagePath = UtilityClass.InputImagePath("image1.jpg");
 
                 Console.WriteLine("Select type of preprocessing image?\n 1. Rotate \n 2. Mirror \n 3. Invert ");
                 var option = Console.ReadLine();
@@ -18,14 +18,14 @@
                 switch (option)
                 {
                     case "1":
-                        inputImagePath = UtilityClass.ImagePath("rotated_image.jpg");
+                        inputImagePath = UtilityClass.InputImagePath("rotated_image.jpg");
                         // Rotating input image with given angle
                         image = new RotateImage(inputImagePath, 45);
                         preprocessedImagePath = image.Process();
                         break;
 
                     case "2":
-                        inputImagePath = UtilityClass.ImagePath("mirrored_image_verticle3_cb.png");
+                        inputImagePath = UtilityClass.InputImagePath("mirrored_image_verticle3_cb.png");
 
                         // Check if the input image exists
                         if (!File.Exists(inputImagePath))
@@ -50,21 +50,21 @@
                         break;
 
                     case "3":
-                        inputImagePath = UtilityClass.ImagePath("image3.jpg");
+                        inputImagePath = UtilityClass.InputImagePath("image3.jpg");
                         // Inverting the input image
                         image = new InvertImage(inputImagePath);
                         preprocessedImagePath = image.Process();
                         break;
 
                     case "4":
-                        inputImagePath = UtilityClass.ImagePath("image1.jpg");
+                        inputImagePath = UtilityClass.InputImagePath("image1.jpg");
                         // Resize the input image
                         image = new ResizeImage(inputImagePath);
                         preprocessedImagePath = image.Process();
                         break;
 
                     case "5":
-                        inputImagePath = UtilityClass.ImagePath("image4.jpg");
+                        inputImagePath = UtilityClass.InputImagePath("image4.jpg");
                         // Denoise the input image
                         image = new DenoiseImage(inputImagePath);
                         preprocessedImagePath = image.Process();
@@ -76,9 +76,16 @@
                         break;
                 }
 
+                // Call ChatGPT
+                var chatGPT = new ChatGPT();
+                chatGPT.Task(inputImagePath); //inputImagePath
+
                 //Extracting text from image
                 TextExtraction tx = new();
                 tx.ExtractText(preprocessedImagePath, "eng");
+
+                // Before closing the terminal window, await user input.
+                Console.ReadLine();
             }
             catch (Exception ex)
             {

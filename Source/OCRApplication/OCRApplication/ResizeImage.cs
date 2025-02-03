@@ -5,7 +5,7 @@ namespace OCRApplication
     internal class ResizeImage(string inputImagePath) : IPreprocessing
     {
         // Path to save the resized image
-        private readonly string resizeImagePath = UtilityClass.ImagePath("resized_image.jpg");
+        private readonly string resizeImagePath = UtilityClass.OutputImagePath("resized_image.jpg");
         private readonly string inputImagePath = inputImagePath;
         public string Process()
         {
@@ -25,23 +25,19 @@ namespace OCRApplication
 
         static void ResizeAndSetDPI(string inputPath, string outputPath, int targetDPI)
         {
-            using (Bitmap original = new Bitmap(inputPath))
+            using Bitmap original = new(inputPath);
+            int newWidth = (int)(original.Width * (targetDPI / (float)original.HorizontalResolution));
+            int newHeight = (int)(original.Height * (targetDPI / (float)original.VerticalResolution));
+
+            using Bitmap resized = new(newWidth, newHeight);
+            resized.SetResolution(targetDPI, targetDPI);
+            using (Graphics graphics = Graphics.FromImage(resized))
             {
-                int newWidth = (int)(original.Width * (targetDPI / (float)original.HorizontalResolution));
-                int newHeight = (int)(original.Height * (targetDPI / (float)original.VerticalResolution));
-
-                using (Bitmap resized = new Bitmap(newWidth, newHeight))
-                {
-                    resized.SetResolution(targetDPI, targetDPI);
-                    using (Graphics graphics = Graphics.FromImage(resized))
-                    {
-                        graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
-                        graphics.DrawImage(original, 0, 0, newWidth, newHeight);
-                    }
-
-                    resized.Save(outputPath);
-                }
+                graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+                graphics.DrawImage(original, 0, 0, newWidth, newHeight);
             }
+
+            resized.Save(outputPath);
         }
     }
 }

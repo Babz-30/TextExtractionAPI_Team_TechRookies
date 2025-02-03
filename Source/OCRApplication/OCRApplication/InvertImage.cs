@@ -5,7 +5,7 @@ namespace OCRApplication
     internal class InvertImage(string inputImagePath) : IPreprocessing
     {
         // Save corrected image
-        readonly string invertedImagePath = UtilityClass.ImagePath("inverted_image.jpg");
+        readonly string invertedImagePath = UtilityClass.OutputImagePath("inverted_image.jpg");
 
         public string Process()
         {

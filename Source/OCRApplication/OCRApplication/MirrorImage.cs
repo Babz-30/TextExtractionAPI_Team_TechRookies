@@ -17,7 +17,7 @@ namespace OCRApplication
             this.mirrorType = mirrorType;
 
             // Generate output path based on mirror type
-            this.mirrorImagePath = UtilityClass.ImagePath($"{mirrorType.ToLower()}_mirrored_image.jpg");
+            this.mirrorImagePath = UtilityClass.OutputImagePath($"{mirrorType.ToLower()}_mirrored_image.jpg");
         }
 
         public string Process()

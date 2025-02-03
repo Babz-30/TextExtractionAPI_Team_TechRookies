@@ -17,7 +17,7 @@ namespace OCRApplication
                 Mat image = CvInvoke.Imread(inputImagePath, ImreadModes.Grayscale);
 
                 // Apply Gaussian Blur to smooth out noise
-                Mat blurred = new Mat();
+                Mat blurred = new();
                 CvInvoke.GaussianBlur(image, blurred, new System.Drawing.Size(5, 5), 0);
 
                 // Save the preprocessed image for OCR

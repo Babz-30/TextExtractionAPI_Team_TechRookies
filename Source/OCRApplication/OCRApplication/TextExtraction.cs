@@ -1,4 +1,5 @@
-﻿using Tesseract;
+﻿using System.ComponentModel.DataAnnotations;
+using Tesseract;
 
 namespace OCRApplication
 {
@@ -6,6 +7,9 @@ namespace OCRApplication
     {
         // Path to the trained tessdata folder
         readonly string tessDataPath = UtilityClass.TessDataPath();
+        // Path to save the extracted text
+        private readonly string tesseractOutputFilePath = UtilityClass.TesseractOutputPath("tessract_output.txt");
+
         public void ExtractText(string imagePath, string language)
         {
             try
@@ -22,7 +26,8 @@ namespace OCRApplication
                 using var page = ocrEngine.Process(image);
                 // Extract and display text
                 string extractedText = page.GetText();
-                Display(extractedText);
+                UtilityClass.SaveToFile(tesseractOutputFilePath, extractedText);
+                UtilityClass.RemoveBlankLines(tesseractOutputFilePath);
 
 
                 // Display OCR confidence
@@ -33,12 +38,6 @@ namespace OCRApplication
             {
                 Console.WriteLine($"Error: {ex.Message}");
             }
-        }
-
-        public static void Display(String extractedText)
-        {
-            Console.WriteLine("Extracted Text:");
-            Console.WriteLine(extractedText);
         }
     }
 }

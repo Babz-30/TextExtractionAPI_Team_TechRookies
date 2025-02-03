@@ -15,7 +15,7 @@
             DirectoryInfo? parentDirectory = Directory.GetParent(currentDirectory)?.Parent?.Parent;
 
             string parentFullName = parentDirectory?.FullName ?? "Parent directory does not exist";
-            
+
             return parentFullName;
 
         }

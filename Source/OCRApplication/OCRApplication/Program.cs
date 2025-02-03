@@ -25,10 +25,28 @@
                         break;
 
                     case "2":
-                        inputImagePath = UtilityClass.ImagePath("mirror_image1.png");
-                        // Mirroring the input image
-                        image = new MirrorImage(inputImagePath);
-                        preprocessedImagePath = image.Process();
+                        inputImagePath = UtilityClass.ImagePath("mirrored_image_verticle3_cb.png");
+
+                        // Check if the input image exists
+                        if (!File.Exists(inputImagePath))
+                        {
+                            Console.WriteLine($"Input image not found: {inputImagePath}");
+                            return;
+                        }
+
+                        Console.WriteLine("Select mirroring type:\n 1. Horizontal \n 2. Vertical");
+                        string mirrorType = Console.ReadLine()?.Trim() == "1" ? "Horizontal" : "Vertical";
+
+                        try
+                        {
+                            image = new MirrorImage(inputImagePath, mirrorType);
+                            preprocessedImagePath = image.Process();
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine($"Error during mirroring: {ex.Message}");
+                            return;
+                        }
                         break;
 
                     case "3":

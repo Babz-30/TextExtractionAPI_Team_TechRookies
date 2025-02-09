@@ -28,7 +28,7 @@ namespace OCRApplication
                     role = "user",
                     content = new object[]
                     {
-                        new { type = "text", text = "Extract text from image as it is line by line." },
+                        new { type = "text", text = "Flip and rotate the  vertical mirror image and extract the text from the without adding any extra information." },
                         new { type = "image_url", image_url = new { url = $"data:image/jpeg;base64,{base64Image}" } }
                     }
                 }

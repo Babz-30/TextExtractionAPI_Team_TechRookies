@@ -1,10 +1,12 @@
-﻿namespace OCRApplication
+﻿using System;
+using System.IO;
+
+namespace OCRApplication
 {
     class Program
     {
         static void Main(string[] args)
         {
-
             try
             {
                 // Path to your image file
@@ -19,15 +21,13 @@
                 {
                     case "1":
                         inputImagePath = UtilityClass.InputImagePath("rotated_image1.jpg");
-                        // Rotating input image with given angle
                         image = new RotateImage(inputImagePath, 45);
                         preprocessedImagePath = image.Process();
                         break;
 
                     case "2":
-                        inputImagePath = UtilityClass.InputImagePath("mirrored_image_verticle3_cb.png");
+                        inputImagePath = UtilityClass.InputImagePath("horizontal_mirrored_image.jpg");
 
-                        // Check if the input image exists
                         if (!File.Exists(inputImagePath))
                         {
                             Console.WriteLine($"Input image not found: {inputImagePath}");
@@ -51,21 +51,18 @@
 
                     case "3":
                         inputImagePath = UtilityClass.InputImagePath("image3.jpg");
-                        // Inverting the input image
                         image = new InvertImage(inputImagePath);
                         preprocessedImagePath = image.Process();
                         break;
 
                     case "4":
                         inputImagePath = UtilityClass.InputImagePath("image1.jpg");
-                        // Resize the input image
                         image = new ResizeImage(inputImagePath);
                         preprocessedImagePath = image.Process();
                         break;
 
                     case "5":
                         inputImagePath = UtilityClass.InputImagePath("image4.jpg");
-                        // Denoise the input image
                         image = new DenoiseImage(inputImagePath);
                         preprocessedImagePath = image.Process();
                         break;
@@ -78,11 +75,30 @@
 
                 // Call ChatGPT
                 var chatGPT = new ChatGPT();
-                chatGPT.Task(inputImagePath); //inputImagePath
+                chatGPT.Task(inputImagePath);
 
-                //Extracting text from image
+                // Extracting text from image
                 TextExtraction tx = new();
                 tx.ExtractText(preprocessedImagePath, "eng");
+
+                // Compute and display cosine similarity
+                string tesseractOutputPath = UtilityClass.TesseractOutputPath("tesseract_output.txt");
+                string chatgptOutputPath = UtilityClass.ChatgptOutputPath("chatgpt_output.txt");
+
+                if (File.Exists(tesseractOutputPath) && File.Exists(chatgptOutputPath))
+                {
+                    // Read text content from both files
+                    string tesseractText = File.ReadAllText(tesseractOutputPath);
+                    string chatgptText = File.ReadAllText(chatgptOutputPath);
+
+                    // Compute similarity using the correct method
+                    double similarityScore = TextSimilarity.ComputeCosineSimilarity(tesseractText, chatgptText);
+                    Console.WriteLine($"Cosine Similarity between Tesseract and ChatGPT output: {similarityScore}");
+                }
+                else
+                {
+                    Console.WriteLine("Error: One or both text output files not found.");
+                }
 
                 // Before closing the terminal window, await user input.
                 Console.ReadLine();

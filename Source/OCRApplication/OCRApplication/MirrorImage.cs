@@ -16,37 +16,33 @@ namespace OCRApplication
             this.mirrorType = mirrorType;
 
             // Generate output path based on mirror type
-            this.mirrorImagePath = UtilityClass.OutputImagePath($"{mirrorType.ToLower()}_mirrored_image.jpg");
+            this.mirrorImagePath = UtilityClass.OutputImagePath($"{mirrorType.ToLower()}_mirrored_image.png"); // Changed to .png
         }
 
         public string Process()
         {
             try
             {
-                // Load the input image
-                using Bitmap inputImage = new(inputImagePath);
+                // Load input image (manually dispose later)
+                Bitmap inputImage = new(inputImagePath);
 
                 // Apply preprocessing (Grayscale + Binarization)
                 Bitmap preprocessedImage = ApplyPreprocessing(inputImage);
+                inputImage.Dispose(); // Dispose after preprocessing
 
-                Bitmap mirroredImage;
-                if (mirrorType.Equals("Horizontal", StringComparison.OrdinalIgnoreCase))
-                {
-                    mirroredImage = ImageProcessing.MirrorImageHorizontal(preprocessedImage);
-                }
-                else if (mirrorType.Equals("Vertical", StringComparison.OrdinalIgnoreCase))
-                {
-                    mirroredImage = ImageProcessing.MirrorImageVertical(preprocessedImage);
-                }
-                else
-                {
-                    throw new ArgumentException("Invalid mirror type. Use 'Horizontal' or 'Vertical'.");
-                }
+                // Apply mirroring
+                Bitmap mirroredImage = mirrorType.Equals("Horizontal", StringComparison.OrdinalIgnoreCase)
+                    ? ImageProcessing.MirrorImageHorizontal(preprocessedImage)
+                    : ImageProcessing.MirrorImageVertical(preprocessedImage);
+
+                preprocessedImage.Dispose(); // Dispose preprocessed image after use
 
                 // Save the mirrored image
-                mirroredImage.Save(mirrorImagePath, ImageFormat.Jpeg);
-
+                mirroredImage.Save(mirrorImagePath, ImageFormat.Png); // Changed to .png
                 Console.WriteLine($"Mirrored image saved to: {mirrorImagePath}");
+
+                mirroredImage.Dispose(); // Dispose mirrored image after saving
+
                 return mirrorImagePath;
             }
             catch (Exception ex)
@@ -60,6 +56,7 @@ namespace OCRApplication
         {
             Bitmap grayscaleImage = Grayscale.ConvertToGrayscale(inputImage);
             Bitmap binarizedImage = Binarization.ApplyBinarization(grayscaleImage);
+            grayscaleImage.Dispose(); // Free memory after processing
             return binarizedImage;
         }
     }
@@ -69,7 +66,7 @@ namespace OCRApplication
         // Method to mirror an image horizontally
         public static Bitmap MirrorImageHorizontal(Bitmap inputImage)
         {
-            Bitmap mirroredImage = new(inputImage);
+            Bitmap mirroredImage = (Bitmap)inputImage.Clone(); // Clone to avoid modifying the original
             mirroredImage.RotateFlip(RotateFlipType.RotateNoneFlipX);
             return mirroredImage;
         }
@@ -77,7 +74,7 @@ namespace OCRApplication
         // Method to mirror an image vertically
         public static Bitmap MirrorImageVertical(Bitmap inputImage)
         {
-            Bitmap mirroredImage = new(inputImage);
+            Bitmap mirroredImage = (Bitmap)inputImage.Clone(); // Clone to avoid modifying the original
             mirroredImage.RotateFlip(RotateFlipType.RotateNoneFlipY);
             return mirroredImage;
         }

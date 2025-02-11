@@ -1,4 +1,6 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
+using System.Drawing.Imaging;
 
 namespace OCRApplication
 {
@@ -12,10 +14,17 @@ namespace OCRApplication
                 for (int x = 0; x < inputImage.Width; x++)
                 {
                     Color pixel = inputImage.GetPixel(x, y);
-                    int binaryColor = pixel.R > threshold ? 255 : 0;
+                    int grayValue = (pixel.R + pixel.G + pixel.B) / 3;  // Convert to grayscale
+                    int binaryColor = grayValue > threshold ? 255 : 0;
                     binarized.SetPixel(x, y, Color.FromArgb(binaryColor, binaryColor, binaryColor));
                 }
             }
+
+            // Save binarized image
+            string outputPath = "binarized_output.png";
+            binarized.Save(outputPath, ImageFormat.Png);
+            Console.WriteLine($"Binarized image saved at: {outputPath}");
+
             return binarized;
         }
     }

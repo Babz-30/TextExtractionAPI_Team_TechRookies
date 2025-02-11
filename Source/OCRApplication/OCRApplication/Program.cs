@@ -20,13 +20,13 @@ namespace OCRApplication
                 switch (option)
                 {
                     case "1":
-                        inputImagePath = UtilityClass.InputImagePath("rotated_image1.jpg");
+                        inputImagePath = UtilityClass.InputImagePath("rotated_image1.jpg"); 
                         image = new RotateImage(inputImagePath, 45);
                         preprocessedImagePath = image.Process();
                         break;
 
                     case "2":
-                        inputImagePath = UtilityClass.InputImagePath("horizontal_mirrored_image.jpg");
+                        inputImagePath = UtilityClass.InputImagePath("vertical_flipped_image.jpg");
 
                         if (!File.Exists(inputImagePath))
                         {

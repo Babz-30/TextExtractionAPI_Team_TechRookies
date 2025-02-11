@@ -1,4 +1,6 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
+using System.Drawing.Imaging;
 
 namespace OCRApplication
 {
@@ -17,6 +19,12 @@ namespace OCRApplication
                     grayscale.SetPixel(x, y, grayColor);
                 }
             }
+
+            // Save grayscale image
+            string outputPath = "grayscale_output.png";
+            grayscale.Save(outputPath, ImageFormat.Png);
+            Console.WriteLine($"Grayscale image saved at: {outputPath}");
+
             return grayscale;
         }
     }

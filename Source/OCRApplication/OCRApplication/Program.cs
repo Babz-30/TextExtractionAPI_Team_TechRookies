@@ -5,7 +5,7 @@ namespace OCRApplication
 {
     class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             try
             {
@@ -91,8 +91,12 @@ namespace OCRApplication
                     string tesseractText = File.ReadAllText(tesseractOutputPath);
                     string chatgptText = File.ReadAllText(chatgptOutputPath);
 
+                    //Calculate embeddings
+                    List<double> t1 = await TextEmbedding.ComputeEmbedding(tesseractText);
+                    List<double> t2 = await TextEmbedding.ComputeEmbedding(chatgptText);
+
                     // Compute similarity using the correct method
-                    double similarityScore = TextSimilarity.ComputeCosineSimilarity(tesseractText, chatgptText);
+                    double similarityScore = TextSimilarity.ComputeCosineSimilarity(t1, t2);
                     Console.WriteLine($"Cosine Similarity between Tesseract and ChatGPT output: {similarityScore}");
                 }
                 else

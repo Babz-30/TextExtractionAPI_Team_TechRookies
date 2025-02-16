@@ -1,29 +1,25 @@
 ﻿using Emgu.CV;
-using Emgu.CV.CvEnum;
 
-namespace OCRApplication
+namespace OCRApplication.Preprocesssing
 {
-    internal class DenoiseImage(string inputImagePath) : IPreprocessing
+    public class DenoiseImage
     {
-        // Save corrected image
-        readonly string denoisedImagePath = UtilityClass.OutputImagePath("denoised_image.jpg");
 
-        readonly private string inputImagePath = inputImagePath;
-        public string Process()
+        public static string DenoisingImage(string inputImagePath, string outputImagePath)
         {
             try
             {
                 // Load the image in grayscale
-                Mat image = CvInvoke.Imread(inputImagePath, ImreadModes.Grayscale);
+                Mat image = CvInvoke.Imread(inputImagePath);
 
                 // Apply Gaussian Blur to smooth out noise
                 Mat blurred = new();
                 CvInvoke.GaussianBlur(image, blurred, new System.Drawing.Size(5, 5), 0);
 
                 // Save the preprocessed image for OCR
-                CvInvoke.Imwrite(denoisedImagePath, blurred);
+                CvInvoke.Imwrite(outputImagePath, blurred);
 
-                return denoisedImagePath;
+                return outputImagePath;
             }
             catch (Exception ex)
             {

@@ -1,13 +1,10 @@
 ﻿using System.Drawing;
 
-namespace OCRApplication
+namespace OCRApplication.Preprocesssing
 {
-    internal class InvertImage(string inputImagePath) : IPreprocessing
+    internal class InvertImage
     {
-        // Save corrected image
-        readonly string invertedImagePath = UtilityClass.OutputImagePath("inverted_image.jpg");
-
-        public string Process()
+        public string InvertingImage(string inputImagePath, string outputImagePath)
         {
             // Load the image
             using Bitmap bitmap = new(inputImagePath);
@@ -29,9 +26,9 @@ namespace OCRApplication
             }
 
             // Save the modified image
-            bitmap.Save(invertedImagePath);
+            bitmap.Save(outputImagePath);
 
-            return invertedImagePath;
+            return outputImagePath;
         }
     }
 }

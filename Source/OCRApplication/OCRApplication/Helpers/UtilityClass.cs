@@ -1,10 +1,13 @@
-﻿namespace OCRApplication
+﻿namespace OCRApplication.Helpers
 {
     public static class UtilityClass
     {
 
         // Path to input image directory
         static readonly string inputImageDirectory = @"path_to_image";
+
+        // Path to preprocessed image directory
+        static readonly string outputImageDirectory = @"path_to_image/preprocessed/";
 
         // Path to the trained tessdata folder
         static readonly string tessDataPath = @"path_to_tessdata";
@@ -31,6 +34,11 @@
         public static string InputImageDirectory()
         {
             return Path.Combine(SolutionDirectory(), inputImageDirectory);
+        }
+
+        public static string OutputImageDirectory()
+        {
+            return Path.Combine(SolutionDirectory(), outputImageDirectory);
         }
 
         public static string InputImagePath(string filename)
@@ -77,10 +85,10 @@
 
             string textFilePath = Path.Combine(textFileDirectory, filename);
 
-            if (!File.Exists(textFilePath))
-            {
-                File.Create(textFilePath);
-            }
+            //if (!File.Exists(textFilePath))
+            //{
+            //    File.Create(textFilePath);
+            //}
 
             return textFilePath;
         }
@@ -103,7 +111,7 @@
             Console.WriteLine("Extracted Text:");
             Console.WriteLine(content);
             File.WriteAllText(filePath, content);
-            Console.WriteLine("Extracted content saved to " + filePath);
+            Console.WriteLine("Extracted content saved to file" + filePath);
         }
     }
 }

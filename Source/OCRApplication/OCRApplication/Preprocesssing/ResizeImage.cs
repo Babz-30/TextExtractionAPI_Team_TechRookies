@@ -1,26 +1,23 @@
 ﻿using System.Drawing;
 
-namespace OCRApplication
+namespace OCRApplication.Preprocesssing
 {
-    internal class ResizeImage(string inputImagePath) : IPreprocessing
+    internal class ResizeImage
     {
-        // Path to save the resized image
-        private readonly string resizeImagePath = UtilityClass.OutputImagePath("resized_image.jpg");
-        private readonly string inputImagePath = inputImagePath;
-        public string Process()
+        public string ResizingImage(string inputImagePath, string outputImagePath, int targetDPI)
         {
             try
             {
-                ResizeAndSetDPI(inputImagePath, resizeImagePath, 300);
+                ResizeAndSetDPI(inputImagePath, outputImagePath, targetDPI);
                 Console.WriteLine("Image resized and DPI set to at least 300.");
-                return resizeImagePath;
+                return outputImagePath;
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error during image resizing: {ex.Message}");
                 throw;
             }
-        
+
         }
 
         static void ResizeAndSetDPI(string inputPath, string outputPath, int targetDPI)

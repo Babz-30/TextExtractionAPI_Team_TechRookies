@@ -1,5 +1,6 @@
-﻿using System;
-using System.IO;
+﻿using OCRApplication.Helpers;
+using OCRApplication.Preprocesssing;
+using OCRApplication.Services;
 
 namespace OCRApplication
 {
@@ -11,106 +12,52 @@ namespace OCRApplication
             {
                 // Path to your image file
                 string inputImagePath = UtilityClass.InputImagePath("image1.jpg");
+                string preprocessedImagePath = inputImagePath;
+                
 
-                Console.WriteLine("Select type of preprocessing image?\n 1. Rotate \n 2. Mirror \n 3. Invert \n 4. Resize \n 5. Denoise");
-                var option = Console.ReadLine();
-                string preprocessedImagePath;
-                IPreprocessing image;
+                List<string> techniques = new List<string> { "rotation", "cannyfilter", "resize", "invert" };
 
-                switch (option)
+                
+                PreprocessingFactory preprocessingFactory = new PreprocessingFactory();
+
+                Dictionary<string, string> ocrTexts = new Dictionary<string, string>();
+                Dictionary<string, string> preprocessedImages = new Dictionary<string, string>();
+
+                // Apply preprocessing techniques and OCR
+                foreach (var technique in techniques)
                 {
-                    case "1":
-                        inputImagePath = UtilityClass.InputImagePath("rotated_image1.jpg"); 
-                        image = new RotateImage(inputImagePath, 45);
-                        preprocessedImagePath = image.Process();
-                        break;
-
-                    case "2":
-                        inputImagePath = UtilityClass.InputImagePath("vertical_flipped_image.jpg");
-
-                        if (!File.Exists(inputImagePath))
-                        {
-                            Console.WriteLine($"Input image not found: {inputImagePath}");
-                            return;
-                        }
-
-                        Console.WriteLine("Select mirroring type:\n 1. Horizontal \n 2. Vertical");
-                        string mirrorType = Console.ReadLine()?.Trim() == "1" ? "Horizontal" : "Vertical";
-
-                        try
-                        {
-                            image = new MirrorImage(inputImagePath, mirrorType);
-                            preprocessedImagePath = image.Process();
-                        }
-                        catch (Exception ex)
-                        {
-                            Console.WriteLine($"Error during mirroring: {ex.Message}");
-                            return;
-                        }
-                        break;
-
-                    case "3":
-                        inputImagePath = UtilityClass.InputImagePath("image3.jpg");
-                        image = new InvertImage(inputImagePath);
-                        preprocessedImagePath = image.Process();
-                        break;
-
-                    case "4":
-                        inputImagePath = UtilityClass.InputImagePath("image1.jpg");
-                        image = new ResizeImage(inputImagePath);
-                        preprocessedImagePath = image.Process();
-                        break;
-
-                    case "5":
-                        inputImagePath = UtilityClass.InputImagePath("image4.jpg");
-                        image = new DenoiseImage(inputImagePath);
-                        preprocessedImagePath = image.Process();
-                        break;
-
-                    default:
-                        preprocessedImagePath = inputImagePath;
-                        Console.WriteLine("Default option selected. Using the original image without preprocessing.");
-                        break;
+                    preprocessedImages = preprocessingFactory.PreprocessImage(inputImagePath, technique);
+                    ocrTexts = OcrResults(preprocessedImages);
                 }
 
-                // Call ChatGPT
-                var chatGPT = new ChatGPT();
-                chatGPT.Task(inputImagePath);
+                // Generate embeddings and compute similarity
+                Dictionary<string, List<double>> embeddings = new Dictionary<string, List<double>>();
 
-                // Extracting text from image
-                TextExtraction tx = new();
-                tx.ExtractText(preprocessedImagePath, "eng");
-
-                // Compute and display cosine similarity
-                string tesseractOutputPath = UtilityClass.TesseractOutputPath("tesseract_output.txt");
-                string chatgptOutputPath = UtilityClass.ChatgptOutputPath("chatgpt_output.txt");
-
-                if (File.Exists(tesseractOutputPath) && File.Exists(chatgptOutputPath))
+                foreach (var item in ocrTexts)
                 {
-                    // Read text content from both files
-                    string tesseractText = File.ReadAllText(tesseractOutputPath);
-                    string chatgptText = File.ReadAllText(chatgptOutputPath);
-
-                    //Calculate embeddings
-                    List<double> t1 = await TextEmbedding.ComputeEmbedding(tesseractText);
-                    List<double> t2 = await TextEmbedding.ComputeEmbedding(chatgptText);
-
-                    // Compute similarity using the correct method
-                    double similarityScore = TextSimilarity.ComputeCosineSimilarity(t1, t2);
-                    Console.WriteLine($"Cosine Similarity between Tesseract and ChatGPT output: {similarityScore}");
+                    embeddings[item.Key] = await TextEmbedding.ComputeEmbedding(item.Value);
                 }
-                else
-                {
-                    Console.WriteLine("Error: One or both text output files not found.");
-                }
-
-                // Before closing the terminal window, await user input.
-                Console.ReadLine();
+                               
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error: {ex.Message}");
             }
+        }
+
+        static Dictionary<string, string> OcrResults(Dictionary<string, string> preprocessedImages)
+        {
+            TextExtraction textExtraction = new TextExtraction();
+            Dictionary<string, string> ocrResults = new Dictionary<string, string>();
+            string extractedText;
+
+            foreach (var technique in preprocessedImages)
+            {
+                extractedText = textExtraction.ExtractText(technique.Value, technique.Key);
+                ocrResults[technique.Key] = extractedText;
+            }
+
+            return ocrResults;
         }
     }
 }

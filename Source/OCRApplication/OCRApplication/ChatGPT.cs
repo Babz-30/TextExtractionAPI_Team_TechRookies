@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using OCRApplication.Helpers;
+using System.Text;
 using System.Text.Json;
 
 namespace OCRApplication

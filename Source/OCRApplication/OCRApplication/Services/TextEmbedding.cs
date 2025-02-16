@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
+using OCRApplication.Helpers;
 using System.Text;
-using System.Text.RegularExpressions;
 
-namespace OCRApplication
+namespace OCRApplication.Services
 {
     public static class TextEmbedding
     {

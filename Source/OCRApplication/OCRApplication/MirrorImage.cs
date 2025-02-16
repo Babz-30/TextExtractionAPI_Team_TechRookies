@@ -1,4 +1,6 @@
-﻿using System;
+﻿using OCRApplication.Helpers;
+using OCRApplication.Preprocesssing;
+using System;
 using System.Drawing;
 using System.Drawing.Imaging;
 
@@ -54,10 +56,10 @@ namespace OCRApplication
 
         public Bitmap ApplyPreprocessing(Bitmap inputImage)
         {
-            Bitmap grayscaleImage = Grayscale.ConvertToGrayscale(inputImage);
-            Bitmap binarizedImage = Binarization.ApplyBinarization(grayscaleImage);
-            grayscaleImage.Dispose(); // Free memory after processing
-            return binarizedImage;
+            //Bitmap grayscaleImage = Grayscale.ConvertToGrayscale(inputImage);
+            //Bitmap binarizedImage = Binarization.ApplyBinarization(grayscaleImage);
+            //grayscaleImage.Dispose(); // Free memory after processing
+            return inputImage;
         }
     }
 

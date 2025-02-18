@@ -43,6 +43,13 @@ namespace OCRApplication.Tests
             }
         }
 
-        //
+        [Test]
+        public void ApplyBinarization_ShouldThrowExceptionForInvalidPath()
+        {
+            Assert.Throws<Exception>(() =>
+            {
+                Binarization.ApplyBinarization("invalid_path.jpg", _testOutputPath);
+            });
+        }
     }
 }

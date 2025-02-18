@@ -31,7 +31,30 @@ namespace OCRApplication.Tests
                 bitmap.Save(_testInputPath);
             }
         }
+        [Test]
+        public void ConvertToGrayscale_ValidImage_ReturnsOutputPath()
+        {
+            string resultPath = Grayscale.ConvertToGrayscale(_testInputPath, _testOutputPath);
 
-        
+            // Check if output file exists
+            Assert.That(File.Exists(resultPath), "Output file was not created.");
+        }
+
+        [Test]
+        public void ConvertToGrayscale_InvalidPath_ThrowsException()
+        {
+            Assert.Throws<Exception>(() => Grayscale.ConvertToGrayscale("invalid_path.jpg", _testOutputPath));
+        }
+
+        [TearDown]
+        public void Cleanup()
+        {
+            if (File.Exists(_testInputPath))
+                File.Delete(_testInputPath);
+
+            if (File.Exists(_testOutputPath))
+                File.Delete(_testOutputPath);
+        }
+
     }
 }

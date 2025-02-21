@@ -18,6 +18,8 @@
         // Path to extracted text after preprocessing
         static readonly string tesseractOutputFolder = @"tesseract_output";
 
+        static readonly string cosineSimilarityFolder = @"cosine_similarity";
+
 
         public static string SolutionDirectory()
         {
@@ -85,17 +87,19 @@
 
             string textFilePath = Path.Combine(textFileDirectory, filename);
 
-            //if (!File.Exists(textFilePath))
-            //{
-            //    File.Create(textFilePath);
-            //}
-
             return textFilePath;
         }
         public static string TessDataPath()
         {
             return Path.Combine(SolutionDirectory(), tessDataPath);
 
+        }
+
+        public static string CosineSimilarityDirectory(string filename)
+        {
+            string cosineSimilarityDirectory = Path.Combine(SolutionDirectory(), cosineSimilarityFolder);
+            string filePath = Path.Combine(cosineSimilarityDirectory, filename);
+            return filePath;
         }
 
         public static void RemoveBlankLines(string inputFile)

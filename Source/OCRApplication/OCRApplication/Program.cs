@@ -6,6 +6,7 @@ namespace OCRApplication
 {
     class Program
     {
+        static Dictionary<string, string> ocrResults = new Dictionary<string, string>();
         static async Task Main(string[] args)
         {
             try
@@ -13,11 +14,12 @@ namespace OCRApplication
                 // Path to your image file
                 string inputImagePath = UtilityClass.InputImagePath("image1.jpg");
                 string preprocessedImagePath = inputImagePath;
-                
+
+                string cosineSimilarityPath = UtilityClass.CosineSimilarityDirectory("CosineSimilarityMatrix.csv");
 
                 List<string> techniques = new List<string> { "rotation", "cannyfilter", "resize", "invert" };
 
-                
+
                 PreprocessingFactory preprocessingFactory = new PreprocessingFactory();
 
                 Dictionary<string, string> ocrTexts = new Dictionary<string, string>();
@@ -35,9 +37,18 @@ namespace OCRApplication
 
                 foreach (var item in ocrTexts)
                 {
+
                     embeddings[item.Key] = await TextEmbedding.ComputeEmbedding(item.Value);
+
                 }
-                               
+                foreach (var item in embeddings)
+                {
+                    Console.WriteLine($"{item.Key} - {string.Join(", ", item.Value)} ");
+                }
+
+                TextSimilarity.GenerateCosineSimilarityMatrix(embeddings, cosineSimilarityPath);
+
+
             }
             catch (Exception ex)
             {
@@ -48,7 +59,7 @@ namespace OCRApplication
         static Dictionary<string, string> OcrResults(Dictionary<string, string> preprocessedImages)
         {
             TextExtraction textExtraction = new TextExtraction();
-            Dictionary<string, string> ocrResults = new Dictionary<string, string>();
+
             string extractedText;
 
             foreach (var technique in preprocessedImages)

@@ -1,4 +1,8 @@
-﻿using OCRApplication.Helpers;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using OCRApplication.Helpers;
+using OCRApplication.Preprocessing;
 using OCRApplication.Preprocesssing;
 using OCRApplication.Services;
 
@@ -15,38 +19,51 @@ namespace OCRApplication
                 string inputImagePath = UtilityClass.InputImagePath("image1.jpg");
                 string preprocessedImagePath = inputImagePath;
 
+
                 string cosineSimilarityPath = UtilityClass.CosineSimilarityDirectory("CosineSimilarityMatrix.csv");
 
-                List<string> techniques = new List<string> { "rotation", "cannyfilter", "resize", "invert" };
 
-
+                List<string> techniques = new List<string> { "rotation", "cannyfilter", "resize", "invert", "hsi_adjustment" };
                 PreprocessingFactory preprocessingFactory = new PreprocessingFactory();
+                HSIAdjustment hsiAdjustment = new HSIAdjustment();
 
                 Dictionary<string, string> ocrTexts = new Dictionary<string, string>();
                 Dictionary<string, string> preprocessedImages = new Dictionary<string, string>();
 
-                // Apply preprocessing techniques and OCR
+                // Apply preprocessing techniques
                 foreach (var technique in techniques)
                 {
-                    preprocessedImages = preprocessingFactory.PreprocessImage(inputImagePath, technique);
+                    if (technique == "hsi_adjustment")
+                    {
+                        string hsiOutputPath = "hsi_output.png";
+                        preprocessedImagePath = hsiAdjustment.AdjustHSI(inputImagePath, hsiOutputPath, 30.0, 1.2, 1.1);
+                        preprocessedImages[technique] = hsiOutputPath;
+                    }
+                    else
+                    {
+                        preprocessedImages = preprocessingFactory.PreprocessImage(inputImagePath, technique);
+                    }
+
+                    // Perform OCR on preprocessed images
                     ocrTexts = OcrResults(preprocessedImages);
                 }
 
                 // Generate embeddings and compute similarity
                 Dictionary<string, List<double>> embeddings = new Dictionary<string, List<double>>();
-
                 foreach (var item in ocrTexts)
                 {
 
                     embeddings[item.Key] = await TextEmbedding.ComputeEmbedding(item.Value);
 
                 }
+
                 foreach (var item in embeddings)
                 {
                     Console.WriteLine($"{item.Key} - {string.Join(", ", item.Value)} ");
                 }
 
                 TextSimilarity.GenerateCosineSimilarityMatrix(embeddings, cosineSimilarityPath);
+
 
 
             }

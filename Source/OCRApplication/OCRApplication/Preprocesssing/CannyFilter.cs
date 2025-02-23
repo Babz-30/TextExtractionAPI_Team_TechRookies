@@ -3,13 +3,23 @@ using Emgu.CV.CvEnum;
 
 namespace OCRApplication.Preprocesssing
 {
+    /// <summary>
+    /// Character Edge detecting filter 
+    /// </summary>
     public class CannyFilter
     {
+        /// <summary>
+        /// Converts image to grayscale, reduces noise and apply canny edge detection filter to the image.
+        /// </summary>
+        /// <param name="imageImagePath">Path to input image.</param>
+        /// <param name="outputImagePath">Path to output image.</param>
+        /// <param name="threshold1">Threshold1 for edge detection.</param>
+        /// <param name="threshold2">Threshold2 for edge detection.</param>
+        /// <returns>Path to output processed image.</returns>
         public string ApplyCannyEdgeDetection(string imageImagePath, string outputImagePath, int threshold1 = 100, int threshold2 = 200)
         {
             try
             {
-              
                 // Load the image in grayscale
                 Mat image = CvInvoke.Imread(imageImagePath, ImreadModes.Grayscale);
 

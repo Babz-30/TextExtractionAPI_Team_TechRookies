@@ -4,17 +4,23 @@ using System.Text;
 
 namespace OCRApplication.Services
 {
+    /// <summary>
+    /// OpenAI used to calculate text embeddings.
+    /// </summary>
     public static class TextEmbedding
     {
-        // Call OpenAI API to get text embedding
+        /// <summary>
+        /// Call OpenAI API to get text embedding of the input text.
+        /// </summary>
+        /// <param name="text">Text extracted from processed image.</param>
+        /// <returns>List of double of the received text embeddings.</returns>
         public static async Task<List<double>> ComputeEmbedding(string text)
         {
             if (string.IsNullOrWhiteSpace(text))
                 return new List<double>(new double[1536]);
 
-
             var config = Configuration.Config();
-            string url = "https://api.openai.com/v1/embeddings"; // Example API
+            string url = "https://api.openai.com/v1/embeddings"; // API URL
 
             var requestBody = new
             {

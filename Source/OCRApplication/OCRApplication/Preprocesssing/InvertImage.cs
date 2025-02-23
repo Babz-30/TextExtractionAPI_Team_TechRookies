@@ -2,8 +2,17 @@
 
 namespace OCRApplication.Preprocesssing
 {
+    /// <summary>
+    /// Inverts image words from light to dark vice versa
+    /// </summary>
     internal class InvertImage
     {
+        /// <summary>
+        /// Takes input image with dark background and light words and converts to light background and dark words.
+        /// </summary>
+        /// <param name="inputImagePath">Path to input image.</param>
+        /// <param name="outputImagePath">Path to output image.</param>
+        /// <returns>Path to output processed image.</returns>
         public string InvertingImage(string inputImagePath, string outputImagePath)
         {
             // Load the image

@@ -33,16 +33,7 @@ namespace OCRApplication
                 // Apply preprocessing techniques
                 foreach (var technique in techniques)
                 {
-                    if (technique == "hsi_adjustment")
-                    {
-                        string hsiOutputPath = "hsi_output.png";
-                        preprocessedImagePath = hsiAdjustment.AdjustHSI(inputImagePath, hsiOutputPath, 30.0, 1.2, 1.1);
-                        preprocessedImages[technique] = hsiOutputPath;
-                    }
-                    else
-                    {
-                        preprocessedImages = preprocessingFactory.PreprocessImage(inputImagePath, technique);
-                    }
+                    preprocessedImages = preprocessingFactory.PreprocessImage(inputImagePath, technique);
 
                     // Perform OCR on preprocessed images
                     ocrTexts = OcrResults(preprocessedImages);

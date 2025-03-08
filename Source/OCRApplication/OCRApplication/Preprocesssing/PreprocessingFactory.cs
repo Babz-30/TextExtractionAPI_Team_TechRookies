@@ -1,6 +1,5 @@
-﻿
-
-using OCRApplication.Helpers;
+﻿using OCRApplication.Helpers;
+using OCRApplication.Preprocessing;
 
 namespace OCRApplication.Preprocesssing
 {
@@ -9,18 +8,22 @@ namespace OCRApplication.Preprocesssing
     /// </summary>
     public class PreprocessingFactory
     {
+
+        // Image preprocessing
         /// <summary>
         /// Preprocesses image based on technique selected for different variation within the technique.
         /// </summary>
         /// <param name="imagePath">Path to input image.</param>
         /// <param name="technique">Preprocessing technique.</param>
         /// <returns>Dictionary of preprocessing technique (with variations) as key and value as the processed image path.</returns>
+
         public Dictionary<string, string> PreprocessImage(string imagePath, string technique)
         {
             Dictionary<string, string> processedImages = new Dictionary<string, string>();
 
             string outputDir = UtilityClass.OutputImageDirectory();
-            string variation; string outputImagePath;
+            string variation;
+            string outputImagePath;
 
             switch (technique)
             {
@@ -36,10 +39,11 @@ namespace OCRApplication.Preprocesssing
                         processedImages[variation] = outputImagePath;
                     }
                     break;
+
                 case "cannyfilter":
                     var cannyFilter = new CannyFilter();
                     var invertImage = new InvertImage();
-                    
+
                     int[] thresholds = { 10, 30, 50, 100, 150 };
 
                     foreach (int threshold in thresholds)
@@ -51,6 +55,7 @@ namespace OCRApplication.Preprocesssing
                         processedImages[variation] = outputImagePath;
                     }
                     break;
+
                 case "resize":
                     var resize = new ResizeImage();
                     int[] targerDPIs = { 50, 100, 200, 300 };
@@ -62,13 +67,54 @@ namespace OCRApplication.Preprocesssing
                         processedImages[variation] = outputImagePath;
                     }
                     break;
+
                 case "invert":
-                    variation = $"inverted";
+                    variation = "inverted";
                     outputImagePath = $"{outputDir}/{variation}.jpg";
                     var invert = new InvertImage();
                     invert.InvertingImage(imagePath, outputImagePath);
                     processedImages[variation] = outputImagePath;
                     break;
+
+                case "binarization":
+                    var binarization = new Binarization();
+
+                    // Apply only Otsu's method for automatic thresholding
+                    variation = "binarized_otsu";
+                    outputImagePath = $"{outputDir}/{variation}.jpg";
+                    binarization.ApplyOtsuBinarization(imagePath, outputImagePath);
+                    processedImages[variation] = outputImagePath;
+                    break;
+
+
+                case "grayscale":
+                    variation = "grayscale";
+                    outputImagePath = $"{outputDir}/{variation}.jpg";
+                    var grayscale = new Grayscale();
+                    grayscale.ConvertToGrayscale(imagePath, outputImagePath);
+                    processedImages[variation] = outputImagePath;
+                    break;
+
+                // HSI Adjustments
+                case "hsi_adjustment":
+                    HistogramAdjustment ha = new HistogramAdjustment();
+
+                    double[] satFactors = { 1.0, 1.5, 0.5 };
+                    double[] intensityFactors = { 1.0, 1.3, 0.7 };
+
+                    foreach (double sat in satFactors)
+                    {
+                        foreach (double intensity in intensityFactors)
+                        {
+                            variation = $"hsi_s{sat}_i{intensity}";
+                            outputImagePath = $"{outputDir}/{variation}.jpg";
+                            ha.ApplyHistogramAdjustment(imagePath, outputImagePath, sat, intensity);
+                            processedImages[variation] = outputImagePath;
+                        }
+                    }
+                    break;
+
+
                 default:
                     processedImages[technique] = imagePath; // No processing applied
                     break;

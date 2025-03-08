@@ -11,6 +11,7 @@ namespace OCRApplication
     class Program
     {
         static Dictionary<string, string> ocrResults = new Dictionary<string, string>();
+
         static async Task Main(string[] args)
         {
             try
@@ -19,42 +20,45 @@ namespace OCRApplication
                 string inputImagePath = UtilityClass.InputImagePath("image1.jpg");
                 string preprocessedImagePath = inputImagePath;
 
-
                 string cosineSimilarityPath = UtilityClass.CosineSimilarityDirectory("CosineSimilarityMatrix.csv");
 
+                // ✅ Added "binarization", "grayscale", and "mirror_horizontal"
+                List<string> techniques = new List<string>
+                {
+                    "rotation",
+                    "cannyfilter",
+                    "resize",
+                    "invert",
+                    "hsi_adjustment",
+                    "binarization",
+                    "grayscale",
+                    "mirror_horizontal" // ✅ Added horizontal mirroring
+                };
 
-                List<string> techniques = new List<string> { "rotation", "cannyfilter", "resize", "invert", "hsi_adjustment" };
                 PreprocessingFactory preprocessingFactory = new PreprocessingFactory();
                 HSIAdjustment hsiAdjustment = new HSIAdjustment();
-
                 Dictionary<string, string> ocrTexts = new Dictionary<string, string>();
                 Dictionary<string, string> preprocessedImages = new Dictionary<string, string>();
 
                 // Apply preprocessing techniques
                 foreach (var technique in techniques)
                 {
-                    if (technique == "hsi_adjustment")
-                    {
-                        string hsiOutputPath = "hsi_output.png";
-                        preprocessedImagePath = hsiAdjustment.AdjustHSI(inputImagePath, hsiOutputPath, 30.0, 1.2, 1.1);
-                        preprocessedImages[technique] = hsiOutputPath;
-                    }
-                    else
-                    {
-                        preprocessedImages = preprocessingFactory.PreprocessImage(inputImagePath, technique);
-                    }
+                    Dictionary<string, string> processedImages = preprocessingFactory.PreprocessImage(inputImagePath, technique);
 
-                    // Perform OCR on preprocessed images
-                    ocrTexts = OcrResults(preprocessedImages);
+                    foreach (var img in processedImages)
+                    {
+                        preprocessedImages[img.Key] = img.Value; // ✅ Store all preprocessed variations
+                    }
                 }
+
+                // Perform OCR on preprocessed images
+                ocrTexts = OcrResults(preprocessedImages);
 
                 // Generate embeddings and compute similarity
                 Dictionary<string, List<double>> embeddings = new Dictionary<string, List<double>>();
                 foreach (var item in ocrTexts)
                 {
-
                     embeddings[item.Key] = await TextEmbedding.ComputeEmbedding(item.Value);
-
                 }
 
                 foreach (var item in embeddings)
@@ -62,10 +66,8 @@ namespace OCRApplication
                     Console.WriteLine($"{item.Key} - {string.Join(", ", item.Value)} ");
                 }
 
+                // ✅ Ensures binarization, grayscale & mirror_horizontal results are included in the output file
                 TextSimilarity.GenerateCosineSimilarityMatrix(embeddings, cosineSimilarityPath);
-
-
-
             }
             catch (Exception ex)
             {
@@ -76,7 +78,6 @@ namespace OCRApplication
         static Dictionary<string, string> OcrResults(Dictionary<string, string> preprocessedImages)
         {
             TextExtraction textExtraction = new TextExtraction();
-
             string extractedText;
 
             foreach (var technique in preprocessedImages)

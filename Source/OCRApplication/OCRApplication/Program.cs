@@ -22,7 +22,7 @@ namespace OCRApplication
 
                 string cosineSimilarityPath = UtilityClass.CosineSimilarityDirectory("CosineSimilarityMatrix.csv");
 
-                // ✅ Added "binarization" and "grayscale"
+                // ✅ Added "binarization", "grayscale", and "mirror_horizontal"
                 List<string> techniques = new List<string>
                 {
                     "rotation",
@@ -31,12 +31,12 @@ namespace OCRApplication
                     "invert",
                     "hsi_adjustment",
                     "binarization",
-                    "grayscale"
+                    "grayscale",
+                    "mirror_horizontal" // ✅ Added horizontal mirroring
                 };
 
                 PreprocessingFactory preprocessingFactory = new PreprocessingFactory();
                 HSIAdjustment hsiAdjustment = new HSIAdjustment();
-
                 Dictionary<string, string> ocrTexts = new Dictionary<string, string>();
                 Dictionary<string, string> preprocessedImages = new Dictionary<string, string>();
 
@@ -66,7 +66,7 @@ namespace OCRApplication
                     Console.WriteLine($"{item.Key} - {string.Join(", ", item.Value)} ");
                 }
 
-                // ✅ Ensures binarization & grayscale results are included in the output file
+                // ✅ Ensures binarization, grayscale & mirror_horizontal results are included in the output file
                 TextSimilarity.GenerateCosineSimilarityMatrix(embeddings, cosineSimilarityPath);
             }
             catch (Exception ex)

@@ -3,9 +3,20 @@ using OCRApplication.Preprocessing;
 
 namespace OCRApplication.Preprocesssing
 {
+    /// <summary>
+    /// Preprocessing Factory that generates Dictionary of preprocessed images.
+    /// </summary>
     public class PreprocessingFactory
     {
+
         // Image preprocessing
+        /// <summary>
+        /// Preprocesses image based on technique selected for different variation within the technique.
+        /// </summary>
+        /// <param name="imagePath">Path to input image.</param>
+        /// <param name="technique">Preprocessing technique.</param>
+        /// <returns>Dictionary of preprocessing technique (with variations) as key and value as the processed image path.</returns>
+
         public Dictionary<string, string> PreprocessImage(string imagePath, string technique)
         {
             Dictionary<string, string> processedImages = new Dictionary<string, string>();

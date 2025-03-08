@@ -4,11 +4,18 @@ using System.Drawing.Drawing2D;
 
 namespace OCRApplication.Preprocesssing
 {
+    /// <summary>
+    /// Rotates image based on rotation angle
+    /// </summary>
     public class RotateImage
     {
-        // Save processed image
-        readonly string outputImageDir = UtilityClass.OutputImageDirectory();
-
+        /// <summary>
+        /// Rotates image based on rotation angle.
+        /// </summary>
+        /// <param name="inputPath">Path to input image.</param>
+        /// <param name="outputImagePath">Path to output image.</param>
+        /// <param name="angle">Angle in degree to rotate image.</param>
+        /// <returns>Path to output processed image.</returns>
         public string ApplyRotation(string inputPath, string outputImagePath, float angle)
         {
             try

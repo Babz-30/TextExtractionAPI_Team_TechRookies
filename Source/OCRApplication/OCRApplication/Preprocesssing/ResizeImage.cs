@@ -5,7 +5,7 @@ namespace OCRApplication.Preprocesssing
     /// <summary>
     /// Resizes image for better resolution.
     /// </summary>
-    internal class ResizeImage
+    public class ResizeImage
     {
         /// <summary>
         /// Changes the resolution of image based on passed DPI
@@ -19,7 +19,7 @@ namespace OCRApplication.Preprocesssing
             try
             {
                 ResizeAndSetDPI(inputImagePath, outputImagePath, targetDPI);
-                Console.WriteLine("Image resized and DPI set to at least 300.");
+                
                 return outputImagePath;
             }
             catch (Exception ex)

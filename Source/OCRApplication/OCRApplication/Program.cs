@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using OCRApplication.Helpers;
-using OCRApplication.Preprocessing;
+﻿using OCRApplication.Helpers;
 using OCRApplication.Preprocesssing;
 using OCRApplication.Services;
 
@@ -22,7 +18,6 @@ namespace OCRApplication
 
                 string cosineSimilarityPath = UtilityClass.CosineSimilarityDirectory("CosineSimilarityMatrix.csv");
 
-                // ✅ Added "binarization", "grayscale", and "mirror_horizontal"
                 List<string> techniques = new List<string>
                 {
                     "rotation",
@@ -32,11 +27,10 @@ namespace OCRApplication
                     "hsi_adjustment",
                     "binarization",
                     "grayscale",
-                    "mirror_horizontal" // ✅ Added horizontal mirroring
+                    "mirror_horizontal"
                 };
 
                 PreprocessingFactory preprocessingFactory = new PreprocessingFactory();
-                HSIAdjustment hsiAdjustment = new HSIAdjustment();
                 Dictionary<string, string> ocrTexts = new Dictionary<string, string>();
                 Dictionary<string, string> preprocessedImages = new Dictionary<string, string>();
 
@@ -47,7 +41,7 @@ namespace OCRApplication
 
                     foreach (var img in processedImages)
                     {
-                        preprocessedImages[img.Key] = img.Value; // ✅ Store all preprocessed variations
+                        preprocessedImages[img.Key] = img.Value; // Store all preprocessed variations
                     }
                 }
 
@@ -66,7 +60,7 @@ namespace OCRApplication
                     Console.WriteLine($"{item.Key} - {string.Join(", ", item.Value)} ");
                 }
 
-                // ✅ Ensures binarization, grayscale & mirror_horizontal results are included in the output file
+                // Ensures binarization, grayscale & mirror_horizontal results are included in the output file
                 TextSimilarity.GenerateCosineSimilarityMatrix(embeddings, cosineSimilarityPath);
             }
             catch (Exception ex)

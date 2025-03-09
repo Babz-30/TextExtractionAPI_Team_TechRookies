@@ -2,8 +2,18 @@
 
 namespace OCRApplication.Preprocesssing
 {
+    /// <summary>
+    /// Resizes image for better resolution.
+    /// </summary>
     internal class ResizeImage
     {
+        /// <summary>
+        /// Changes the resolution of image based on passed DPI
+        /// </summary>
+        /// <param name="inputImagePath">Path to input image.</param>
+        /// <param name="outputImagePath">Path to output image.</param>
+        /// <param name="targetDPI">Target resolution in DPI.</param>
+        /// <returns>Path to output processed image.</returns>
         public string ResizingImage(string inputImagePath, string outputImagePath, int targetDPI)
         {
             try
@@ -20,7 +30,8 @@ namespace OCRApplication.Preprocesssing
 
         }
 
-        static void ResizeAndSetDPI(string inputPath, string outputPath, int targetDPI)
+        // Complete implementation for improving resolution.
+        void ResizeAndSetDPI(string inputPath, string outputPath, int targetDPI)
         {
             using Bitmap original = new(inputPath);
             int newWidth = (int)(original.Width * (targetDPI / (float)original.HorizontalResolution));

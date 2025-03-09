@@ -118,6 +118,8 @@ namespace OCRApplication.Preprocesssing
                 default:
                     processedImages[technique] = imagePath; // No processing applied
                     break;
+
+
             }
 
             return processedImages; // Return dictionary with variation and processed image paths

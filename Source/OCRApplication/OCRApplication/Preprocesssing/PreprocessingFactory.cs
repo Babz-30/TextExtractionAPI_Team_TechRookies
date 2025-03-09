@@ -1,6 +1,4 @@
 ﻿using OCRApplication.Helpers;
-using OCRApplication.Preprocessing;
-
 namespace OCRApplication.Preprocesssing
 {
     /// <summary>
@@ -78,14 +76,11 @@ namespace OCRApplication.Preprocesssing
 
                 case "binarization":
                     var binarization = new Binarization();
-
-                    // Apply only Otsu's method for automatic thresholding
                     variation = "binarized_otsu";
                     outputImagePath = $"{outputDir}/{variation}.jpg";
                     binarization.ApplyOtsuBinarization(imagePath, outputImagePath);
                     processedImages[variation] = outputImagePath;
                     break;
-
 
                 case "grayscale":
                     variation = "grayscale";
@@ -95,12 +90,10 @@ namespace OCRApplication.Preprocesssing
                     processedImages[variation] = outputImagePath;
                     break;
 
-                // HSI Adjustments
                 case "hsi_adjustment":
                     HistogramAdjustment ha = new HistogramAdjustment();
-
-                    double[] satFactors = { 1.0, 1.5, 0.5 };
-                    double[] intensityFactors = { 1.0, 1.3, 0.7 };
+                    double[] satFactors = { 2.0, 1.5, 0.5 };
+                    double[] intensityFactors = { 2.0, 1.5, 0.5 };
 
                     foreach (double sat in satFactors)
                     {
@@ -114,10 +107,19 @@ namespace OCRApplication.Preprocesssing
                     }
                     break;
 
+                case "mirror_horizontal":
+                    variation = "mirror_horizontal";
+                    outputImagePath = $"{outputDir}/{variation}.jpg";
+                    MirrorImage mirror = new MirrorImage(imagePath);
+                    string mirroredPath = mirror.Process();
+                    processedImages[variation] = mirroredPath;
+                    break;
 
                 default:
                     processedImages[technique] = imagePath; // No processing applied
                     break;
+
+
             }
 
             return processedImages; // Return dictionary with variation and processed image paths

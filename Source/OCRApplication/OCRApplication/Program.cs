@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using OCRApplication.Helpers;
-using OCRApplication.Preprocessing;
 using OCRApplication.Preprocesssing;
 using OCRApplication.Services;
 
@@ -36,7 +35,7 @@ namespace OCRApplication
                 };
 
                 PreprocessingFactory preprocessingFactory = new PreprocessingFactory();
-                HSIAdjustment hsiAdjustment = new HSIAdjustment();
+              //  hsi_adjustment hsiAdjustment = new HSIAdjustment();
                 Dictionary<string, string> ocrTexts = new Dictionary<string, string>();
                 Dictionary<string, string> preprocessedImages = new Dictionary<string, string>();
 

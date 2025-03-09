@@ -58,12 +58,6 @@ namespace OCRApplication.Preprocesssing
             return mirroredImage;
         }
 
-        // Method to mirror an image vertically
-        public static Bitmap MirrorImageVertical(Bitmap inputImage)
-        {
-            Bitmap mirroredImage = (Bitmap)inputImage.Clone(); // Clone to avoid modifying the original
-            mirroredImage.RotateFlip(RotateFlipType.RotateNoneFlipY);
-            return mirroredImage;
-        }
+        
     }
 }

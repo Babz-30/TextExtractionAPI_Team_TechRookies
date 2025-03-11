@@ -1,4 +1,4 @@
-﻿using OCRApplication.Helpers;
+using OCRApplication.Helpers;
 using OCRApplication.Preprocesssing;
 using OCRApplication.Services;
 

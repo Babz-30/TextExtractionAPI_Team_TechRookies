@@ -33,6 +33,7 @@ namespace OCRApplication.Services
 
                 // Save OCR confidence
                 float confidence = page.GetMeanConfidence();
+
                 SaveConfidence(technique, confidence);
                 
                 return extractedText;
@@ -52,12 +53,12 @@ namespace OCRApplication.Services
             // If the file doesn't exist, write the headers
             if (!fileExists)
             {
-                string headers = "Technique,Confidence";
+                string headers = "Technique,PageMeanCharWordRecognition";
                 File.WriteAllText(tesseractConfidenceOutputFilePath, headers + Environment.NewLine);
             }
             
             // Create a line with the values (CSV format)
-            string newLine = $"{technique},{confidence * 100:F2}%";
+            string newLine = $"{technique},{confidence}";
 
             // Append the new line to the file
             File.AppendAllText(tesseractConfidenceOutputFilePath, newLine + Environment.NewLine);

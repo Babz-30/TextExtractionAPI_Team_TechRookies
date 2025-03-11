@@ -22,7 +22,7 @@ namespace OCRApplication
                 {
                     "rotation",
                     "cannyfilter",
-                    "resize",
+                    "chainfilter",
                     "invert",
                     "hsi_adjustment",
                     "binarization",
@@ -31,8 +31,8 @@ namespace OCRApplication
                 };
 
                 PreprocessingFactory preprocessingFactory = new PreprocessingFactory();
-                Dictionary<string, string> ocrTexts = new Dictionary<string, string>();
                 Dictionary<string, string> preprocessedImages = new Dictionary<string, string>();
+                Dictionary<string, string> ocrTexts = new Dictionary<string, string>();
 
                 // Apply preprocessing techniques
                 foreach (var technique in techniques)
@@ -45,27 +45,42 @@ namespace OCRApplication
                     }
                 }
 
-                // Perform OCR on preprocessed images
+                // Perform OCR text extraction on preprocessed images
                 ocrTexts = OcrResults(preprocessedImages);
 
-                // Generate embeddings and compute similarity
+                // Generate embeddings
                 Dictionary<string, List<double>> embeddings = new Dictionary<string, List<double>>();
+
                 foreach (var item in ocrTexts)
                 {
                     embeddings[item.Key] = await TextEmbedding.ComputeEmbedding(item.Value);
                 }
 
-                foreach (var item in embeddings)
+                // Remove entries with List<double> where all values are 0
+                var keysToRemove = embeddings
+                    .Where(pair => pair.Value.All(value => value == 0.0))
+                    .Select(pair => pair.Key)
+                    .ToList();
+
+                foreach (var key in keysToRemove)
                 {
-                    Console.WriteLine($"{item.Key} - {string.Join(", ", item.Value)} ");
+                    embeddings.Remove(key);
                 }
 
-                // Ensures binarization, grayscale & mirror_horizontal results are included in the output file
+                // Compute Similarity between text embeddings
                 TextSimilarity.GenerateCosineSimilarityMatrix(embeddings, cosineSimilarityPath);
+
+                // Wait for user to press Enter before closing
+                Console.WriteLine("Press Enter to exit...");
+                Console.ReadLine();
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error: {ex.Message}");
+            }
+            finally
+            {
+                UtilityClass.DeleteAllFiles();
             }
         }
 

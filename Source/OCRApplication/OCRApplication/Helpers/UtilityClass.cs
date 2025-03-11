@@ -43,6 +43,11 @@
             return Path.Combine(SolutionDirectory(), outputImageDirectory);
         }
 
+        public static string TesseractOutputDirectory()
+        {
+            return Path.Combine(SolutionDirectory(), tesseractOutputFolder);
+        }
+
         public static string InputImagePath(string filename)
         {
             string imagePath = Path.Combine(InputImageDirectory(), filename);
@@ -83,9 +88,8 @@
 
         public static string TesseractOutputPath(string filename)
         {
-            string textFileDirectory = Path.Combine(SolutionDirectory(), tesseractOutputFolder);
 
-            string textFilePath = Path.Combine(textFileDirectory, filename);
+            string textFilePath = Path.Combine(TesseractOutputDirectory(), filename);
 
             return textFilePath;
         }
@@ -102,20 +106,44 @@
             return filePath;
         }
 
-        public static void RemoveBlankLines(string inputFile)
-        {
-            var lines = File.ReadAllLines(inputFile)
-                            .Where(line => !string.IsNullOrWhiteSpace(line))
-                            .ToArray();
-            File.WriteAllLines(inputFile, lines);
-        }
-
         public static void SaveToFile(string filePath, string content)
         {
             Console.WriteLine("Extracted Text:");
             Console.WriteLine(content);
             File.WriteAllText(filePath, content);
             Console.WriteLine("Extracted content saved to file" + filePath);
+        }
+
+        public static void DeleteAllFiles()
+        {
+            // List of folders to empty (change these paths)
+            string[] folders = {
+                TesseractOutputDirectory(),
+                OutputImageDirectory()
+            };
+
+            try
+            {
+                foreach (string folderPath in folders)
+                {
+
+                    // Check if the folder exists
+                    if (Directory.Exists(folderPath))
+                    {
+                        // Delete all files in the folder
+                        foreach (string file in Directory.GetFiles(folderPath))
+                        {
+                            File.Delete(file);
+                        }
+
+                        Console.WriteLine("Folder emptied successfully.");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Unable to delete files in Folder: {ex.Message}");
+            }
         }
     }
 }

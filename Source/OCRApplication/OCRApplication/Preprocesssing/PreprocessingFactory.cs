@@ -6,15 +6,12 @@ namespace OCRApplication.Preprocesssing
     /// </summary>
     public class PreprocessingFactory
     {
-
-        // Image preprocessing
         /// <summary>
         /// Preprocesses image based on technique selected for different variation within the technique.
         /// </summary>
         /// <param name="imagePath">Path to input image.</param>
         /// <param name="technique">Preprocessing technique.</param>
         /// <returns>Dictionary of preprocessing technique (with variations) as key and value as the processed image path.</returns>
-
         public Dictionary<string, string> PreprocessImage(string imagePath, string technique)
         {
             Dictionary<string, string> processedImages = new Dictionary<string, string>();
@@ -27,7 +24,7 @@ namespace OCRApplication.Preprocesssing
             {
                 case "rotation":
                     RotateImage rm = new RotateImage();
-                    float[] rotateAngles = { 00.0f, 20.0f, 30.0f, 45.0f, 90.0f };
+                    float[] rotateAngles = { -45.0f, - 30.0f, - 20.0f, 20.0f, 30.0f, 45.0f };
 
                     foreach (float angle in rotateAngles)
                     {

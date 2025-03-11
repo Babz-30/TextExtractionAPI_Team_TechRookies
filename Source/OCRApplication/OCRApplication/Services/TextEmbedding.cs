@@ -20,18 +20,18 @@ namespace OCRApplication.Services
                 return new List<double>(new double[1536]);
 
             var config = Configuration.Config();
-            string url = "https://api.openai.com/v1/embeddings"; // API URL
+            string url = config["API_URL"]; // API URL
 
             var requestBody = new
             {
-                model = "text-embedding-ada-002",
+                model = config["EMBEDDING_MODEL"],
                 input = text,
             };
 
             using var client = new HttpClient();
             client.DefaultRequestHeaders.Add("Authorization", config["authtoken"]);
 
-            var content = new StringContent(JsonConvert.SerializeObject(requestBody), Encoding.UTF8, "application/json");
+            var content = new StringContent(JsonConvert.SerializeObject(requestBody), Encoding.UTF8, mediaType: config["MEDIA_TYPE"]);
 
             try
             {

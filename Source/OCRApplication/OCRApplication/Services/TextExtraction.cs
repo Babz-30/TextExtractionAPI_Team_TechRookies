@@ -9,7 +9,7 @@ namespace OCRApplication.Services
     {
         // Path to the trained tessdata folder
         readonly string tessDataPath = UtilityClass.TessDataPath();
-
+        string tesseractConfidenceOutputFilePath = UtilityClass.TesseractOutputPath("ExtractedTextMeanConfidence.csv");
         public string ExtractText(string imagePath, string technique, string language = "eng")
         {
             try
@@ -31,10 +31,10 @@ namespace OCRApplication.Services
 
                 UtilityClass.SaveToFile(tesseractOutputFilePath, extractedText);
 
-                // Display OCR confidence
+                // Save OCR confidence
                 float confidence = page.GetMeanConfidence();
-                Console.WriteLine($"Confidence: {confidence * 100:F2}%");
-
+                SaveConfidence(technique, confidence);
+                
                 return extractedText;
             }
             catch (Exception ex)
@@ -42,6 +42,27 @@ namespace OCRApplication.Services
                 Console.WriteLine($"Error during text extraction by tesseract: {ex.Message}");
                 throw;
             }
+        }
+
+        private void SaveConfidence(string technique, float confidence)
+        {
+            // Check if the file exists
+            bool fileExists = File.Exists(tesseractConfidenceOutputFilePath);
+
+            // If the file doesn't exist, write the headers
+            if (!fileExists)
+            {
+                string headers = "Technique,Confidence";
+                File.WriteAllText(tesseractConfidenceOutputFilePath, headers + Environment.NewLine);
+            }
+            
+            // Create a line with the values (CSV format)
+            string newLine = $"{technique},{confidence * 100:F2}%";
+
+            // Append the new line to the file
+            File.AppendAllText(tesseractConfidenceOutputFilePath, newLine + Environment.NewLine);
+
+            Console.WriteLine("Data added successfully.");
         }
     }
 }

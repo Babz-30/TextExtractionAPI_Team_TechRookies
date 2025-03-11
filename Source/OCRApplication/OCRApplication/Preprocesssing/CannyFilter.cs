@@ -16,7 +16,7 @@ namespace OCRApplication.Preprocesssing
         /// <param name="threshold1">Threshold1 for edge detection.</param>
         /// <param name="threshold2">Threshold2 for edge detection.</param>
         /// <returns>Path to output processed image.</returns>
-        public string ApplyCannyEdgeDetection(string imageImagePath, string outputImagePath, int threshold1 = 100, int threshold2 = 200)
+        public string ApplyCannyEdgeDetection(string imageImagePath, string outputImagePath, int threshold1, int threshold2 = 255)
         {
             try
             {

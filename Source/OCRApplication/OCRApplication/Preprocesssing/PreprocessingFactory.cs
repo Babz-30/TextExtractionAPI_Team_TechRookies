@@ -19,19 +19,31 @@ namespace OCRApplication.Preprocesssing
             string outputDir = UtilityClass.OutputImageDirectory();
             string variation;
             string outputImagePath;
+            float[] rotateAngles = { -45.0f, -30.0f, -20.0f, 20.0f, 30.0f, 45.0f };
+            int[] thresholds = { 50, 150, 200 };
+            int[] targerDPIs = { 50, 100, 200, 300 };
+            double[] satFactors = { 2.0, 1.5, 0.5 };
+            double[] intensityFactors = { 2.0, 1.5, 0.5 };
 
             switch (technique)
             {
                 case "rotation":
                     RotateImage rm = new RotateImage();
-                    float[] rotateAngles = { -45.0f, - 30.0f, - 20.0f, 20.0f, 30.0f, 45.0f };
-
+                    ResizeImage rm2 = new ResizeImage();
+                    
                     foreach (float angle in rotateAngles)
                     {
                         variation = $"rotated_{angle}";
                         outputImagePath = $"{outputDir}/{variation}.jpg";
-                        rm.ApplyRotation(imagePath, outputImagePath, angle);
-                        processedImages[variation] = outputImagePath;
+                        var rotatedImg = rm.ApplyRotation(imagePath, outputImagePath, angle);
+
+                        foreach (int targerDPI in targerDPIs)
+                        {
+                            variation = $"rotated_{angle}_resized_{targerDPI}";
+                            outputImagePath = $"{outputDir}/{variation}.jpg";
+                            rm2.ResizingImage(rotatedImg, outputImagePath, targerDPI);
+                            processedImages[variation] = outputImagePath;
+                        }
                     }
                     break;
 
@@ -39,26 +51,36 @@ namespace OCRApplication.Preprocesssing
                     var cannyFilter = new CannyFilter();
                     var invertImage = new InvertImage();
 
-                    int[] thresholds = { 10, 30, 50, 100, 150 };
-
                     foreach (int threshold in thresholds)
                     {
                         variation = $"cannyfilter_{threshold}";
                         outputImagePath = $"{outputDir}/{variation}.jpg";
                         var cannyImage = cannyFilter.ApplyCannyEdgeDetection(imagePath, outputImagePath, threshold);
-                        invertImage.InvertingImage(imagePath, outputImagePath);
+                        variation = $"cannyfilter_{threshold}_invert";
+                        outputImagePath = $"{outputDir}/{variation}.jpg";
+                        invertImage.InvertingImage(cannyImage, outputImagePath);
                         processedImages[variation] = outputImagePath;
                     }
                     break;
 
-                case "resize":
+                case "chainfilter":
+                    var gray = new Grayscale();
+                    variation = "grayscale";
+                    outputImagePath = $"{outputDir}/{variation}.jpg";
+                    var grayImg = gray.ConvertToGrayscale(imagePath, outputImagePath);
+
+                    var bin = new Binarization();
+                    variation = "grayscale_binarize";
+                    outputImagePath = $"{outputDir}/{variation}.jpg";
+                    var binImg = bin.ApplyOtsuBinarization(grayImg, outputImagePath);
+
                     var resize = new ResizeImage();
-                    int[] targerDPIs = { 50, 100, 200, 300 };
+
                     foreach (int targerDPI in targerDPIs)
                     {
-                        variation = $"resized_{targerDPI}";
+                        variation = $"grayscale_binarize_resized_{targerDPI}";
                         outputImagePath = $"{outputDir}/{variation}.jpg";
-                        resize.ResizingImage(imagePath, outputImagePath, targerDPI);
+                        resize.ResizingImage(binImg, outputImagePath, targerDPI);
                         processedImages[variation] = outputImagePath;
                     }
                     break;
@@ -89,8 +111,6 @@ namespace OCRApplication.Preprocesssing
 
                 case "hsi_adjustment":
                     HistogramAdjustment ha = new HistogramAdjustment();
-                    double[] satFactors = { 2.0, 1.5, 0.5 };
-                    double[] intensityFactors = { 2.0, 1.5, 0.5 };
 
                     foreach (double sat in satFactors)
                     {

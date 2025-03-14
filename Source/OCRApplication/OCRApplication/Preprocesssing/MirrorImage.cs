@@ -5,7 +5,7 @@ using System.Drawing.Imaging;
 
 namespace OCRApplication.Preprocesssing
 {
-    internal class MirrorImage : IPreprocessing
+    internal class MirrorImage
     {
         private readonly string inputImagePath;
         private readonly string mirrorImagePath;
@@ -23,11 +23,8 @@ namespace OCRApplication.Preprocesssing
                 // Load input image
                 using Bitmap inputImage = new(inputImagePath);
 
-                // Apply preprocessing (if needed)
-                using Bitmap preprocessedImage = ApplyPreprocessing(inputImage);
-
                 // Apply only horizontal mirroring
-                using Bitmap mirroredImage = ImageProcessing.MirrorImageHorizontal(preprocessedImage);
+                using Bitmap mirroredImage = ImageProcessing.MirrorImageHorizontal(inputImage);
 
                 // Save the mirrored image
                 mirroredImage.Save(mirrorImagePath, ImageFormat.Png);
@@ -41,11 +38,6 @@ namespace OCRApplication.Preprocesssing
                 throw;
             }
         }
-
-        public Bitmap ApplyPreprocessing(Bitmap inputImage)
-        {
-            return inputImage; // No preprocessing applied
-        }
     }
 
     public static class ImageProcessing
@@ -57,7 +49,5 @@ namespace OCRApplication.Preprocesssing
             mirroredImage.RotateFlip(RotateFlipType.RotateNoneFlipX);
             return mirroredImage;
         }
-
-        
     }
 }

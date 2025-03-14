@@ -99,6 +99,11 @@
 
         }
 
+        public static string DictionaryPath()
+        {
+            return Path.Combine(TessDataPath(), "dictionary.txt");
+        }
+
         public static string CosineSimilarityDirectory(string filename)
         {
             string cosineSimilarityDirectory = Path.Combine(SolutionDirectory(), cosineSimilarityFolder);
@@ -108,10 +113,8 @@
 
         public static void SaveToFile(string filePath, string content)
         {
-            Console.WriteLine("Extracted Text:");
-            Console.WriteLine(content);
             File.WriteAllText(filePath, content);
-            Console.WriteLine("Extracted content saved to file" + filePath);
+            Console.WriteLine("Extracted Text saved to file.\n");
         }
 
         public static void DeleteAllFiles()

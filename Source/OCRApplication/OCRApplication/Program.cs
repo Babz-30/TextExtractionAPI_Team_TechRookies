@@ -14,17 +14,18 @@ namespace OCRApplication
             {
                 // Path to your image file
                 string inputImagePath = UtilityClass.InputImagePath("image1.jpg");
+
                 string cosineSimilarityPath = UtilityClass.CosineSimilarityDirectory("CosineSimilarityMatrix.csv");
 
                 List<string> techniques = new List<string>
                 {
                     "rotation",
                     "cannyfilter",
-                    "grayscale_binarization", 
                     "chainfilter",
                     "invert",
                     "hsi_adjustment",
-                    "mirror"
+                    "denoise",
+                    "mirror_horizontal"
                 };
 
                 PreprocessingFactory preprocessingFactory = new PreprocessingFactory();
@@ -42,22 +43,8 @@ namespace OCRApplication
                     }
                 }
 
-                // Debug: Print preprocessed images
-                Console.WriteLine("\n[DEBUG] Preprocessed Images:");
-                foreach (var img in preprocessedImages)
-                {
-                    Console.WriteLine($"{img.Key} -> {img.Value}");
-                }
-
                 // Perform OCR text extraction on preprocessed images
                 ocrTexts = OcrResults(preprocessedImages);
-
-                // Debug: Print extracted OCR text
-                Console.WriteLine("\n[DEBUG] OCR Results:");
-                foreach (var result in ocrTexts)
-                {
-                    Console.WriteLine($"{result.Key}: {result.Value}");
-                }
 
                 // Generate embeddings
                 Dictionary<string, List<double>> embeddings = new Dictionary<string, List<double>>();
@@ -67,48 +54,29 @@ namespace OCRApplication
                     embeddings[item.Key] = await TextEmbedding.ComputeEmbedding(item.Value);
                 }
 
-                // Debug: Print embeddings before filtering
-                Console.WriteLine("\n[DEBUG] Text Embeddings:");
-                foreach (var emb in embeddings)
-                {
-                    Console.WriteLine($"{emb.Key} -> [{string.Join(", ", emb.Value)}]");
-                }
-
-                // Remove entries with all-zero embeddings
+                // Remove entries with List<double> where all values are 0
                 var keysToRemove = embeddings
                     .Where(pair => pair.Value.All(value => value == 0.0))
                     .Select(pair => pair.Key)
                     .ToList();
-
-                if (keysToRemove.Count > 0)
-                {
-                    Console.WriteLine("[WARNING] Some embeddings are all zero and might affect similarity computation.");
-                }
 
                 foreach (var key in keysToRemove)
                 {
                     embeddings.Remove(key);
                 }
 
-                // Debug: Ensure embeddings exist before similarity computation
-                if (embeddings.Count == 0)
-                {
-                    Console.WriteLine("[ERROR] No valid embeddings found! Cosine similarity matrix will not be generated.");
-                }
-                else
-                {
-                    Console.WriteLine($"\n[INFO] Generating Cosine Similarity Matrix at: {cosineSimilarityPath}");
-                    TextSimilarity.GenerateCosineSimilarityMatrix(embeddings, cosineSimilarityPath);
-                    Console.WriteLine("[SUCCESS] Cosine Similarity Matrix generated successfully!");
-                }
+                PrintResults(cosineSimilarityPath);
 
-                // Wait for user input before closing
-                Console.WriteLine("\nPress Enter to exit...");
+                // Compute Similarity between text embeddings
+                TextSimilarity.GenerateCosineSimilarityMatrix(embeddings, cosineSimilarityPath);
+
+                // Wait for user to press Enter before closing
+                Console.WriteLine("Press Enter to exit...");
                 Console.ReadLine();
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"[ERROR] {ex.Message}");
+                Console.WriteLine($"Error: {ex.Message}");
             }
             finally
             {
@@ -128,6 +96,30 @@ namespace OCRApplication
             }
 
             return ocrResults;
+        }
+
+        static void PrintResults(string filePath)
+        {
+            var lines = File.ReadAllLines(filePath);
+            var results = new List<(string Technique, double Mean)>();
+
+            foreach (var line in lines.Skip(1)) // Skip header
+            {
+                var parts = line.Split(',');
+                string technique = parts[0];
+                var values = parts.Skip(1).Select(s => double.Parse(s)).ToList();
+                double mean = values.Average();
+                results.Add((technique, mean));
+            }
+
+            var top5 = results.OrderByDescending(r => r.Mean).Take(5);
+            Console.WriteLine("===========================================================================");
+            Console.WriteLine("Top 5 Techniques with Highest Mean Cosine similarity:");
+            foreach (var item in top5)
+            {
+                Console.WriteLine($"{item.Technique}: {item.Mean:F4}");
+            }
+            Console.WriteLine("===========================================================================");
         }
     }
 }

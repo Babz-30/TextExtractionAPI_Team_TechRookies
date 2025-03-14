@@ -62,7 +62,7 @@
                 }
             }
 
-            Console.WriteLine($"Cosine similarity matrix has been saved to: {filePath}");
+            Console.WriteLine($"Cosine similarity matrix has been saved.");
         }
     }
 

@@ -13,7 +13,7 @@ namespace OCRApplication
             try
             {
                 // Path to your image file
-                string inputImagePath = UtilityClass.InputImagePath("image1.jpg");
+                string inputImagePath = UtilityClass.InputImagePath("image3.jpg");
                 string preprocessedImagePath = inputImagePath;
 
                 string cosineSimilarityPath = UtilityClass.CosineSimilarityDirectory("CosineSimilarityMatrix.csv");
@@ -70,6 +70,8 @@ namespace OCRApplication
                 // Compute Similarity between text embeddings
                 TextSimilarity.GenerateCosineSimilarityMatrix(embeddings, cosineSimilarityPath);
 
+                PrintResults(cosineSimilarityPath);
+
                 // Wait for user to press Enter before closing
                 Console.WriteLine("Press Enter to exit...");
                 Console.ReadLine();
@@ -96,6 +98,30 @@ namespace OCRApplication
             }
 
             return ocrResults;
+        }
+
+        static void PrintResults(string filePath)
+        {
+            var lines = File.ReadAllLines(filePath);
+            var results = new List<(string Technique, double Mean)>();
+
+            foreach (var line in lines.Skip(1)) // Skip header
+            {
+                var parts = line.Split(',');
+                string technique = parts[0];
+                var values = parts.Skip(1).Select(s => double.Parse(s)).ToList();
+                double mean = values.Average();
+                results.Add((technique, mean));
+            }
+
+            var top5 = results.OrderByDescending(r => r.Mean).Take(5);
+            Console.WriteLine("===========================================================================");
+            Console.WriteLine("Top 5 Techniques with Highest Mean Cosine similarity:");
+            foreach (var item in top5)
+            {
+                Console.WriteLine($"{item.Technique}: {item.Mean:F4}");
+            }
+            Console.WriteLine("===========================================================================");
         }
     }
 }

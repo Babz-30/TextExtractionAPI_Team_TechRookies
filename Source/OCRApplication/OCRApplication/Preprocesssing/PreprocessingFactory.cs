@@ -16,9 +16,12 @@ namespace OCRApplication.Preprocesssing
         {
             Dictionary<string, string> processedImages = new Dictionary<string, string>();
 
+            // Define output directory for processed images
             string outputDir = UtilityClass.OutputImageDirectory();
             string variation;
             string outputImagePath;
+
+            // Define parameter sets for different preprocessing techniques
             float[] rotateAngles = { -45.0f, -30.0f, -20.0f, 20.0f, 30.0f, 45.0f };
             int[] thresholds = { 50, 150, 200 };
             int[] targerDPIs = { 50, 100, 200, 300 };
@@ -28,9 +31,10 @@ namespace OCRApplication.Preprocesssing
             switch (technique)
             {
                 case "rotation":
+                    // Apply rotation to the image for different angles and resize variations
                     RotateImage rm = new RotateImage();
                     ResizeImage rm2 = new ResizeImage();
-                    
+
                     foreach (float angle in rotateAngles)
                     {
                         variation = $"rotated_{angle}";
@@ -48,6 +52,7 @@ namespace OCRApplication.Preprocesssing
                     break;
 
                 case "cannyfilter":
+                    // Apply Canny edge detection and invert the resulting image
                     var cannyFilter = new CannyFilter();
                     var invertImage = new InvertImage();
 
@@ -56,6 +61,7 @@ namespace OCRApplication.Preprocesssing
                         variation = $"cannyfilter_{threshold}";
                         outputImagePath = $"{outputDir}/{variation}.jpg";
                         var cannyImage = cannyFilter.ApplyCannyEdgeDetection(imagePath, outputImagePath, threshold);
+
                         variation = $"cannyfilter_{threshold}_invert";
                         outputImagePath = $"{outputDir}/{variation}.jpg";
                         invertImage.InvertingImage(cannyImage, outputImagePath);
@@ -63,7 +69,23 @@ namespace OCRApplication.Preprocesssing
                     }
                     break;
 
+                case "denoise":
+                    // Convert image to grayscale
+                    variation = "grayscale";
+                    outputImagePath = $"{outputDir}/{variation}.jpg";
+                    var grayscale = new Grayscale();
+                    var imgGray = grayscale.ConvertToGrayscale(imagePath, outputImagePath);
+
+                    // Denoise image
+                    var binarize = new Binarization();
+                    variation = "grayscale_binarized";
+                    outputImagePath = $"{outputDir}/{variation}.jpg";
+                    binarize.ApplyOtsuBinarization(imgGray, outputImagePath);
+                    processedImages[variation] = outputImagePath;
+                    break;
+
                 case "chainfilter":
+                    // Apply a sequence of filters: grayscale -> binarization -> resize
                     var gray = new Grayscale();
                     variation = "grayscale";
                     outputImagePath = $"{outputDir}/{variation}.jpg";
@@ -75,7 +97,6 @@ namespace OCRApplication.Preprocesssing
                     var binImg = bin.ApplyOtsuBinarization(grayImg, outputImagePath);
 
                     var resize = new ResizeImage();
-
                     foreach (int targerDPI in targerDPIs)
                     {
                         variation = $"grayscale_binarize_resized_{targerDPI}";
@@ -86,6 +107,7 @@ namespace OCRApplication.Preprocesssing
                     break;
 
                 case "invert":
+                    // Invert the image
                     variation = "inverted";
                     outputImagePath = $"{outputDir}/{variation}.jpg";
                     var invert = new InvertImage();
@@ -93,23 +115,8 @@ namespace OCRApplication.Preprocesssing
                     processedImages[variation] = outputImagePath;
                     break;
 
-                case "binarization":
-                    var binarization = new Binarization();
-                    variation = "binarized_otsu";
-                    outputImagePath = $"{outputDir}/{variation}.jpg";
-                    binarization.ApplyOtsuBinarization(imagePath, outputImagePath);
-                    processedImages[variation] = outputImagePath;
-                    break;
-
-                case "grayscale":
-                    variation = "grayscale";
-                    outputImagePath = $"{outputDir}/{variation}.jpg";
-                    var grayscale = new Grayscale();
-                    grayscale.ConvertToGrayscale(imagePath, outputImagePath);
-                    processedImages[variation] = outputImagePath;
-                    break;
-
                 case "hsi_adjustment":
+                    // Apply Histogram Adjustment with different saturation and intensity factors
                     HistogramAdjustment ha = new HistogramAdjustment();
 
                     foreach (double sat in satFactors)
@@ -124,22 +131,22 @@ namespace OCRApplication.Preprocesssing
                     }
                     break;
 
-                case "mirror_horizontal":
-                    variation = "mirror_horizontal";
+                case "mirror":
+                    // Mirror the image horizontally
+                    variation = "mirror";
                     outputImagePath = $"{outputDir}/{variation}.jpg";
-                    MirrorImage mirror = new MirrorImage(imagePath);
-                    string mirroredPath = mirror.Process();
-                    processedImages[variation] = mirroredPath;
+                    MirrorImage mirror = new MirrorImage();
+                    mirror.Process(imagePath, outputImagePath);
+                    processedImages[variation] = outputImagePath;
                     break;
 
                 default:
-                    processedImages[technique] = imagePath; // No processing applied
+                    // If no valid technique is provided, return original image
+                    processedImages[technique] = imagePath;
                     break;
-
-
             }
 
-            return processedImages; // Return dictionary with variation and processed image paths
+            return processedImages; // Return dictionary containing variations and processed image paths
         }
     }
 }

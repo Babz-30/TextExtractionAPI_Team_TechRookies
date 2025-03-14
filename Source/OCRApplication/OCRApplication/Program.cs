@@ -1,4 +1,4 @@
-using OCRApplication.Helpers;
+﻿using OCRApplication.Helpers;
 using OCRApplication.Preprocesssing;
 using OCRApplication.Services;
 
@@ -13,8 +13,7 @@ namespace OCRApplication
             try
             {
                 // Path to your image file
-                string inputImagePath = UtilityClass.InputImagePath("image3.jpg");
-                string preprocessedImagePath = inputImagePath;
+                string inputImagePath = UtilityClass.InputImagePath("image1.jpg");
 
                 string cosineSimilarityPath = UtilityClass.CosineSimilarityDirectory("CosineSimilarityMatrix.csv");
 
@@ -25,8 +24,7 @@ namespace OCRApplication
                     "chainfilter",
                     "invert",
                     "hsi_adjustment",
-                    "binarization",
-                    "grayscale",
+                    "denoise",
                     "mirror_horizontal"
                 };
 
@@ -67,10 +65,10 @@ namespace OCRApplication
                     embeddings.Remove(key);
                 }
 
+                PrintResults(cosineSimilarityPath);
+
                 // Compute Similarity between text embeddings
                 TextSimilarity.GenerateCosineSimilarityMatrix(embeddings, cosineSimilarityPath);
-
-                PrintResults(cosineSimilarityPath);
 
                 // Wait for user to press Enter before closing
                 Console.WriteLine("Press Enter to exit...");

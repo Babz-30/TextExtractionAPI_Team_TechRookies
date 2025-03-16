@@ -20,7 +20,6 @@ namespace OCRApplication.Services
 
                 // Load the image file
                 using var image = Pix.LoadFromFile(imagePath);
-                Console.WriteLine("Image loaded successfully.");
 
                 // Perform OCR on the image
                 using var page = ocrEngine.Process(image);

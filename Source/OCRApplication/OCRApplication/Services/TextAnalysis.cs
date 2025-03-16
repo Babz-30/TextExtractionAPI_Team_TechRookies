@@ -56,12 +56,12 @@ namespace OCRApplication.Services
                 // If the file doesn't exist, write the headers
                 if (!fileExists)
                 {
-                    string headers = "Technique,totalWords,meanConfidence,dictionaryAccuracy";
+                    string headers = "Technique,TotalWords,MeanConfidence,DictionaryAccuracy";
                     File.WriteAllText(tesseractConfidenceOutputFilePath, headers + Environment.NewLine);
                 }
 
                 // Create a line with the values (CSV format)
-                string newLine = $"{technique},{totalWords},{meanConfidence:F2}%,{dictionaryAccuracy:F2}%";
+                string newLine = $"{technique},{totalWords},{meanConfidence:F2},{dictionaryAccuracy:F2}";
 
                 // Append the new line to the file
                 File.AppendAllText(tesseractConfidenceOutputFilePath, newLine + Environment.NewLine);

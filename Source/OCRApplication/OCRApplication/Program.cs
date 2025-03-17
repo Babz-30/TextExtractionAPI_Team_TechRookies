@@ -12,19 +12,21 @@ namespace OCRApplication
         {
             try
             {
+                Console.WriteLine("Computing the best pre-processing technique to extract text from image by tesseract OCR.");
                 // Path to your image file
                 string inputImagePath = UtilityClass.InputImagePath("image1.jpg");
+
                 string cosineSimilarityPath = UtilityClass.CosineSimilarityDirectory("CosineSimilarityMatrix.csv");
 
                 List<string> techniques = new List<string>
                 {
                     "rotation",
                     "cannyfilter",
-                    "grayscale_binarization", 
                     "chainfilter",
                     "invert",
                     "hsi_adjustment",
-                    "mirror"
+                    "denoise",
+                    "mirror_horizontal"
                 };
 
                 PreprocessingFactory preprocessingFactory = new PreprocessingFactory();
@@ -42,73 +44,42 @@ namespace OCRApplication
                     }
                 }
 
-                // Debug: Print preprocessed images
-                Console.WriteLine("\n[DEBUG] Preprocessed Images:");
-                foreach (var img in preprocessedImages)
-                {
-                    Console.WriteLine($"{img.Key} -> {img.Value}");
-                }
-
                 // Perform OCR text extraction on preprocessed images
                 ocrTexts = OcrResults(preprocessedImages);
 
-                // Debug: Print extracted OCR text
-                Console.WriteLine("\n[DEBUG] OCR Results:");
-                foreach (var result in ocrTexts)
-                {
-                    Console.WriteLine($"{result.Key}: {result.Value}");
-                }
-
                 // Generate embeddings
                 Dictionary<string, List<double>> embeddings = new Dictionary<string, List<double>>();
+
+                Console.WriteLine("Computing Embeddings for extracted text and then calculating cosine similarity between preprocessing techniques...");
 
                 foreach (var item in ocrTexts)
                 {
                     embeddings[item.Key] = await TextEmbedding.ComputeEmbedding(item.Value);
                 }
 
-                // Debug: Print embeddings before filtering
-                Console.WriteLine("\n[DEBUG] Text Embeddings:");
-                foreach (var emb in embeddings)
-                {
-                    Console.WriteLine($"{emb.Key} -> [{string.Join(", ", emb.Value)}]");
-                }
-
-                // Remove entries with all-zero embeddings
+                // Remove entries with List<double> where all values are 0
                 var keysToRemove = embeddings
                     .Where(pair => pair.Value.All(value => value == 0.0))
                     .Select(pair => pair.Key)
                     .ToList();
-
-                if (keysToRemove.Count > 0)
-                {
-                    Console.WriteLine("[WARNING] Some embeddings are all zero and might affect similarity computation.");
-                }
 
                 foreach (var key in keysToRemove)
                 {
                     embeddings.Remove(key);
                 }
 
-                // Debug: Ensure embeddings exist before similarity computation
-                if (embeddings.Count == 0)
-                {
-                    Console.WriteLine("[ERROR] No valid embeddings found! Cosine similarity matrix will not be generated.");
-                }
-                else
-                {
-                    Console.WriteLine($"\n[INFO] Generating Cosine Similarity Matrix at: {cosineSimilarityPath}");
-                    TextSimilarity.GenerateCosineSimilarityMatrix(embeddings, cosineSimilarityPath);
-                    Console.WriteLine("[SUCCESS] Cosine Similarity Matrix generated successfully!");
-                }
+                // Compute Similarity between text embeddings
+                TextSimilarity.GenerateCosineSimilarityMatrix(embeddings, cosineSimilarityPath);
 
-                // Wait for user input before closing
-                Console.WriteLine("\nPress Enter to exit...");
+                Results.PrintResults(cosineSimilarityPath);
+
+                // Wait for user to press Enter before closing
+                Console.WriteLine("Press Enter to exit...");
                 Console.ReadLine();
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"[ERROR] {ex.Message}");
+                Console.WriteLine($"Error: {ex.Message}");
             }
             finally
             {
@@ -129,5 +100,5 @@ namespace OCRApplication
 
             return ocrResults;
         }
-    }
+    }        
 }

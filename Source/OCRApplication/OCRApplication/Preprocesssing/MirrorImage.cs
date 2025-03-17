@@ -7,16 +7,7 @@ namespace OCRApplication.Preprocesssing
 {
     internal class MirrorImage
     {
-        private readonly string inputImagePath;
-        private readonly string mirrorImagePath;
-
-        public MirrorImage(string inputImagePath)
-        {
-            this.inputImagePath = inputImagePath;
-            mirrorImagePath = UtilityClass.OutputImagePath("horizontal_mirrored_image.png"); // Changed to .png
-        }
-
-        public string Process()
+        public string Process(string inputImagePath, string outputImagePath)
         {
             try
             {
@@ -27,14 +18,13 @@ namespace OCRApplication.Preprocesssing
                 using Bitmap mirroredImage = ImageProcessing.MirrorImageHorizontal(inputImage);
 
                 // Save the mirrored image
-                mirroredImage.Save(mirrorImagePath, ImageFormat.Png);
-                Console.WriteLine($"Mirrored image saved to: {mirrorImagePath}");
+                mirroredImage.Save(outputImagePath);
 
-                return mirrorImagePath;
+                return outputImagePath;
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error during image processing: {ex.Message}");
+                Console.WriteLine($"Error during mirror image processing: {ex.Message}");
                 throw;
             }
         }

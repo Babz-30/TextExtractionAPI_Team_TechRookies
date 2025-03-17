@@ -69,21 +69,18 @@ namespace OCRApplication.Preprocesssing
                     }
                     break;
 
-                case "binarization":
-                    // Apply Otsu binarization
-                    var binarization = new Binarization();
-                    variation = "binarized_otsu";
-                    outputImagePath = $"{outputDir}/{variation}.jpg";
-                    binarization.ApplyOtsuBinarization(imagePath, outputImagePath);
-                    processedImages[variation] = outputImagePath;
-                    break;
-
-                case "grayscale":
+                case "denoise":
                     // Convert image to grayscale
                     variation = "grayscale";
                     outputImagePath = $"{outputDir}/{variation}.jpg";
                     var grayscale = new Grayscale();
-                    grayscale.ConvertToGrayscale(imagePath, outputImagePath);
+                    var imgGray = grayscale.ConvertToGrayscale(imagePath, outputImagePath);
+
+                    // Denoise image
+                    var binarize = new Binarization();
+                    variation = "grayscale_binarized";
+                    outputImagePath = $"{outputDir}/{variation}.jpg";
+                    binarize.ApplyOtsuBinarization(imgGray, outputImagePath);
                     processedImages[variation] = outputImagePath;
                     break;
 
@@ -138,9 +135,9 @@ namespace OCRApplication.Preprocesssing
                     // Mirror the image horizontally
                     variation = "mirror";
                     outputImagePath = $"{outputDir}/{variation}.jpg";
-                    MirrorImage mirror = new MirrorImage(imagePath);
-                    string mirroredPath = mirror.Process();
-                    processedImages[variation] = mirroredPath;
+                    MirrorImage mirror = new MirrorImage();
+                    mirror.Process(imagePath, outputImagePath);
+                    processedImages[variation] = outputImagePath;
                     break;
 
                 default:

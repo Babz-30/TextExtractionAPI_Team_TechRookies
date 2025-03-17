@@ -1,10 +1,7 @@
 ﻿using OCRApplication.Preprocesssing;
 using OCRApplicationTest.Helpers;
-using System;
-using System.IO;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace OCRApplicationTest
+namespace OCRApplicationTest.PreprocessingTest
 {
     /// <summary>
     /// Test class for MirrorImage, verifying horizontal mirroring functionality.
@@ -12,15 +9,12 @@ namespace OCRApplicationTest
     [TestClass]
     public class MirrorImageTest
     {
-        private string testImagePath;
-        private string outputImagePath;
+        private readonly string outputImagePath = TestUtilityClass.OutputImagePath("horizontal_mirrored_image.png");
 
         // Sets up test environment input and output image paths.
         [TestInitialize]
         public void Setup()
         {
-            testImagePath = TestUtilityClass.InputImagePath("test_image.jpg");
-            outputImagePath = TestUtilityClass.OutputImagePath("horizontal_mirrored_image.png");
         }
 
         // Tests that Process correctly mirrors an image horizontally.
@@ -28,10 +22,10 @@ namespace OCRApplicationTest
         public void Process_ValidInput_CreatesMirroredImage()
         {
             // Arrange
-            MirrorImage mirrorImage = new MirrorImage(testImagePath);
+            MirrorImage mirrorImage = new();
 
             // Act
-            string resultPath = mirrorImage.Process();
+            string resultPath = mirrorImage.Process(TestUtilityClass.InputImagePath("test_image.jpg"), outputImagePath);
 
             // Assert
             Assert.IsTrue(File.Exists(resultPath), "Mirrored image was not created.");
@@ -39,14 +33,13 @@ namespace OCRApplicationTest
 
         // Tests that Process throws an exception for an invalid file path.
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
         public void Process_InvalidInput_ThrowsException()
         {
             // Arrange
-            MirrorImage mirrorImage = new MirrorImage("invalid_path.jpg");
+            MirrorImage mirrorImage = new();
 
             // Act
-            mirrorImage.Process();
+            Assert.ThrowsExactly<ArgumentException>(() => mirrorImage.Process("invalid_path.jpg", outputImagePath));
         }
 
         // Cleans up test environment by deleting created images.

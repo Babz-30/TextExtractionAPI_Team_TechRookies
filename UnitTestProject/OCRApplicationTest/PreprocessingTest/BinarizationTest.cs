@@ -1,7 +1,4 @@
-﻿using System;
-using System.IO;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using OCRApplication.Preprocesssing;
+﻿using OCRApplication.Preprocesssing;
 using OCRApplicationTest.Helpers;
 
 namespace OCRApplicationTest.PreprocessingTest
@@ -12,15 +9,12 @@ namespace OCRApplicationTest.PreprocessingTest
     [TestClass]
     public class BinarizationTest
     {
-        private string testImagePath;
-        private string outputImagePath;
+        private readonly string outputImagePath = TestUtilityClass.OutputImagePath("binarized.jpg");
 
         // Sets up test environment input and output image paths.
         [TestInitialize]
         public void Setup()
         {
-            testImagePath = TestUtilityClass.InputImagePath("test_image.jpg");
-            outputImagePath = TestUtilityClass.OutputImagePath("binarized.jpg");
         }
 
         // Tests that ApplyOtsuBinarization correctly processes an image.
@@ -28,10 +22,10 @@ namespace OCRApplicationTest.PreprocessingTest
         public void ApplyOtsuBinarization_ValidInput_CreatesBinarizedImage()
         {
             // Arrange
-            Binarization binarization = new Binarization();
+            Binarization binarization = new();
 
             // Act
-            string resultPath = binarization.ApplyOtsuBinarization(testImagePath, outputImagePath);
+            string? resultPath = binarization.ApplyOtsuBinarization( TestUtilityClass.InputImagePath("test_image.jpg"), outputImagePath: outputImagePath);
 
             // Assert
             Assert.IsTrue(File.Exists(resultPath), "Binarized image was not created.");
@@ -39,14 +33,13 @@ namespace OCRApplicationTest.PreprocessingTest
 
         // Tests that ApplyOtsuBinarization throws an exception for an invalid file path.
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
         public void ApplyOtsuBinarization_InvalidInput_ThrowsException()
         {
             // Arrange
-            Binarization binarization = new Binarization();
+            Binarization binarization = new();
 
             // Act
-            binarization.ApplyOtsuBinarization("invalid_path.jpg", outputImagePath);
+            Assert.ThrowsExactly<ArgumentException>(() => binarization.ApplyOtsuBinarization("invalid_path.jpg", outputImagePath));
         }
 
         // Cleans up test environment by deleting created images.

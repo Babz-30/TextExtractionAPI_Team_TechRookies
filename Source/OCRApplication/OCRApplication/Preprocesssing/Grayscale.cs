@@ -5,7 +5,7 @@ namespace OCRApplication.Preprocesssing
 {
     public class Grayscale
     {
-        public string ConvertToGrayscale(string inputImagePath, string outputImagePath)
+        public static string ConvertToGrayscale(string inputImagePath, string outputImagePath)
         {
             try
             {

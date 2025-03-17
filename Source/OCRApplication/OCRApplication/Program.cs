@@ -6,7 +6,7 @@ namespace OCRApplication
 {
     class Program
     {
-        static Dictionary<string, string> ocrResults = new Dictionary<string, string>();
+        static readonly Dictionary<string, string> ocrResults = [];
 
         static async Task Main(string[] args)
         {
@@ -18,8 +18,8 @@ namespace OCRApplication
 
                 string cosineSimilarityPath = UtilityClass.CosineSimilarityDirectory("CosineSimilarityMatrix.csv");
 
-                List<string> techniques = new List<string>
-                {
+                List<string> techniques =
+                [
                     "rotation",
                     "cannyfilter",
                     "chainfilter",
@@ -27,16 +27,15 @@ namespace OCRApplication
                     "hsi_adjustment",
                     "denoise",
                     "mirror_horizontal"
-                };
+                ];
 
-                PreprocessingFactory preprocessingFactory = new PreprocessingFactory();
-                Dictionary<string, string> preprocessedImages = new Dictionary<string, string>();
-                Dictionary<string, string> ocrTexts = new Dictionary<string, string>();
+                Dictionary<string, string> preprocessedImages = [];
+                Dictionary<string, string> ocrTexts = [];
 
                 // Apply preprocessing techniques
                 foreach (var technique in techniques)
                 {
-                    Dictionary<string, string> processedImages = preprocessingFactory.PreprocessImage(inputImagePath, technique);
+                    Dictionary<string, string> processedImages = PreprocessingFactory.PreprocessImage(inputImagePath, technique);
 
                     foreach (var img in processedImages)
                     {
@@ -48,7 +47,7 @@ namespace OCRApplication
                 ocrTexts = OcrResults(preprocessedImages);
 
                 // Generate embeddings
-                Dictionary<string, List<double>> embeddings = new Dictionary<string, List<double>>();
+                Dictionary<string, List<double>> embeddings = [];
 
                 Console.WriteLine("Computing Embeddings for extracted text and then calculating cosine similarity between preprocessing techniques...");
 
@@ -89,7 +88,7 @@ namespace OCRApplication
 
         static Dictionary<string, string> OcrResults(Dictionary<string, string> preprocessedImages)
         {
-            TextExtraction textExtraction = new TextExtraction();
+            TextExtraction textExtraction = new();
             string extractedText;
 
             foreach (var technique in preprocessedImages)

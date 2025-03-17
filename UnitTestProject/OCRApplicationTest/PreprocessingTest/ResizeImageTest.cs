@@ -1,7 +1,7 @@
 using OCRApplicationTest.Helpers;
 using OCRApplication.Preprocesssing;
 
-namespace OCRApplicationTest;
+namespace OCRApplicationTest.PreprocessingTest;
 
 /// <summary>
 /// Test class for ResizeImage, verifying image resize functionality.
@@ -9,15 +9,12 @@ namespace OCRApplicationTest;
 [TestClass]
 public class ResizeImageTest
 {
-    private string testImagePath;
-    private string outputImagePath;
+    private readonly string outputImagePath = TestUtilityClass.OutputImagePath("resize.jpg");
 
     // Sets up test environment input and output image path.
     [TestInitialize]
     public void Setup()
     {
-        testImagePath = TestUtilityClass.InputImagePath("test_image.jpg");
-        outputImagePath = TestUtilityClass.OutputImagePath("resize.jpg");
     }
 
     // Tests that ResizingImage correctly creates a resized image with the specified DPI.
@@ -25,11 +22,11 @@ public class ResizeImageTest
     public void ResizingImage_ValidInput_CreatesResizedImage()
     {
         // Arrange
-        ResizeImage resizeImage = new ResizeImage();
+        ResizeImage resizeImage = new();
         int targetDPI = 300;
 
         // Act
-        string resultPath = resizeImage.ResizingImage(testImagePath, outputImagePath, targetDPI);
+        string resultPath = resizeImage.ResizingImage(TestUtilityClass.InputImagePath("test_image.jpg"), outputImagePath, targetDPI);
 
         // Assert
         Assert.IsTrue(File.Exists(resultPath), "Resized image was not created.");
@@ -37,15 +34,14 @@ public class ResizeImageTest
 
     // Tests that ResizingImage throws an exception when given an invalid file path.
     [TestMethod]
-    [ExpectedException(typeof(ArgumentException))]
     public void ResizingImage_InvalidInput_ThrowsException()
     {
         // Arrange
-        ResizeImage resizeImage = new ResizeImage();
+        ResizeImage resizeImage = new();
         int targetDPI = 300;
 
         // Act
-        resizeImage.ResizingImage("invalid_path.jpg", outputImagePath, targetDPI);
+        Assert.ThrowsExactly<ArgumentException>(() => resizeImage.ResizingImage("invalid_path.jpg", outputImagePath, targetDPI));
     }
 
     // Cleans up test environment by deleting created images.

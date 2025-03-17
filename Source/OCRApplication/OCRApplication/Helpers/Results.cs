@@ -82,7 +82,7 @@ namespace OCRApplication.Helpers
 
     class OCRAnalysis
     {
-        public string Technique { get; set; }          // Name of preprocessing technique
+        public required string Technique { get; set; }          // Name of preprocessing technique
         public double DictionaryAccuracy { get; set; } // Accuracy percentage from dictionary
         public double MeanConfidence { get; set; }     // Mean confidence percentage
     }

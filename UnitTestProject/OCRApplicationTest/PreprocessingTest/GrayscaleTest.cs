@@ -1,7 +1,4 @@
-﻿using System;
-using System.IO;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using OCRApplication.Preprocesssing;
+﻿using OCRApplication.Preprocesssing;
 using OCRApplicationTest.Helpers;
 
 namespace OCRApplicationTest.PreprocessingTest
@@ -12,26 +9,20 @@ namespace OCRApplicationTest.PreprocessingTest
     [TestClass]
     public class GrayscaleTest
     {
-        private string testImagePath;
-        private string outputImagePath;
+        private readonly string outputImagePath = TestUtilityClass.OutputImagePath("grayscale.jpg");
 
         // Sets up test environment input and output image paths.
         [TestInitialize]
         public void Setup()
         {
-            testImagePath = TestUtilityClass.InputImagePath("test_image.jpg");
-            outputImagePath = TestUtilityClass.OutputImagePath("grayscale.jpg");
         }
 
         // Tests that ConvertToGrayscale correctly processes an image.
         [TestMethod]
         public void ConvertToGrayscale_ValidInput_CreatesGrayscaleImage()
         {
-            // Arrange
-            Grayscale grayscaleConverter = new Grayscale();
-
             // Act
-            string resultPath = grayscaleConverter.ConvertToGrayscale(testImagePath, outputImagePath);
+            string resultPath = Grayscale.ConvertToGrayscale(TestUtilityClass.InputImagePath("test_image.jpg"), outputImagePath);
 
             // Assert
             Assert.IsTrue(File.Exists(resultPath), "Grayscale image was not created.");
@@ -39,14 +30,10 @@ namespace OCRApplicationTest.PreprocessingTest
 
         // Tests that ConvertToGrayscale throws an exception for an invalid file path.
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
         public void ConvertToGrayscale_InvalidInput_ThrowsException()
         {
-            // Arrange
-            Grayscale grayscaleConverter = new Grayscale();
-
             // Act
-            grayscaleConverter.ConvertToGrayscale("invalid_path.jpg", outputImagePath);
+            Assert.ThrowsExactly<ArgumentException>(() => Grayscale.ConvertToGrayscale("invalid_path.jpg", outputImagePath));
         }
 
         // Cleans up test environment by deleting created images.

@@ -16,7 +16,7 @@ namespace OCRApplication.Preprocesssing
         /// <param name="threshold1">Threshold1 for edge detection.</param>
         /// <param name="threshold2">Threshold2 for edge detection.</param>
         /// <returns>Path to output processed image.</returns>
-        public string ApplyCannyEdgeDetection(string imageImagePath, string outputImagePath, int threshold1, int threshold2 = 255)
+        public static string ApplyCannyEdgeDetection(string imageImagePath, string outputImagePath, int threshold1, int threshold2 = 255)
         {
             try
             {
@@ -24,7 +24,7 @@ namespace OCRApplication.Preprocesssing
                 Mat image = CvInvoke.Imread(imageImagePath, ImreadModes.Grayscale);
 
                 // Apply Gaussian blur to reduce noise
-                Mat blurred = new Mat();
+                Mat blurred = new();
                 CvInvoke.GaussianBlur(image, blurred, new System.Drawing.Size(5, 5), 1.5);
 
                 // Apply Gaussian Blur to smooth out noise

@@ -5,7 +5,7 @@ using System.Drawing.Imaging;
 
 namespace OCRApplication.Preprocesssing
 {
-    internal class MirrorImage
+    public class MirrorImage
     {
         public string Process(string inputImagePath, string outputImagePath)
         {

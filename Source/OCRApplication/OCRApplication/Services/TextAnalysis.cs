@@ -6,14 +6,14 @@ namespace OCRApplication.Services
 {
     public class TextAnalysis
     {
-        static string tesseractConfidenceOutputFilePath = UtilityClass.TesseractOutputPath("ExtractedTextMeanConfidence.csv");
+        static readonly string tesseractConfidenceOutputFilePath = UtilityClass.TesseractOutputPath("ExtractedTextMeanConfidence.csv");
 
         public static void SaveConfidence(string technique, Page page)
         { 
             // Check if the file exists
             bool fileExists = File.Exists(tesseractConfidenceOutputFilePath);
 
-            List<float> confidences = new List<float>();
+            List<float> confidences = [];
             int totalWords = 0, correctWords = 0;
 
             try
@@ -31,7 +31,7 @@ namespace OCRApplication.Services
                     {
                         if (iter.IsAtBeginningOf(PageIteratorLevel.Word))
                         {
-                            string word = iter.GetText(PageIteratorLevel.Word)?.Trim();
+                            string? word = iter.GetText(PageIteratorLevel.Word)?.Trim();
                             float confidence = iter.GetConfidence(PageIteratorLevel.Word);
 
                             if (!string.IsNullOrEmpty(word) && confidence > 0)
@@ -75,7 +75,7 @@ namespace OCRApplication.Services
         // Load dictionary words from a file into a HashSet
         static HashSet<string> LoadDictionary(string filePath)
         {
-            HashSet<string> words = new HashSet<string>();
+            HashSet<string> words = [];
 
             if (File.Exists(filePath))
             {

@@ -4,21 +4,21 @@
     {
 
         // Path to input image directory
-        static readonly string inputImageDirectory = @"path_to_image";
+        static readonly string InputImageFolder = @"Input/Input_Images";
 
         // Path to preprocessed image directory
-        static readonly string outputImageDirectory = @"path_to_image/preprocessed/";
+        static readonly string OutputImageFolder = @"Output/Preprocessed_Image_Output/";
 
         // Path to the trained tessdata folder
-        static readonly string tessDataPath = @"path_to_tessdata";
+        static readonly string TrainedDataDirectory = @"Input/Trained_Data_Input";
 
         // Path to extracted text from chatgpt
-        static readonly string chatgptOutputFolder = @"chatgpt_output";
+        static readonly string ChatgptOutputFolder = @"Chatgpt_Output";
 
         // Path to extracted text after preprocessing
-        static readonly string tesseractOutputFolder = @"tesseract_output";
+        static readonly string TesseractOutputFolder = @"Output/Tesseract_Output";
 
-        static readonly string cosineSimilarityFolder = @"cosine_similarity";
+        static readonly string CosineSimilarityFolder = @"Output/Cosine_Similarity_Output";
 
 
         public static string SolutionDirectory()
@@ -35,17 +35,17 @@
 
         public static string InputImageDirectory()
         {
-            return Path.Combine(SolutionDirectory(), inputImageDirectory);
+            return Path.Combine(SolutionDirectory(), InputImageFolder);
         }
 
         public static string OutputImageDirectory()
         {
-            return Path.Combine(SolutionDirectory(), outputImageDirectory);
+            return Path.Combine(SolutionDirectory(), OutputImageFolder);
         }
 
         public static string TesseractOutputDirectory()
         {
-            return Path.Combine(SolutionDirectory(), tesseractOutputFolder);
+            return Path.Combine(SolutionDirectory(), TesseractOutputFolder);
         }
 
         public static string InputImagePath(string filename)
@@ -74,7 +74,7 @@
 
         public static string ChatgptOutputPath(string filename)
         {
-            string textFileDirectory = Path.Combine(SolutionDirectory(), chatgptOutputFolder);
+            string textFileDirectory = Path.Combine(SolutionDirectory(), ChatgptOutputFolder);
 
             string textFilePath = Path.Combine(textFileDirectory, filename);
 
@@ -93,20 +93,20 @@
 
             return textFilePath;
         }
-        public static string TessDataPath()
+        public static string TrainedDataPath()
         {
-            return Path.Combine(SolutionDirectory(), tessDataPath);
+            return Path.Combine(SolutionDirectory(), TrainedDataDirectory);
 
         }
 
         public static string DictionaryPath()
         {
-            return Path.Combine(TessDataPath(), "dictionary.txt");
+            return Path.Combine(TrainedDataPath(), "dictionary.txt");
         }
 
         public static string CosineSimilarityDirectory(string filename)
         {
-            string cosineSimilarityDirectory = Path.Combine(SolutionDirectory(), cosineSimilarityFolder);
+            string cosineSimilarityDirectory = Path.Combine(SolutionDirectory(), CosineSimilarityFolder);
             string filePath = Path.Combine(cosineSimilarityDirectory, filename);
             return filePath;
         }
@@ -120,10 +120,10 @@
         public static void DeleteAllFiles()
         {
             // List of folders to empty (change these paths)
-            string[] folders = {
+            string[] folders = [
                 TesseractOutputDirectory(),
                 OutputImageDirectory()
-            };
+            ];
 
             try
             {

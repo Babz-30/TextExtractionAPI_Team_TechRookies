@@ -128,7 +128,7 @@ namespace OCRApplication.Preprocesssing
                     }
                     break;
 
-                case "mirror":
+                case "mirror_horizontal":
                     // Mirror the image horizontally
                     variation = "mirror";
                     outputImagePath = $"{outputDir}/{variation}.jpg";

@@ -70,8 +70,10 @@ namespace OCRApplication
                 // Compute Similarity between text embeddings
                 TextSimilarity.GenerateCosineSimilarityMatrix(embeddings, cosineSimilarityPath);
 
-                Results.PrintResults(cosineSimilarityPath);
+                String bestTechnique = Results.PrintResults(cosineSimilarityPath);
 
+                Console.WriteLine($"Extracted Text:\n{ocrTexts[bestTechnique]}");
+                Console.WriteLine("================================================================================================");
                 // Wait for user to press Enter before closing
                 Console.WriteLine("Press Enter to exit...");
                 Console.ReadLine();

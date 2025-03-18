@@ -3,10 +3,10 @@
     public static class TestUtilityClass
     {
         // Path to input image directory
-        static readonly string inputImageDirectory = @"path_to_image";
+        static readonly string inputImageDirectory = @"Input";
 
         // Path to preprocessed image directory
-        static readonly string outputImageDirectory = @"path_to_image/preprocessed/";
+        static readonly string outputImageDirectory = @"Output\preprocessed\";
 
         public static string SolutionDirectory()
         {

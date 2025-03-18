@@ -8,14 +8,14 @@ namespace OCRApplication.Services
     internal class TextExtraction
     {
         // Path to the trained tessdata folder
-        readonly string tessDataPath = UtilityClass.TessDataPath();
+        readonly string TrainedDataPath = UtilityClass.TrainedDataPath();
         
         public string ExtractText(string imagePath, string technique, string language = "eng")
         {
             try
             {
                 // Initialize the Tesseract engine
-                using var ocrEngine = new TesseractEngine(tessDataPath, language, EngineMode.Default);
+                using var ocrEngine = new TesseractEngine(TrainedDataPath, language, EngineMode.Default);
                 Console.WriteLine("Tesseract engine initialized.");
 
                 // Load the image file

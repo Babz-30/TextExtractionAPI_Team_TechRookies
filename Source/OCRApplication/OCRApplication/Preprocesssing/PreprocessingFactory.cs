@@ -12,9 +12,9 @@ namespace OCRApplication.Preprocesssing
         /// <param name="imagePath">Path to input image.</param>
         /// <param name="technique">Preprocessing technique.</param>
         /// <returns>Dictionary of preprocessing technique (with variations) as key and value as the processed image path.</returns>
-        public Dictionary<string, string> PreprocessImage(string imagePath, string technique)
+        public static Dictionary<string, string> PreprocessImage(string imagePath, string technique)
         {
-            Dictionary<string, string> processedImages = new Dictionary<string, string>();
+            Dictionary<string, string> processedImages = [];
 
             // Define output directory for processed images
             string outputDir = UtilityClass.OutputImageDirectory();
@@ -22,18 +22,18 @@ namespace OCRApplication.Preprocesssing
             string outputImagePath;
 
             // Define parameter sets for different preprocessing techniques
-            float[] rotateAngles = { -45.0f, -30.0f, -20.0f, 20.0f, 30.0f, 45.0f };
-            int[] thresholds = { 50, 150, 200 };
-            int[] targerDPIs = { 50, 100, 200, 300 };
-            double[] satFactors = { 2.0, 1.5, 0.5 };
-            double[] intensityFactors = { 2.0, 1.5, 0.5 };
+            float[] rotateAngles = [-45.0f, -30.0f, -20.0f, 20.0f, 30.0f, 45.0f];
+            int[] thresholds = [50, 150, 200];
+            int[] targerDPIs = [50, 100, 200, 300];
+            double[] satFactors = [2.0, 1.5, 0.5];
+            double[] intensityFactors = [2.0, 1.5, 0.5];
 
             switch (technique)
             {
                 case "rotation":
                     // Apply rotation to the image for different angles and resize variations
-                    RotateImage rm = new RotateImage();
-                    ResizeImage rm2 = new ResizeImage();
+                    RotateImage rm = new();
+                    ResizeImage rm2 = new();
 
                     foreach (float angle in rotateAngles)
                     {
@@ -53,14 +53,13 @@ namespace OCRApplication.Preprocesssing
 
                 case "cannyfilter":
                     // Apply Canny edge detection and invert the resulting image
-                    var cannyFilter = new CannyFilter();
                     var invertImage = new InvertImage();
 
                     foreach (int threshold in thresholds)
                     {
                         variation = $"cannyfilter_{threshold}";
                         outputImagePath = $"{outputDir}/{variation}.jpg";
-                        var cannyImage = cannyFilter.ApplyCannyEdgeDetection(imagePath, outputImagePath, threshold);
+                        var cannyImage = CannyFilter.ApplyCannyEdgeDetection(imagePath, outputImagePath, threshold);
 
                         variation = $"cannyfilter_{threshold}_invert";
                         outputImagePath = $"{outputDir}/{variation}.jpg";
@@ -69,30 +68,25 @@ namespace OCRApplication.Preprocesssing
                     }
                     break;
 
-                case "binarization":
-                    // Apply Otsu binarization
-                    var binarization = new Binarization();
-                    variation = "binarized_otsu";
-                    outputImagePath = $"{outputDir}/{variation}.jpg";
-                    binarization.ApplyOtsuBinarization(imagePath, outputImagePath);
-                    processedImages[variation] = outputImagePath;
-                    break;
-
-                case "grayscale":
+                case "denoise":
                     // Convert image to grayscale
                     variation = "grayscale";
                     outputImagePath = $"{outputDir}/{variation}.jpg";
-                    var grayscale = new Grayscale();
-                    grayscale.ConvertToGrayscale(imagePath, outputImagePath);
+                    var imgGray = Grayscale.ConvertToGrayscale(imagePath, outputImagePath);
+
+                    // Denoise image
+                    var binarize = new Binarization();
+                    variation = "grayscale_binarized";
+                    outputImagePath = $"{outputDir}/{variation}.jpg";
+                    binarize.ApplyOtsuBinarization(imgGray, outputImagePath);
                     processedImages[variation] = outputImagePath;
                     break;
 
                 case "chainfilter":
                     // Apply a sequence of filters: grayscale -> binarization -> resize
-                    var gray = new Grayscale();
                     variation = "grayscale";
                     outputImagePath = $"{outputDir}/{variation}.jpg";
-                    var grayImg = gray.ConvertToGrayscale(imagePath, outputImagePath);
+                    var grayImg = Grayscale.ConvertToGrayscale(imagePath, outputImagePath);
 
                     var bin = new Binarization();
                     variation = "grayscale_binarize";
@@ -120,7 +114,7 @@ namespace OCRApplication.Preprocesssing
 
                 case "hsi_adjustment":
                     // Apply Histogram Adjustment with different saturation and intensity factors
-                    HistogramAdjustment ha = new HistogramAdjustment();
+                    HistogramAdjustment ha = new();
 
                     foreach (double sat in satFactors)
                     {
@@ -134,13 +128,13 @@ namespace OCRApplication.Preprocesssing
                     }
                     break;
 
-                case "mirror":
+                case "mirror_horizontal":
                     // Mirror the image horizontally
                     variation = "mirror";
                     outputImagePath = $"{outputDir}/{variation}.jpg";
-                    MirrorImage mirror = new MirrorImage(imagePath);
-                    string mirroredPath = mirror.Process();
-                    processedImages[variation] = mirroredPath;
+                    MirrorImage mirror = new();
+                    mirror.Process(imagePath, outputImagePath);
+                    processedImages[variation] = outputImagePath;
                     break;
 
                 default:

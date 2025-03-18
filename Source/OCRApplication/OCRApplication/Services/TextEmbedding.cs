@@ -20,7 +20,7 @@ namespace OCRApplication.Services
                 return new List<double>(new double[1536]);
 
             var config = Configuration.Config();
-            string url = config["API_URL"]; // API URL
+            string? url = config["API_URL"]; // API URL
 
             var requestBody = new
             {
@@ -37,7 +37,7 @@ namespace OCRApplication.Services
             {
                 HttpResponseMessage response = await client.PostAsync(url, content);
                 response.EnsureSuccessStatusCode();
-                string responseContent = await response.Content.ReadAsStringAsync();
+                string? responseContent = await response.Content.ReadAsStringAsync();
 
                 var jsonResponse = JsonConvert.DeserializeObject<dynamic>(responseContent);
                 var embeddingArray = jsonResponse["data"][0]["embedding"].ToObject<List<double>>();

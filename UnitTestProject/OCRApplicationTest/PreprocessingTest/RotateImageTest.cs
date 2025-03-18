@@ -1,7 +1,7 @@
 using OCRApplication.Preprocesssing;
 using OCRApplicationTest.Helpers;
 
-namespace OCRApplicationTest
+namespace OCRApplicationTest.PreprocessingTest
 {
     /// <summary>
     /// Test class for RotateImage, verifying image rotation functionality.
@@ -9,15 +9,12 @@ namespace OCRApplicationTest
     [TestClass]
     public class RotateImageTest
     {
-        private string testImagePath;
-        private string outputImagePath;
+        private readonly string outputImagePath = TestUtilityClass.OutputImagePath("rotation.jpg");
 
         // Sets up test environment input and output image path.
         [TestInitialize]
         public void Setup()
         {
-            testImagePath = TestUtilityClass.InputImagePath("test_image.jpg");
-            outputImagePath = TestUtilityClass.OutputImagePath("rotation.jpg");
         }
 
         // Tests that ApplyRotation correctly creates a rotated image.
@@ -25,11 +22,11 @@ namespace OCRApplicationTest
         public void ApplyRotation_ValidInput_CreatesRotatedImage()
         {
             // Arrange
-            RotateImage rotateImage = new RotateImage();
+            RotateImage rotateImage = new();
             float angle = 45f;
 
             // Act
-            string resultPath = rotateImage.ApplyRotation(testImagePath, outputImagePath, angle);
+            string resultPath = rotateImage.ApplyRotation(TestUtilityClass.InputImagePath("test_image.jpg"), outputImagePath, angle);
 
             // Assert
             Assert.IsTrue(File.Exists(resultPath), "Output image was not created.");
@@ -37,14 +34,13 @@ namespace OCRApplicationTest
 
         // Tests that ApplyRotation throws an exception when given an invalid file path.
         [TestMethod]
-        [ExpectedException(typeof(FileNotFoundException))]
         public void ApplyRotation_InvalidInput_ThrowsException()
         {
             // Arrange
-            RotateImage rotateImage = new RotateImage();
+            RotateImage rotateImage = new();
 
             // Act
-            rotateImage.ApplyRotation("invalid_path.jpg", outputImagePath, 45f);
+            Assert.ThrowsExactly<FileNotFoundException>(() => rotateImage.ApplyRotation("invalid_path.jpg", outputImagePath, 45f));
         }
 
         // Cleans up test environment by deleting created images.
@@ -55,7 +51,7 @@ namespace OCRApplicationTest
             GC.WaitForPendingFinalizers();
             // Delete test images
             if (File.Exists(outputImagePath)) File.Delete(outputImagePath);
-            
+
         }
     }
 }

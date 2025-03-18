@@ -1,7 +1,7 @@
 using OCRApplicationTest.Helpers;
 using OCRApplication.Preprocesssing;
 
-namespace OCRApplicationTest;
+namespace OCRApplicationTest.PreprocessingTest;
 
 /// <summary>
 /// Test class for InvertImage, verifying image invert functionality.
@@ -9,15 +9,12 @@ namespace OCRApplicationTest;
 [TestClass]
 public class InvertImageTest
 {
-    private string testImagePath;
-    private string outputImagePath;
+    private readonly string outputImagePath = TestUtilityClass.OutputImagePath("invert.jpg");
 
     // Sets up test environment input and output image path.
     [TestInitialize]
     public void Setup()
     {
-        testImagePath = TestUtilityClass.InputImagePath("test_image.jpg");
-        outputImagePath = TestUtilityClass.OutputImagePath("invert.jpg");
     }
 
     /// <summary>
@@ -27,10 +24,10 @@ public class InvertImageTest
     public void InvertingImage_ValidInput_CreatesInvertedImage()
     {
         // Arrange
-        InvertImage invertImage = new InvertImage();
+        InvertImage invertImage = new();
 
         // Act
-        string resultPath = invertImage.InvertingImage(testImagePath, outputImagePath);
+        string resultPath = invertImage.InvertingImage(TestUtilityClass.InputImagePath("test_image.jpg"), outputImagePath);
 
         // Assert
         Assert.IsTrue(File.Exists(resultPath), "Inverted image was not created.");
@@ -38,14 +35,13 @@ public class InvertImageTest
 
     // Tests that InvertingImage throws an exception when given an invalid file path.
     [TestMethod]
-    [ExpectedException(typeof(ArgumentException))]
     public void InvertingImage_InvalidInput_ThrowsException()
     {
         // Arrange
-        InvertImage invertImage = new InvertImage();
+        InvertImage invertImage = new();
 
         // Act
-        invertImage.InvertingImage("invalid_path.jpg", outputImagePath);
+        Assert.ThrowsExactly<ArgumentException>(() => invertImage.InvertingImage("invalid_path.jpg", outputImagePath));
     }
 
     // Cleans up test environment by deleting created images.

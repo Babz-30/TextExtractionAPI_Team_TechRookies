@@ -81,11 +81,11 @@ namespace OCRApplication.Helpers
                 Console.WriteLine("Top 5 Techniques (then sorted by Dictionary Accuracy and then by Mean Confidence):");
                 foreach (var item in top5WithAccuracy)
                 {
-                    Console.WriteLine($"Technique: {item.Technique}, Dictionary Accuracy: {item.DictionaryAccuracy}%, Mean Confidence: {item.MeanConfidence}%");
+                    Console.WriteLine($"Technique: {item.Technique}, Dictionary Accuracy: {item.DictionaryAccuracy}, Mean Confidence: {item.MeanConfidence}");
                 }
 
                 Console.WriteLine("================================================================================================");
-                Console.WriteLine($"Best Technique: {bestTechnique.Technique} \nMean Cosine Similarity: {bestTechnique.Mean} \nDictionary Accuracy: {bestTechnique.DictionaryAccuracy}% \nMean Confidence: {bestTechnique.MeanConfidence}%");
+                Console.WriteLine($"Best Technique: {bestTechnique.Technique} \nMean Cosine Similarity: {bestTechnique.Mean} \nDictionary Accuracy: {bestTechnique.DictionaryAccuracy} \nMean Confidence: {bestTechnique.MeanConfidence}");
                 return bestTechnique.Technique;
             }
             catch (Exception ex)

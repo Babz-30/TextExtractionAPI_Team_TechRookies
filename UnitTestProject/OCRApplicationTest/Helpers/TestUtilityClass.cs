@@ -1,4 +1,6 @@
-﻿namespace OCRApplicationTest.Helpers
+﻿using Microsoft.CodeCoverage.Core.Reports.Coverage;
+
+namespace OCRApplicationTest.Helpers
 {
     public static class TestUtilityClass
     {
@@ -38,7 +40,12 @@
 
         public static string OutputImageDirectory()
         {
-            return Path.Combine(SolutionDirectory(), outputImageDirectory);
+            string directoryPath = Path.Combine(SolutionDirectory(), outputImageDirectory);
+            if (!Directory.Exists(directoryPath))
+            {
+                Directory.CreateDirectory(directoryPath);
+            }
+            return directoryPath; 
         }
         public static string OutputImagePath(string filename)
         {

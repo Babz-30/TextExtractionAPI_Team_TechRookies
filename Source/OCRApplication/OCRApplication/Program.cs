@@ -14,8 +14,9 @@ namespace OCRApplication
             {
                 Console.WriteLine("Computing the best pre-processing technique to extract text from image by tesseract OCR.");
                 // Path to your image file
-                var config = Configuration.Config(); 
-                string inputImagePath = UtilityClass.InputImagePath(config[key: "InputImage"]);
+                var config = Configuration.Config();
+                var image = config[key: "InputImage"] ?? throw new KeyNotFoundException("InputImage key is missing or contains an empty value in the configuration.");
+                string inputImagePath = UtilityClass.InputImagePath(image);
 
                 string cosineSimilarityPath = UtilityClass.CosineSimilarityDirectory("CosineSimilarityMatrix.csv");
 

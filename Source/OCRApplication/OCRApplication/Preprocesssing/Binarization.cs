@@ -6,7 +6,7 @@ namespace OCRApplication.Preprocesssing
 {
     public class Binarization
     {
-        public string ApplyOtsuBinarization(string inputImagePath, string outputImagePath)
+        public static string ApplyOtsuBinarization(string inputImagePath, string outputImagePath)
         {
             try
             {

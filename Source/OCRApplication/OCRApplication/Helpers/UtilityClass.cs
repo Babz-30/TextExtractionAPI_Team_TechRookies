@@ -35,17 +35,32 @@
 
         public static string InputImageDirectory()
         {
-            return Path.Combine(SolutionDirectory(), InputImageFolder);
+            string directoryPath = Path.Combine(SolutionDirectory(), InputImageFolder);
+            if (!Directory.Exists(directoryPath))
+            {
+                Directory.CreateDirectory(directoryPath);
+            }
+            return directoryPath;
         }
 
         public static string OutputImageDirectory()
         {
-            return Path.Combine(SolutionDirectory(), OutputImageFolder);
+            string directoryPath = Path.Combine(SolutionDirectory(), OutputImageFolder);
+            if (!Directory.Exists(directoryPath))
+            {
+                Directory.CreateDirectory(directoryPath);
+            }
+            return directoryPath;
         }
 
         public static string TesseractOutputDirectory()
         {
-            return Path.Combine(SolutionDirectory(), TesseractOutputFolder);
+            string directoryPath = Path.Combine(SolutionDirectory(), TesseractOutputFolder);
+            if (!Directory.Exists(directoryPath))
+            {
+                Directory.CreateDirectory(directoryPath);
+            }
+            return directoryPath;
         }
 
         public static string InputImagePath(string filename)

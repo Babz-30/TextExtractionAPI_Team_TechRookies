@@ -7,7 +7,7 @@ namespace OCRApplication.Preprocesssing
 {
     public class MirrorImage
     {
-        public string Process(string inputImagePath, string outputImagePath)
+        public static string Process(string inputImagePath, string outputImagePath)
         {
             try
             {

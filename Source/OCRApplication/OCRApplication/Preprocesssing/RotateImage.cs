@@ -16,14 +16,12 @@ namespace OCRApplication.Preprocesssing
         /// <param name="outputImagePath">Path to output image.</param>
         /// <param name="angle">Angle in degree to rotate image.</param>
         /// <returns>Path to output processed image.</returns>
-        public string ApplyRotation(string inputPath, string outputImagePath, float angle)
+        public static string ApplyRotation(string inputPath, string outputImagePath, float angle)
         {
             try
             {
                 Image image = Image.FromFile(inputPath);
-                if (image == null)
-                    throw new ArgumentNullException(nameof(image));
-
+                
                 // Calculate the new bounding box size after rotation
                 float radian = angle * (float)(Math.PI / 180);
                 double cos = Math.Abs(Math.Cos(radian));
@@ -32,7 +30,7 @@ namespace OCRApplication.Preprocesssing
                 int newHeight = (int)(image.Width * sin + image.Height * cos);
 
                 // Create a new blank bitmap with the calculated dimensions
-                Bitmap rotatedImage = new Bitmap(newWidth, newHeight);
+                Bitmap rotatedImage = new(newWidth, newHeight);
                 rotatedImage.SetResolution(image.HorizontalResolution, image.VerticalResolution);
 
                 using (Graphics g = Graphics.FromImage(rotatedImage))

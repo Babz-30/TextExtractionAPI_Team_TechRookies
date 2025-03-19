@@ -71,9 +71,14 @@ namespace OCRApplication
                 if (firstChoice.TryGetProperty("message", out JsonElement message) &&
                     message.TryGetProperty("content", out JsonElement content))
                 {
-                    string? text = content.GetString().Trim();
-                    int index = text.IndexOf("\n\n");
-                    return index >= 0 ? text[(index + 2)..] : text;
+                    string? text = content.GetString();
+
+                    if (!string.IsNullOrEmpty(text))
+                    {
+                        text = text.Trim();
+                        int index = text.IndexOf("\n\n");
+                        return index >= 0 ? text[(index + 2)..] : text;
+                    }
                 }
             }
 

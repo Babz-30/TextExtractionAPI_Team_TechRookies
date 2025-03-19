@@ -21,6 +21,12 @@ namespace OCRApplication.Services
 
             var config = Configuration.Config();
             string? url = config["API_URL"]; // API URL
+            var mediaType = config[key: "MEDIA_TYPE"];
+
+            if (string.IsNullOrEmpty(mediaType))
+            {
+                throw new KeyNotFoundException("MEDIA_TYPE key is missing or contains an empty value in the configuration.");
+            }
 
             var requestBody = new
             {
@@ -31,8 +37,8 @@ namespace OCRApplication.Services
             using var client = new HttpClient();
             client.DefaultRequestHeaders.Add("Authorization", config["authtoken"]);
 
-            var content = new StringContent(JsonConvert.SerializeObject(requestBody), Encoding.UTF8, mediaType: config["MEDIA_TYPE"]);
-
+            var content = new StringContent(JsonConvert.SerializeObject(requestBody), Encoding.UTF8, mediaType);
+            
             try
             {
                 HttpResponseMessage response = await client.PostAsync(url, content);
@@ -40,6 +46,10 @@ namespace OCRApplication.Services
                 string? responseContent = await response.Content.ReadAsStringAsync();
 
                 var jsonResponse = JsonConvert.DeserializeObject<dynamic>(responseContent);
+                if (jsonResponse == null)
+                {
+                    return new List<double>(new double[1536]);
+                }
                 var embeddingArray = jsonResponse["data"][0]["embedding"].ToObject<List<double>>();
 
                 return embeddingArray;

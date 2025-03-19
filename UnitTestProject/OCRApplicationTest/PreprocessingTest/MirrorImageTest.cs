@@ -21,11 +21,8 @@ namespace OCRApplicationTest.PreprocessingTest
         [TestMethod]
         public void Process_ValidInput_CreatesMirroredImage()
         {
-            // Arrange
-            MirrorImage mirrorImage = new();
-
             // Act
-            string resultPath = mirrorImage.Process(TestUtilityClass.InputImagePath("test_image.jpg"), outputImagePath);
+            string resultPath = MirrorImage.Process(TestUtilityClass.InputImagePath("test_image.jpg"), outputImagePath);
 
             // Assert
             Assert.IsTrue(File.Exists(resultPath), "Mirrored image was not created.");
@@ -39,7 +36,7 @@ namespace OCRApplicationTest.PreprocessingTest
             MirrorImage mirrorImage = new();
 
             // Act
-            Assert.ThrowsExactly<ArgumentException>(() => mirrorImage.Process("invalid_path.jpg", outputImagePath));
+            Assert.ThrowsExactly<ArgumentException>(() => MirrorImage.Process("invalid_path.jpg", outputImagePath));
         }
 
         // Cleans up test environment by deleting created images.

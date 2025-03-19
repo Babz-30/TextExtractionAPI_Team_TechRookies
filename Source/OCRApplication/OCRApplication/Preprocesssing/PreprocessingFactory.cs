@@ -1,4 +1,5 @@
-﻿using OCRApplication.Helpers;
+﻿using Microsoft.Extensions.Configuration;
+using OCRApplication.Helpers;
 namespace OCRApplication.Preprocesssing
 {
     /// <summary>
@@ -21,25 +22,26 @@ namespace OCRApplication.Preprocesssing
             string variation;
             string outputImagePath;
 
+            var config = Configuration.Config();
+
             // Define parameter sets for different preprocessing techniques
-            float[] rotateAngles = [-45.0f, -30.0f, -20.0f, 20.0f, 30.0f, 45.0f];
-            int[] thresholds = [50, 150, 200];
-            int[] targerDPIs = [50, 100, 200, 300];
-            double[] satFactors = [2.0, 1.5, 0.5];
-            double[] intensityFactors = [2.0, 1.5, 0.5];
+            float[] rotateAngles = GetConfigurationArray<float>(config, "PreprocessingSettings:RotateAngles");
+            int[] thresholds = GetConfigurationArray<int>(config, "PreprocessingSettings:Thresholds");
+            int[] targerDPIs = GetConfigurationArray<int>(config, "PreprocessingSettings:TargetDPIs");
+            double[] satFactors = GetConfigurationArray<double>(config, "PreprocessingSettings:SatFactors");
+            double[] intensityFactors = GetConfigurationArray<double>(config, "PreprocessingSettings:IntensityFactors");
 
             switch (technique)
             {
                 case "rotation":
                     // Apply rotation to the image for different angles and resize variations
-                    RotateImage rm = new();
                     ResizeImage rm2 = new();
 
                     foreach (float angle in rotateAngles)
                     {
                         variation = $"rotated_{angle}";
                         outputImagePath = $"{outputDir}/{variation}.jpg";
-                        var rotatedImg = rm.ApplyRotation(imagePath, outputImagePath, angle);
+                        var rotatedImg = RotateImage.ApplyRotation(imagePath, outputImagePath, angle);
 
                         foreach (int targerDPI in targerDPIs)
                         {
@@ -75,10 +77,9 @@ namespace OCRApplication.Preprocesssing
                     var imgGray = Grayscale.ConvertToGrayscale(imagePath, outputImagePath);
 
                     // Denoise image
-                    var binarize = new Binarization();
                     variation = "grayscale_binarized";
                     outputImagePath = $"{outputDir}/{variation}.jpg";
-                    binarize.ApplyOtsuBinarization(imgGray, outputImagePath);
+                    Binarization.ApplyOtsuBinarization(imgGray, outputImagePath);
                     processedImages[variation] = outputImagePath;
                     break;
 
@@ -88,10 +89,9 @@ namespace OCRApplication.Preprocesssing
                     outputImagePath = $"{outputDir}/{variation}.jpg";
                     var grayImg = Grayscale.ConvertToGrayscale(imagePath, outputImagePath);
 
-                    var bin = new Binarization();
                     variation = "grayscale_binarize";
                     outputImagePath = $"{outputDir}/{variation}.jpg";
-                    var binImg = bin.ApplyOtsuBinarization(grayImg, outputImagePath);
+                    var binImg = Binarization.ApplyOtsuBinarization(grayImg, outputImagePath);
 
                     var resize = new ResizeImage();
                     foreach (int targerDPI in targerDPIs)
@@ -132,8 +132,7 @@ namespace OCRApplication.Preprocesssing
                     // Mirror the image horizontally
                     variation = "mirror";
                     outputImagePath = $"{outputDir}/{variation}.jpg";
-                    MirrorImage mirror = new();
-                    mirror.Process(imagePath, outputImagePath);
+                    MirrorImage.Process(imagePath, outputImagePath);
                     processedImages[variation] = outputImagePath;
                     break;
 
@@ -144,6 +143,13 @@ namespace OCRApplication.Preprocesssing
             }
 
             return processedImages; // Return dictionary containing variations and processed image paths
+        }
+
+        // Helper function to safely get configuration arrays
+        private static T[] GetConfigurationArray<T>(IConfiguration config, string key)
+        {
+            var array = config.GetSection(key).Get<T[]>();
+            return array ?? [];  // Return an empty array if the section is missing or null
         }
     }
 }

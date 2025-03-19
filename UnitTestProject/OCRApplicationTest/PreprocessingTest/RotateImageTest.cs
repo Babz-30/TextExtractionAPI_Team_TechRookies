@@ -21,12 +21,10 @@ namespace OCRApplicationTest.PreprocessingTest
         [TestMethod]
         public void ApplyRotation_ValidInput_CreatesRotatedImage()
         {
-            // Arrange
-            RotateImage rotateImage = new();
             float angle = 45f;
 
             // Act
-            string resultPath = rotateImage.ApplyRotation(TestUtilityClass.InputImagePath("test_image.jpg"), outputImagePath, angle);
+            string resultPath = RotateImage.ApplyRotation(TestUtilityClass.InputImagePath("test_image.jpg"), outputImagePath, angle);
 
             // Assert
             Assert.IsTrue(File.Exists(resultPath), "Output image was not created.");
@@ -40,7 +38,7 @@ namespace OCRApplicationTest.PreprocessingTest
             RotateImage rotateImage = new();
 
             // Act
-            Assert.ThrowsExactly<FileNotFoundException>(() => rotateImage.ApplyRotation("invalid_path.jpg", outputImagePath, 45f));
+            Assert.ThrowsExactly<FileNotFoundException>(() => RotateImage.ApplyRotation("invalid_path.jpg", outputImagePath, 45f));
         }
 
         // Cleans up test environment by deleting created images.

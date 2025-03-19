@@ -25,7 +25,7 @@ namespace OCRApplicationTest.PreprocessingTest
             Binarization binarization = new();
 
             // Act
-            string? resultPath = binarization.ApplyOtsuBinarization( TestUtilityClass.InputImagePath("test_image.jpg"), outputImagePath: outputImagePath);
+            string? resultPath = Binarization.ApplyOtsuBinarization( TestUtilityClass.InputImagePath("test_image.jpg"), outputImagePath: outputImagePath);
 
             // Assert
             Assert.IsTrue(File.Exists(resultPath), "Binarized image was not created.");
@@ -39,7 +39,7 @@ namespace OCRApplicationTest.PreprocessingTest
             Binarization binarization = new();
 
             // Act
-            Assert.ThrowsExactly<ArgumentException>(() => binarization.ApplyOtsuBinarization("invalid_path.jpg", outputImagePath));
+            Assert.ThrowsExactly<ArgumentException>(() => Binarization.ApplyOtsuBinarization("invalid_path.jpg", outputImagePath));
         }
 
         // Cleans up test environment by deleting created images.

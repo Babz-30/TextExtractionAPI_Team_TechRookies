@@ -1,5 +1,4 @@
 ﻿using OCRApplication.Helpers;
-using System.Linq.Expressions;
 using Tesseract;
 
 namespace OCRApplication.Services
@@ -50,8 +49,8 @@ namespace OCRApplication.Services
                 }
 
                 // Calculate metrics
-                float meanConfidence = totalWords > 0 ? (float)confidences.Average() : 0;
-                float dictionaryAccuracy = totalWords > 0 ? (float)correctWords / totalWords * 100 : 0;
+                float meanConfidence = totalWords > 0 ? (float)confidences.Average() /100 : 0;
+                float dictionaryAccuracy = totalWords > 0 ? (float)correctWords / totalWords : 0;
 
                 // If the file doesn't exist, write the headers
                 if (!fileExists)
@@ -61,7 +60,7 @@ namespace OCRApplication.Services
                 }
 
                 // Create a line with the values (CSV format)
-                string newLine = $"{technique},{totalWords},{meanConfidence:F2},{dictionaryAccuracy:F2}";
+                string newLine = $"{technique},{totalWords},{meanConfidence:F4},{dictionaryAccuracy:F4}";
 
                 // Append the new line to the file
                 File.AppendAllText(tesseractConfidenceOutputFilePath, newLine + Environment.NewLine);

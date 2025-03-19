@@ -23,4 +23,4 @@ Once the image is processed, text is extracted using the Tesseract OCR engine, w
 The calculated metrics are then saved in a `.csv` file for further analysis and reporting. Through data mining techniques, we handle and filter out false similarity results to improve accuracy. The best preprocessing technique is identified based on the above metrics, and the extracted text is displayed on the console for the user to review. This application provides an efficient and reliable solution for text extraction from images, offering a detailed analysis of OCR accuracy through computational metrics.
 
 ## Getting Started
-Refer to the [Getting Started Guide](getting_started.md) for instructions on how to set up and run the application.
+Refer to the [Getting Started Guide](../Documentation/document_md/getting_started.md) for instructions on how to set up and run the application.

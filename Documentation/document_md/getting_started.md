@@ -58,4 +58,4 @@
 ## Directory Structure
 Below is an example of the directory structure for input and output files:
 
-![Directory Structure](../mnt/data/image.png)
+![Directory Structure](../Documentation/document_images/InputOutput.png)

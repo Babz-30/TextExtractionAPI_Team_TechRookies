@@ -281,4 +281,3 @@ The process involves the following stages:
 
 Each stage is carefully designed to ensure that the OCR process yields high-quality and accurate text extraction, and that the most effective preprocessing technique is selected for future use.
 
-

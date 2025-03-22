@@ -1,5 +1,8 @@
 ﻿namespace OCRApplication.Helpers
 {
+    /// <summary>
+    /// Utility class providing helper methods for directory and file management within the OCR application.
+    /// </summary>
     public static class UtilityClass
     {
 
@@ -21,6 +24,7 @@
         static readonly string CosineSimilarityFolder = @"Output/Cosine_Similarity_Output";
 
 
+        // Retrieves the root directory of the solution.
         public static string SolutionDirectory()
         {
             string currentDirectory = Directory.GetCurrentDirectory();
@@ -32,7 +36,7 @@
             return parentFullName;
 
         }
-
+        // Retrieves or creates the input image directory.
         public static string InputImageDirectory()
         {
             string directoryPath = Path.Combine(SolutionDirectory(), InputImageFolder);
@@ -43,6 +47,7 @@
             return directoryPath;
         }
 
+        // Retrieves or creates the output image directory.
         public static string OutputImageDirectory()
         {
             string directoryPath = Path.Combine(SolutionDirectory(), OutputImageFolder);
@@ -53,6 +58,7 @@
             return directoryPath;
         }
 
+        // Retrieves or creates the Tesseract OCR output directory.
         public static string TesseractOutputDirectory()
         {
             string directoryPath = Path.Combine(SolutionDirectory(), TesseractOutputFolder);
@@ -63,6 +69,7 @@
             return directoryPath;
         }
 
+        // Constructs the full path of an input image.
         public static string InputImagePath(string filename)
         {
             string imagePath = Path.Combine(InputImageDirectory(), filename);
@@ -75,6 +82,7 @@
             return imagePath;
         }
 
+        // Constructs and ensures the existence of an output image file.
         public static string OutputImagePath(string filename)
         {
             string imagePath = Path.Combine(InputImageDirectory(), filename);
@@ -87,6 +95,7 @@
             return imagePath;
         }
 
+        // Retrieves the full path for storing ChatGPT output text files.
         public static string ChatgptOutputPath(string filename)
         {
             string textFileDirectory = Path.Combine(SolutionDirectory(), ChatgptOutputFolder);
@@ -101,6 +110,7 @@
             return textFilePath;
         }
 
+        // Retrieves the full path for storing Tesseract OCR output files.
         public static string TesseractOutputPath(string filename)
         {
 
@@ -108,6 +118,8 @@
 
             return textFilePath;
         }
+
+        // Retrieves the trained data path for OCR processing.
         public static string TrainedDataPath()
         {
             return Path.Combine(SolutionDirectory(), TrainedDataDirectory);
@@ -119,6 +131,7 @@
             return Path.Combine(TrainedDataPath(), "dictionary.txt");
         }
 
+        // Constructs the path for storing cosine similarity results.
         public static string CosineSimilarityDirectory(string filename)
         {
             string cosineSimilarityDirectory = Path.Combine(SolutionDirectory(), CosineSimilarityFolder);
@@ -126,12 +139,14 @@
             return filePath;
         }
 
+        // Saves content to a specified file.
         public static void SaveToFile(string filePath, string content)
         {
             File.WriteAllText(filePath, content);
             Console.WriteLine("Extracted Text saved to file.\n");
         }
 
+        // Deletes all files from specified output directories.
         public static void DeleteAllFiles()
         {
             // List of folders to empty (change these paths)

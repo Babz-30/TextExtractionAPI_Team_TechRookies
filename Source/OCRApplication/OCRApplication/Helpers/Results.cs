@@ -4,6 +4,9 @@ using System.Globalization;
 
 namespace OCRApplication.Helpers
 {
+    /// <summary>
+    /// Processes OCR results from a CSV file and determines the best-performing technique.
+    /// </summary>
     public class Results
     {
         /// <summary>
@@ -30,6 +33,7 @@ namespace OCRApplication.Helpers
                     results.Add((technique, mean));
                 }
 
+                // Select top 5 techniques based on Mean Cosine Similarity
                 var top = results.OrderByDescending(r => r.Mean).Take(max);
 
                 Console.WriteLine("\n================================================================================================");
@@ -117,6 +121,7 @@ namespace OCRApplication.Helpers
         }
     }
 
+    // Represents an OCR analysis record from the CSV file.
     class OCRAnalysis
     {
         public required string Technique { get; set; }          // Name of preprocessing technique

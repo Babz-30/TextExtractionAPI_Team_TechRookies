@@ -4,10 +4,19 @@ using System.Linq;
 
 namespace OCRApplication.Preprocesssing
 {
+    /// <summary>
+    /// Provides functionality to binarize an image using Otsu's thresholding method.
+    /// </summary>
     public class Binarization
     {
         public static string ApplyOtsuBinarization(string inputImagePath, string outputImagePath)
         {
+            /// <summary>
+            /// Applies Otsu's binarization to convert a grayscale image into a binary (black and white) image.
+            /// </summary>
+            /// <param name="inputImagePath">Path to the input image.</param>
+            /// <param name="outputImagePath">Path where the binarized image will be saved.</param>
+            /// <returns>Path to the output binarized image.</returns>
             try
             {
                 using Bitmap inputImage = new(inputImagePath);

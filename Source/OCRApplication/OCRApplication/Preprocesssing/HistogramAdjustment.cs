@@ -4,17 +4,30 @@ using System.Drawing.Imaging;
 
 namespace OCRApplication.Preprocesssing
 {
+    /// <summary>
+    /// Performs histogram-based adjustments on an image by modifying saturation and intensity.
+    /// </summary>
     public class HistogramAdjustment
     {
+        /// <summary>
+        /// Adjusts the histogram of an image by applying saturation and intensity modifications.
+        /// </summary>
+        /// <param name="inputImagePath">Path to the input image.</param>
+        /// <param name="outputImagePath">Path where the adjusted image will be saved.</param>
+        /// <param name="saturationFactor">Factor by which to adjust image saturation.</param>
+        /// <param name="intensityFactor">Factor by which to adjust image intensity.</param>
+        /// <returns>Path to the output adjusted image.</returns>
         public string ApplyHistogramAdjustment(string inputImagePath, string outputImagePath, double saturationFactor, double intensityFactor)
         {
             try
             {
+                // Load the input image
                 using Bitmap inputImage = new(inputImagePath);
                 int width = inputImage.Width;
                 int height = inputImage.Height;
                 using Bitmap adjustedImage = new(width, height);
 
+                // Iterate through each pixel and adjust its color properties
                 for (int y = 0; y < height; y++)
                 {
                     for (int x = 0; x < width; x++)
@@ -60,6 +73,7 @@ namespace OCRApplication.Preprocesssing
                 float q = intensity * (1 - saturation * f);
                 float t = intensity * (1 - saturation * (1 - f));
 
+                // Determine RGB values based on the hue segment
                 switch (i)
                 {
                     case 0: r = (int)(intensity * 255); g = (int)(t * 255); b = (int)(p * 255); break;

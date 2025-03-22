@@ -5,8 +5,14 @@ using Tesseract;
 
 namespace OCRApplication.Services
 {
+    /// <summary>
+    /// Provides functionality to extract text from an image using OCR (Optical Character Recognition).
+    /// </summary>
     internal class TextExtraction
     {
+        /// <summary>
+        /// Path to the trained Tesseract data folder.
+        /// </summary>
         // Path to the trained tessdata folder
         readonly string TrainedDataPath = UtilityClass.TrainedDataPath();
         

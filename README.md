@@ -24,7 +24,7 @@ The calculated metrics are then saved in a [`ExtractedTextMeanConfidence.csv`](S
 
 ## Flowchart
 <div align="center">
-  [![Flowchart](/Documentation/document_images/flowchart.png)](/Documentation/document_md/code_overview.md)
+  [![Flowchart](Documentation/document_images/flowchart.png)](Documentation/document_md/code_overview.md)
   <p style="text-align: center;">Figure 1: Project Overview</p>
 </div>
 

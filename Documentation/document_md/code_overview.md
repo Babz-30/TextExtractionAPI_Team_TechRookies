@@ -32,9 +32,9 @@ Our project follows a structured approach for extracting, analyzing, and evaluat
 The process involves the following stages:
 
 1. ## **Image Preprocessing**: 
-   - The raw image undergoes various transformations such as rotation, thresholding, and resizing to enhance the quality of text extraction. Different preprocessing techniques are combined to get the most effective one in [`PreprocessingFactory`](Source/OCRApplication/OCRApplication/Preprocesssing/PreprocessingFactory.cs)
+   - The raw image undergoes various transformations such as rotation, thresholding, and resizing to enhance the quality of text extraction. Different preprocessing techniques are combined to get the most effective one in [`PreprocessingFactory`](../../Source/OCRApplication/OCRApplication/Preprocesssing/PreprocessingFactory.cs)
 
-    1. ## [`Rotation`](Source/OCRApplication/OCRApplication/Preprocesssing/RotateImage.cs) combined with [`Resize`](Source/OCRApplication/OCRApplication/Preprocesssing/ResizeImage.cs)
+    1. ## [`Rotation`](../../Source/OCRApplication/OCRApplication/Preprocesssing/RotateImage.cs) combined with [`Resize`](../../Source/OCRApplication/OCRApplication/Preprocesssing/ResizeImage.cs)
 
    ```csharp 
    case "rotation":
@@ -56,7 +56,7 @@ The process involves the following stages:
     }
     break;
    ```
-   2. ## [`CannyFilter`](Source/OCRApplication/OCRApplication/Preprocesssing/CannyFilter.cs) combined with [`Invert`](Source/OCRApplication/OCRApplication/Preprocesssing/InvertImage.cs)
+   2. ## [`CannyFilter`](../../Source/OCRApplication/OCRApplication/Preprocesssing/CannyFilter.cs) combined with [`Invert`](../../Source/OCRApplication/OCRApplication/Preprocesssing/InvertImage.cs)
 
    ```csharp 
     case "cannyfilter":
@@ -76,7 +76,7 @@ The process involves the following stages:
     break;
    ```
 
-   3. ## [`Grayscale`](Source/OCRApplication/OCRApplication/Preprocesssing/Grayscale.cs) combined with [`Binarization`](Source/OCRApplication/OCRApplication/Preprocesssing/Binarization.cs)
+   3. ## [`Grayscale`](../../Source/OCRApplication/OCRApplication/Preprocesssing/Grayscale.cs) combined with [`Binarization`](../../Source/OCRApplication/OCRApplication/Preprocesssing/Binarization.cs)
 
    ```csharp
    case "denoise":
@@ -93,7 +93,7 @@ The process involves the following stages:
     break;
     ```
 
-    4. ## [`Grayscale`](Source/OCRApplication/OCRApplication/Preprocesssing/Grayscale.cs) combined with [`Binarization`](Source/OCRApplication/OCRApplication/Preprocesssing/Binarization.cs) and with [`Binarization`](Source/OCRApplication/OCRApplication/Preprocesssing/ResizeImage.cs)
+    4. ## [`Grayscale`](../../Source/OCRApplication/OCRApplication/Preprocesssing/Grayscale.cs) combined with [`Binarization`](../../Source/OCRApplication/OCRApplication/Preprocesssing/Binarization.cs) and with [`Binarization`](../../Source/OCRApplication/OCRApplication/Preprocesssing/ResizeImage.cs)
 
     ```csharp
     case "chainfilter":
@@ -116,7 +116,7 @@ The process involves the following stages:
     break;
     ```
 
-    5. ## [`Invert`](Source/OCRApplication/OCRApplication/Preprocesssing/InvertImage.cs)
+    5. ## [`Invert`](../../Source/OCRApplication/OCRApplication/Preprocesssing/InvertImage.cs)
 
     ```csharp
     case "invert":
@@ -128,7 +128,7 @@ The process involves the following stages:
     break;
     ```
 
-    6. ## [`Hue Saturation Intensity Adjustment`](Source/OCRApplication/OCRApplication/Preprocesssing/HistogramAdjustment.cs)
+    6. ## [`Hue Saturation Intensity Adjustment`](../../Source/OCRApplication/OCRApplication/Preprocesssing/HistogramAdjustment.cs)
 
     ```csharp
     case "hsi_adjustment":
@@ -147,7 +147,7 @@ The process involves the following stages:
     break;
     ```
 
-    7. ## [`Mirror`](Source/OCRApplication/OCRApplication/Preprocesssing/MirrorImage.cs)
+    7. ## [`Mirror`](../../Source/OCRApplication/OCRApplication/Preprocesssing/MirrorImage.cs)
 
     ```csharp
      case "mirror_horizontal":
@@ -160,20 +160,20 @@ The process involves the following stages:
      ```
 
 2. ## **Optical Character Recognition (OCR)**: 
-   - Tesseract OCR technology is used to extract text from the preprocessed image. The goal is to maximize OCR accuracy by optimizing the preprocessing techniques used in the previous stage. The OCR process involves three main steps: segmentation, character recognition, and confidence scoring. [`TextExtraction`](Source/OCRApplication/OCRApplication/Services/TextExtraction.cs)
+   - Tesseract OCR technology is used to extract text from the preprocessed image. The goal is to maximize OCR accuracy by optimizing the preprocessing techniques used in the previous stage. The OCR process involves three main steps: segmentation, character recognition, and confidence scoring. [`TextExtraction`](../../Source/OCRApplication/OCRApplication/Services/TextExtraction.cs)
 
 3. ## **Text Embedding**: 
-   - The extracted text is then converted into embeddings using OpenAI text embedding model, specifically text-embedding-ada-002. This step helps in transforming the text into a numerical representation known as an embedding. These embeddings capture the semantic meaning of the text, enabling accurate comparisons between different OCR outputs. [`TextEmbedding`](Source/OCRApplication/OCRApplication/Services/TextEmbedding.cs)
+   - The extracted text is then converted into embeddings using OpenAI text embedding model, specifically text-embedding-ada-002. This step helps in transforming the text into a numerical representation known as an embedding. These embeddings capture the semantic meaning of the text, enabling accurate comparisons between different OCR outputs. [`TextEmbedding`](../../Source/OCRApplication/OCRApplication/Services/TextEmbedding.cs)
 
 4. ## **Similarity Computation**: 
-   - We calculate the similarity of the extracted text between different preprocessing technique variations. This allows for evaluating how well the OCR process has performed, A higher similarity score [`0 < similarity score < 1`] indicates that the OCR result is more semantically similar. [`TextSimilarity`](Source/OCRApplication/OCRApplication/Services/TextSimilarity.cs)
+   - We calculate the similarity of the extracted text between different preprocessing technique variations. This allows for evaluating how well the OCR process has performed, A higher similarity score [`0 < similarity score < 1`] indicates that the OCR result is more semantically similar. [`TextSimilarity`](../../Source/OCRApplication/OCRApplication/Services/TextSimilarity.cs)
 
 5. ## **Performance Evaluation**: 
    - The performance of different preprocessing techniques is evaluated by comparing the OCR results. This stage helps in selecting the best approach for image text extraction. 
    
    - Additionally, we compute dictionary accuracy, which determines the proportion of recognized words that exist in a predefined dictionary. This metric helps assess OCR performance by filtering out incorrectly recognized words.
      
-   - Furthermore, the mean confidence score is calculated by averaging the confidence levels assigned by the OCR engine to each word. A high confidence score indicates that the OCR engine is more certain about its text recognition. [`TextAnalysis`](Source/OCRApplication/OCRApplication/Services/TextAnalysis.cs)
+   - Furthermore, the mean confidence score is calculated by averaging the confidence levels assigned by the OCR engine to each word. A high confidence score indicates that the OCR engine is more certain about its text recognition. [`TextAnalysis`](../../Source/OCRApplication/OCRApplication/Services/TextAnalysis.cs)
 
    ```csharp
    string dictionaryPath = UtilityClass.DictionaryPath();
@@ -209,13 +209,13 @@ The process involves the following stages:
     float meanConfidence = totalWords > 0 ? (float)confidences.Average() /100 : 0;
     float dictionaryAccuracy = totalWords > 0 ? (float)correctWords / totalWords : 0;
     ```
-   - The above Dictionary Accuracy and Mean Confidence Score for each Technique are stored in [`ExtractedTextMeanConfidence.csv`](Source/OCRApplication/OCRApplication/Output/Tesseract_Output/ExtractedTextMeanConfidence.csv) file.
+   - The above Dictionary Accuracy and Mean Confidence Score for each Technique are stored in [`ExtractedTextMeanConfidence.csv`](../../Source/OCRApplication/OCRApplication/Output/Tesseract_Output/ExtractedTextMeanConfidence.csv) file.
 
-   - We Calculate the Mean Cosine Similarity of each technique compared with other techniques from the [`CosineSimilarityMatrix.csv`](Source/OCRApplication/OCRApplication/Output/Cosine_Similarity_Output/CosineSimilarityMatrix.csv) file. Top N Tecniques based on input parameter Max are then selected by eleminating false/low similarity.
+   - We Calculate the Mean Cosine Similarity of each technique compared with other techniques from the [`CosineSimilarityMatrix.csv`](../../Source/OCRApplication/OCRApplication/Output/Cosine_Similarity_Output/CosineSimilarityMatrix.csv) file. Top N Tecniques based on input parameter Max are then selected by eleminating false/low similarity.
 
    - Later we sort the selected N Techniques first by DictionaryAccuracy and then by MeanConfidenceScore in descending order after combining above two .csv results.
 
-    [`Results.cs`](Source/OCRApplication/OCRApplication/Helpers/Results.cs)
+    [`Results.cs`](../../Source/OCRApplication/OCRApplication/Helpers/Results.cs)
    ```csharp
     // Select top N techniques based on Mean Cosine Similarity
     var results = new List<(string Technique, double Mean)>();
@@ -251,7 +251,7 @@ The process involves the following stages:
 6. ## **Final Selection**: 
    - Based on the performance evaluations, the best preprocessing technique is chosen to ensure reliable text extraction from the images. 
 
-    [`Results.cs`](Source/OCRApplication/OCRApplication/Helpers/Results.cs)
+    [`Results.cs`](../../Source/OCRApplication/OCRApplication/Helpers/Results.cs)
     ```csharp
     // Best technique
     var bestTechnique = topWithAccuracy.First();

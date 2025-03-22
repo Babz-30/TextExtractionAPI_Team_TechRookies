@@ -7,6 +7,11 @@ namespace OCRApplication.Services
     {
         static readonly string tesseractConfidenceOutputFilePath = UtilityClass.TesseractOutputPath("ExtractedTextMeanConfidence.csv");
 
+        /// <summary>
+        /// Compute extracted text dictionary accuracy and mean confidence determined by tesseract and save it to .csv file.
+        /// </summary>
+        /// <param name="technique"></param>
+        /// <param name="page"></param>
         public static void SaveConfidence(string technique, Page page)
         { 
             // Check if the file exists

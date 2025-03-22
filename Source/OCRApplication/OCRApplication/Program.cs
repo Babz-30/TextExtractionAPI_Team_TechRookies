@@ -28,7 +28,8 @@ namespace OCRApplication
                     "invert",
                     "hsi_adjustment",
                     "denoise",
-                    "mirror_horizontal"
+                    "mirror_horizontal",
+                    "default"
                 ];
 
                 Dictionary<string, string> preprocessedImages = [];

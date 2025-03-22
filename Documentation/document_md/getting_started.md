@@ -44,7 +44,8 @@
       "MEDIA_TYPE": "application/json"
    }
    ```
-   - Input Parameter Description 
+   - Input Parameter Description
+     
    ![Input Parameter](/Documentation/document_images/InputParameters.png)
 
 7. **Run the Application**

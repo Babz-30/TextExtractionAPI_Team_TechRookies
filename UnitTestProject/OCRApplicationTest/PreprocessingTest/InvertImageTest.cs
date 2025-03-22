@@ -27,7 +27,7 @@ public class InvertImageTest
         InvertImage invertImage = new();
 
         // Act
-        string resultPath = invertImage.InvertingImage(TestUtilityClass.InputImagePath("test_image.jpg"), outputImagePath);
+        string resultPath = InvertImage.InvertingImage(TestUtilityClass.InputImagePath("test_image.jpg"), outputImagePath);
 
         // Assert
         Assert.IsTrue(File.Exists(resultPath), "Inverted image was not created.");
@@ -41,7 +41,7 @@ public class InvertImageTest
         InvertImage invertImage = new();
 
         // Act
-        Assert.ThrowsExactly<ArgumentException>(() => invertImage.InvertingImage("invalid_path.jpg", outputImagePath));
+        Assert.ThrowsExactly<ArgumentException>(() => InvertImage.InvertingImage("invalid_path.jpg", outputImagePath));
     }
 
     // Cleans up test environment by deleting created images.

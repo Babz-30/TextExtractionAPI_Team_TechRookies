@@ -3,8 +3,17 @@ using System.Drawing;
 
 namespace OCRApplication.Preprocesssing
 {
+    /// <summary>
+    /// Provides functionality to convert an image to grayscale.
+    /// </summary>
     public class Grayscale
     {
+        /// <summary>
+        /// Converts an input image to grayscale using a weighted sum method.
+        /// </summary>
+        /// <param name="inputImagePath">Path to the input image.</param>
+        /// <param name="outputImagePath">Path where the grayscale image will be saved.</param>
+        /// <returns>Path to the output grayscale image.</returns>
         public static string ConvertToGrayscale(string inputImagePath, string outputImagePath)
         {
             try

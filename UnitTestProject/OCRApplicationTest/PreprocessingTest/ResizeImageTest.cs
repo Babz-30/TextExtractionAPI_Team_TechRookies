@@ -26,7 +26,7 @@ public class ResizeImageTest
         int targetDPI = 300;
 
         // Act
-        string resultPath = resizeImage.ResizingImage(TestUtilityClass.InputImagePath("test_image.jpg"), outputImagePath, targetDPI);
+        string resultPath = ResizeImage.ResizingImage(TestUtilityClass.InputImagePath("test_image.jpg"), outputImagePath, targetDPI);
 
         // Assert
         Assert.IsTrue(File.Exists(resultPath), "Resized image was not created.");
@@ -41,7 +41,7 @@ public class ResizeImageTest
         int targetDPI = 300;
 
         // Act
-        Assert.ThrowsExactly<ArgumentException>(() => resizeImage.ResizingImage("invalid_path.jpg", outputImagePath, targetDPI));
+        Assert.ThrowsExactly<ArgumentException>(() => ResizeImage.ResizingImage("invalid_path.jpg", outputImagePath, targetDPI));
     }
 
     // Cleans up test environment by deleting created images.

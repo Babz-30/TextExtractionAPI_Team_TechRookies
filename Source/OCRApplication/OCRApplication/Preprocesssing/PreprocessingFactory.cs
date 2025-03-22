@@ -35,7 +35,6 @@ namespace OCRApplication.Preprocesssing
             {
                 case "rotation":
                     // Apply rotation to the image for different angles and resize variations
-                    ResizeImage rm2 = new();
 
                     foreach (float angle in rotateAngles)
                     {
@@ -47,7 +46,7 @@ namespace OCRApplication.Preprocesssing
                         {
                             variation = $"rotated_{angle}_resized_{targerDPI}";
                             outputImagePath = $"{outputDir}/{variation}.jpg";
-                            rm2.ResizingImage(rotatedImg, outputImagePath, targerDPI);
+                            ResizeImage.ResizingImage(rotatedImg, outputImagePath, targerDPI);
                             processedImages[variation] = outputImagePath;
                         }
                     }
@@ -55,7 +54,6 @@ namespace OCRApplication.Preprocesssing
 
                 case "cannyfilter":
                     // Apply Canny edge detection and invert the resulting image
-                    var invertImage = new InvertImage();
 
                     foreach (int threshold in thresholds)
                     {
@@ -65,7 +63,7 @@ namespace OCRApplication.Preprocesssing
 
                         variation = $"cannyfilter_{threshold}_invert";
                         outputImagePath = $"{outputDir}/{variation}.jpg";
-                        invertImage.InvertingImage(cannyImage, outputImagePath);
+                        InvertImage.InvertingImage(cannyImage, outputImagePath);
                         processedImages[variation] = outputImagePath;
                     }
                     break;
@@ -93,12 +91,11 @@ namespace OCRApplication.Preprocesssing
                     outputImagePath = $"{outputDir}/{variation}.jpg";
                     var binImg = Binarization.ApplyOtsuBinarization(grayImg, outputImagePath);
 
-                    var resize = new ResizeImage();
                     foreach (int targerDPI in targerDPIs)
                     {
                         variation = $"grayscale_binarize_resized_{targerDPI}";
                         outputImagePath = $"{outputDir}/{variation}.jpg";
-                        resize.ResizingImage(binImg, outputImagePath, targerDPI);
+                        ResizeImage.ResizingImage(binImg, outputImagePath, targerDPI);
                         processedImages[variation] = outputImagePath;
                     }
                     break;
@@ -107,14 +104,12 @@ namespace OCRApplication.Preprocesssing
                     // Invert the image
                     variation = "inverted";
                     outputImagePath = $"{outputDir}/{variation}.jpg";
-                    var invert = new InvertImage();
-                    invert.InvertingImage(imagePath, outputImagePath);
+                    InvertImage.InvertingImage(imagePath, outputImagePath);
                     processedImages[variation] = outputImagePath;
                     break;
 
                 case "hsi_adjustment":
                     // Apply Histogram Adjustment with different saturation and intensity factors
-                    HistogramAdjustment ha = new();
 
                     foreach (double sat in satFactors)
                     {
@@ -122,7 +117,7 @@ namespace OCRApplication.Preprocesssing
                         {
                             variation = $"hsi_s{sat}_i{intensity}";
                             outputImagePath = $"{outputDir}/{variation}.jpg";
-                            ha.ApplyHistogramAdjustment(imagePath, outputImagePath, sat, intensity);
+                            HistogramAdjustment.ApplyHistogramAdjustment(imagePath, outputImagePath, sat, intensity);
                             processedImages[variation] = outputImagePath;
                         }
                     }

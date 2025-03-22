@@ -3,6 +3,9 @@ using Tesseract;
 
 namespace OCRApplication.Services
 {
+    /// <summary>
+    /// Handles text analysis using Tesseract OCR, including word confidence levels and dictionary accuracy.
+    /// </summary>
     public class TextAnalysis
     {
         static readonly string tesseractConfidenceOutputFilePath = UtilityClass.TesseractOutputPath("ExtractedTextMeanConfidence.csv");

@@ -185,7 +185,7 @@
 ## Image6
 
 ### Original Image
-![Image2](../document_images/Results/image6.jpg)
+![Image2](../document_images/Results/image6.png)
 
 ### Configuration (appsettings.json)
 ```json

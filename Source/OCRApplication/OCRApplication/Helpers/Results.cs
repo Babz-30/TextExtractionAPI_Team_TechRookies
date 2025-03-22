@@ -33,7 +33,7 @@ namespace OCRApplication.Helpers
                     results.Add((technique, mean));
                 }
 
-                // Select top 5 techniques based on Mean Cosine Similarity
+                // Select top techniques based on Mean Cosine Similarity
                 var top = results.OrderByDescending(r => r.Mean).Take(max);
 
                 Console.WriteLine("\n================================================================================================");

@@ -27,7 +27,7 @@ namespace OCRApplicationTest.PreprocessingTest
             double intensityFactor = 1.1;
 
             // Act
-            string resultPath = histogramAdjustment.ApplyHistogramAdjustment(TestUtilityClass.InputImagePath("test_image.jpg"), outputImagePath, saturationFactor, intensityFactor);
+            string resultPath = HistogramAdjustment.ApplyHistogramAdjustment(TestUtilityClass.InputImagePath("test_image.jpg"), outputImagePath, saturationFactor, intensityFactor);
 
             // Assert
             Assert.IsTrue(File.Exists(resultPath), "Histogram adjusted image was not created.");
@@ -41,7 +41,7 @@ namespace OCRApplicationTest.PreprocessingTest
             HistogramAdjustment histogramAdjustment = new();
 
             // Act
-            Assert.ThrowsExactly<ArgumentException>(() => histogramAdjustment.ApplyHistogramAdjustment("invalid_path.jpg", outputImagePath, 1.2, 1.1));
+            Assert.ThrowsExactly<ArgumentException>(() => HistogramAdjustment.ApplyHistogramAdjustment("invalid_path.jpg", outputImagePath, 1.2, 1.1));
         }
 
         // Cleans up test environment by deleting created images.

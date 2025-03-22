@@ -17,7 +17,7 @@ namespace OCRApplication.Preprocesssing
         /// <param name="saturationFactor">Factor by which to adjust image saturation.</param>
         /// <param name="intensityFactor">Factor by which to adjust image intensity.</param>
         /// <returns>Path to the output adjusted image.</returns>
-        public string ApplyHistogramAdjustment(string inputImagePath, string outputImagePath, double saturationFactor, double intensityFactor)
+        public static string ApplyHistogramAdjustment(string inputImagePath, string outputImagePath, double saturationFactor, double intensityFactor)
         {
             try
             {
@@ -57,7 +57,7 @@ namespace OCRApplication.Preprocesssing
             }
         }
 
-        private Color HSIToRGB(float hue, float saturation, float intensity)
+        private static Color HSIToRGB(float hue, float saturation, float intensity)
         {
             int r, g, b;
             if (saturation == 0)

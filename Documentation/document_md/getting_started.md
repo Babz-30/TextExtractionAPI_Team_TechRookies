@@ -37,12 +37,19 @@
        "TargetDPIs": [ 50, 100, 200, 300 ],
        "SatFactors": [ 2.0, 1.5, 0.5 ],
        "IntensityFactors": [ 2.0, 1.5, 0.5 ]
-     }
+     },
+      "Max": 10,
+      "API_URL": "https://api.openai.com/v1/embeddings",
+      "EMBEDDING_MODEL": "text-embedding-ada-002",
+      "MEDIA_TYPE": "application/json"
    }
    ```
+   - Input Parameter Description
+     
+   ![Input Parameter](/Documentation/document_images/InputParameters.png)
 
 7. **Run the Application**
-   - Execute the application in the terminal.
+   - Execute the application on IDE.
 
 8. **View the Results**
    - The extracted text is displayed on the console.
@@ -56,6 +63,6 @@
      - `Output\Cosine_Similarity_Output` → `CosineSimilarityMatrix.csv` for similarity analysis.
 
 ## Directory Structure
-Below is an example of the directory structure for input and output files:
+   Below displays the directory structure for input and output files:
 
-![Directory Structure](../document_images/InputOutput.png)
+   ![Directory Structure](../document_images/InputOutput.png)

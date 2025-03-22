@@ -16,7 +16,7 @@ We have developed an advanced text extraction application that leverages the Tes
 Once the image is processed, text is extracted using the Tesseract OCR engine, which is a robust open-source Optical Character Recognition (OCR) tool. After text extraction, we compute metrics such as:
 
 - **Text embedding**: Converting the text into numerical representations for analysis.
-- **Cosine similarity**: Comparing the extracted text to a reference text or dictionary.
+- **Cosine similarity**: Comparing the extracted text between different preprocessing technique.
 - **Dictionary accuracy**: Measuring the proportion of recognized words that exist in a predefined dictionary.
 - **Mean word confidence**: The average confidence score of the words detected by the OCR system.
 

@@ -22,5 +22,19 @@ Once the image is processed, text is extracted using the Tesseract OCR engine, w
 
 The calculated metrics are then saved in a `.csv` file for further analysis and reporting. Through data mining techniques, we handle and filter out false similarity results to improve accuracy. The best preprocessing technique is identified based on the above metrics, and the extracted text is displayed on the console for the user to review. This application provides an efficient and reliable solution for text extraction from images, offering a detailed analysis of OCR accuracy through computational metrics.
 
+## Flowchart
+[Flowchart](../document_images/flowchart.png)
+
 ## Getting Started
 Refer to the [Getting Started Guide](/Documentation/document_md/getting_started.md) for instructions on how to set up and run the application.
+
+## Results
+The extracted text, preprocessed images, and computational metrics are stored in the `Output` folder.
+
+### **📌 Access the Results**
+- 📷 **Preprocessed Images:** [`Output/Preprocessed_Image_Output`](Source/OCRApplication/OCRApplication/Output/Preprocessed_Image_Output)
+- 📝 **Extracted Text & Metrics:** [`Output/Tesseract_Output`](Source/OCRApplication/OCRApplication/Output/Tesseract_Output)
+- 📊 **Cosine Similarity Matrix:** [`Output/Cosine_Similarity_Output/CosineSimilarityMatrix.csv`](Source/OCRApplication/OCRApplication/Output/Cosine_Similarity_Output/)
+
+### 📂 Test Results Documented
+Refer [Results](/Documentation/document_md/results.md) for sample image input and output. 

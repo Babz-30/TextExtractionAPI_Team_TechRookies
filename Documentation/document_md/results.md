@@ -36,13 +36,13 @@
 ```
 
 ### Console Output
-![Console Output](../document_images/Results/image1_console.jpg)
+![Console Output](../document_images/Results/image1_console.png)
 
 ### Metrics
-![Metrics](../document_images/Results/image1_metrics.jpg)
+![Metrics](../document_images/Results/image1_metrics.png)
 
 ### Graph Representation
-![Graph](../document_images/Results/image1_graph.jpg)
+![Graph](../document_images/Results/image1_graph.png)
 
 ---
 
@@ -70,13 +70,13 @@
 ```
 
 ### Console Output
-![Console Output](../document_images/Results/image2_console.jpg)
+![Console Output](../document_images/Results/image2_console.png)
 
 ### Metrics
-![Metrics](../document_images/Results/image2_metrics.jpg)
+![Metrics](../document_images/Results/image2_metrics.png)
 
 ### Graph Representation
-![Graph](../document_images/Results/image2_graph.jpg)
+![Graph](../document_images/Results/image2_graph.png)
 
 ---
 
@@ -104,13 +104,13 @@
 ```
 
 ### Console Output
-![Console Output](../document_images/Results/image3_console.jpg)
+![Console Output](../document_images/Results/image3_console.png)
 
 ### Metrics
-![Metrics](../document_images/Results/image3_metrics.jpg)
+![Metrics](../document_images/Results/image3_metrics.png)
 
 ### Graph Representation
-![Graph](../document_images/Results/image3_graph.jpg)
+![Graph](../document_images/Results/image3_graph.png)
 
 ---
 
@@ -138,13 +138,13 @@
 ```
 
 ### Console Output
-![Console Output](../document_images/Results/image4_console.jpg)
+![Console Output](../document_images/Results/image4_console.png)
 
 ### Metrics
-![Metrics](../document_images/Results/image4_metrics.jpg)
+![Metrics](../document_images/Results/image4_metrics.png)
 
 ### Graph Representation
-![Graph](../document_images/Results/image4_graph.jpg)
+![Graph](../document_images/Results/image4_graph.png)
 
 ---
 
@@ -172,13 +172,13 @@
 ```
 
 ### Console Output
-![Console Output](../document_images/Results/image5_console.jpg)
+![Console Output](../document_images/Results/image5_console.png)
 
 ### Metrics
-![Metrics](../document_images/Results/image5_metrics.jpg)
+![Metrics](../document_images/Results/image5_metrics.png)
 
 ### Graph Representation
-![Graph](../document_images/Results/image5_graph.jpg)
+![Graph](../document_images/Results/image5_graph.png)
 
 ---
 
@@ -206,20 +206,20 @@
 ```
 
 ### Console Output
-![Console Output](../document_images/Results/image6_console.jpg)
+![Console Output](../document_images/Results/image6_console.png)
 
 ### Metrics
-![Metrics](../document_images/Results/image6_metrics.jpg)
+![Metrics](../document_images/Results/image6_metrics.png)
 
 ### Graph Representation
-![Graph](../document_images/Results/image6_graph.jpg)
+![Graph](../document_images/Results/image6_graph.png)
 
 ---
 
 ## Image7
 
 ### Original Image
-![Image2](../document_images/Results/image7.jpg)
+![Image2](../document_images/Results/image7.png)
 
 ### Configuration (appsettings.json)
 ```json
@@ -240,13 +240,13 @@
 ```
 
 ### Console Output
-![Console Output](../document_images/Results/image7_console.jpg)
+![Console Output](../document_images/Results/image7_console.png)
 
 ### Metrics
-![Metrics](../document_images/Results/image7_metrics.jpg)
+![Metrics](../document_images/Results/image7_metrics.png)
 
 ### Graph Representation
-![Graph](../document_images/Results/image7_graph.jpg)
+![Graph](../document_images/Results/image7_graph.png)
 
 ---
 
@@ -274,10 +274,10 @@
 ```
 
 ### Console Output
-![Console Output](../document_images/Results/image8_console.jpg)
+![Console Output](../document_images/Results/image8_console.png)
 
 ### Metrics
-![Metrics](../document_images/Results/image8_metrics.jpg)
+![Metrics](../document_images/Results/image8_metrics.png)
 
 ### Graph Representation
-![Graph](../document_images/Results/image8_graph.jpg)
+![Graph](../document_images/Results/image8_graph.png)

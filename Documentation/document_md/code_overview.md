@@ -93,7 +93,7 @@ The process involves the following stages:
     break;
     ```
 
-    4. ## [`Grayscale`](../../Source/OCRApplication/OCRApplication/Preprocesssing/Grayscale.cs) combined with [`Binarization`](../../Source/OCRApplication/OCRApplication/Preprocesssing/Binarization.cs) and with [`Binarization`](../../Source/OCRApplication/OCRApplication/Preprocesssing/ResizeImage.cs)
+    4. ## [`Grayscale`](../../Source/OCRApplication/OCRApplication/Preprocesssing/Grayscale.cs) combined with [`Binarization`](../../Source/OCRApplication/OCRApplication/Preprocesssing/Binarization.cs) and with [`Resize`](../../Source/OCRApplication/OCRApplication/Preprocesssing/ResizeImage.cs)
 
     ```csharp
     case "chainfilter":

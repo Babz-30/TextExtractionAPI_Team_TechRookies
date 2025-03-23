@@ -1,4 +1,4 @@
-# Getting Started
+# Getting Started Guide
 
 ## Steps to run the console app
 

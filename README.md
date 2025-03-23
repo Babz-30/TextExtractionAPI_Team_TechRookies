@@ -29,7 +29,7 @@ The calculated metrics are then saved in a [`ExtractedTextMeanConfidence.csv`](S
 <p align="center"><i>Figure 1: Project Overview</i></p>
 
 ## Code Overview
-Refer [Documentation](/Documentation/document_md/code_overview.md) for methodology and code overview.
+🖥️ Refer [Documentation](/Documentation/document_md/code_overview.md) for methodology and code overview.
 
 ## Getting Started
 Refer to the [Getting Started Guide](/Documentation/document_md/getting_started.md) for instructions on how to set up and run the application.

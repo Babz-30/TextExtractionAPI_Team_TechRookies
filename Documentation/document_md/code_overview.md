@@ -1,24 +1,25 @@
 
-# Table of Contents
+# **📜** Table of Contents
 
 1. [Project Overview](#project-overview)
 2. [Methodology](#methodology)
    - [Image Preprocessing](#image-preprocessing)
-     - [Rotation and Resize](#rotation-and-resize)
-     - [CannyFilter and Invert](#cannyfilter-and-invert)
-     - [Grayscale and Binarization](#grayscale-and-binarization)
-     - [Grayscale, Binarization, and Resize](#grayscale-binarization-and-resize)
+     - [Rotation and Resize](#rotation-combined-with-resize)
+     - [CannyFilter and Invert](#cannyfilter-combined-with-invert)
+     - [Grayscale and Binarization](#grayscale-combined-with-binarization)
+     - [Grayscale, Binarization, and Resize](#grayscale-combined-with-binarization-and-with-resize)
      - [Invert](#invert)
-     - [HSI Adjustment](#hsi-adjustment)
+     - [HSI Adjustment](#hue-saturation-intensity-adjustment)
      - [Mirror](#mirror)
    - [Optical Character Recognition (OCR)](#optical-character-recognition-ocr)
    - [Text Embedding](#text-embedding)
    - [Similarity Computation](#similarity-computation)
    - [Performance Evaluation](#performance-evaluation)
    - [Final Selection](#final-selection)
+3. [Experiment Results](#experiment-results)
 
 
-# Project Overview
+# **🛠️** Project Overview
 
 Our project follows a structured approach for extracting, analyzing, and evaluating text from images, as illustrated in [Figure 1](#figure1). The methodology consists of multiple stages aimed at optimizing Optical Character Recognition (OCR) accuracy and determining the most effective preprocessing techniques for reliable text extraction.
 
@@ -27,7 +28,7 @@ Our project follows a structured approach for extracting, analyzing, and evaluat
 </p>
 <p align="center"><i>Figure 1: Block diagram representing the workflow of OCR</i></p>
 
-## Methodology
+## **🚀** Methodology
 
 The process involves the following stages:
 
@@ -281,3 +282,12 @@ The process involves the following stages:
 
 Each stage is carefully designed to ensure that the OCR process yields high-quality and accurate text extraction, and that the most effective preprocessing technique is selected for future use.
 
+## **📌** Experiment Results
+
+**🗂️ Code Results Folders**
+- 📷 **Preprocessed Images:** [`Output/Preprocessed_Image_Output`](../../Source/OCRApplication/OCRApplication/Output/Preprocessed_Image_Output)
+- 📝 **Extracted Text & Metrics:** [`Output/Tesseract_Output`](../../Source/OCRApplication/OCRApplication/Output/Tesseract_Output)
+- 🎛️ **Cosine Similarity Matrix:** [`Output/Cosine_Similarity_Output/CosineSimilarityMatrix.csv`](../../Source/OCRApplication/OCRApplication/Output/Cosine_Similarity_Output/)
+
+**📊 Test Results Documented**
+Refer [Results](/Documentation/document_md/results.md) for sample image input and output. 

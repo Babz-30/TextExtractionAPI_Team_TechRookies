@@ -29,7 +29,7 @@ The calculated metrics are then saved in a [`ExtractedTextMeanConfidence.csv`](S
 <p align="center"><i>Figure 1: Project Overview</i></p>
 
 ## Code Overview
-Refer [Documentation](/Documentation/document_md/code_overview.md) for methodology and code overview.
+**🖥️** Refer [Documentation](/Documentation/document_md/code_overview.md) for methodology and code overview.
 
 ## Getting Started
 Refer to the [Getting Started Guide](/Documentation/document_md/getting_started.md) for instructions on how to set up and run the application.
@@ -40,7 +40,7 @@ The extracted text, preprocessed images, and computational metrics are stored in
 ### **📌 Access the Results**
 - 📷 **Preprocessed Images:** [`Output/Preprocessed_Image_Output`](Source/OCRApplication/OCRApplication/Output/Preprocessed_Image_Output)
 - 📝 **Extracted Text & Metrics:** [`Output/Tesseract_Output`](Source/OCRApplication/OCRApplication/Output/Tesseract_Output)
-- 📊 **Cosine Similarity Matrix:** [`Output/Cosine_Similarity_Output/CosineSimilarityMatrix.csv`](Source/OCRApplication/OCRApplication/Output/Cosine_Similarity_Output/)
+- 🎛️ **Cosine Similarity Matrix:** [`Output/Cosine_Similarity_Output/CosineSimilarityMatrix.csv`](Source/OCRApplication/OCRApplication/Output/Cosine_Similarity_Output/)
 
-### 📂 Test Results Documented
+### 📊 Test Results Documented
 Refer [Results](/Documentation/document_md/results.md) for sample image input and output. 

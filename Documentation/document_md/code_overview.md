@@ -28,7 +28,7 @@ Our project follows a structured approach for extracting, analyzing, and evaluat
 </p>
 <p align="center"><i>Figure 1: Block diagram representing the workflow of OCR</i></p>
 
-## **🚀** Methodology
+# **🚀** Methodology
 
 The process involves the following stages:
 
@@ -282,12 +282,12 @@ The process involves the following stages:
 
 Each stage is carefully designed to ensure that the OCR process yields high-quality and accurate text extraction, and that the most effective preprocessing technique is selected for future use.
 
-## **📌** Experiment Results
+# **📌** Experiment Results
 
-**🗂️ Code Results Folders**
+## **🗂️ Code Results Folders**
 - 📷 **Preprocessed Images:** [`Output/Preprocessed_Image_Output`](../../Source/OCRApplication/OCRApplication/Output/Preprocessed_Image_Output)
 - 📝 **Extracted Text & Metrics:** [`Output/Tesseract_Output`](../../Source/OCRApplication/OCRApplication/Output/Tesseract_Output)
 - 🎛️ **Cosine Similarity Matrix:** [`Output/Cosine_Similarity_Output/CosineSimilarityMatrix.csv`](../../Source/OCRApplication/OCRApplication/Output/Cosine_Similarity_Output/)
 
-**📊 Test Results Documented**
+## **📊 Test Results Documented**
 Refer [Results](/Documentation/document_md/results.md) for sample image input and output. 

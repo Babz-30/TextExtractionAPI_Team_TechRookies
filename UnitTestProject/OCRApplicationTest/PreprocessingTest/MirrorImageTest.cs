@@ -11,13 +11,9 @@ namespace OCRApplicationTest.PreprocessingTest
     {
         private readonly string outputImagePath = TestUtilityClass.OutputImagePath("horizontal_mirrored_image.png");
 
-        // Sets up test environment input and output image paths.
-        [TestInitialize]
-        public void Setup()
-        {
-        }
-
-        // Tests that Process correctly mirrors an image horizontally.
+        /// <summary>
+        /// Tests that Process correctly mirrors an image horizontally. 
+        /// </summary>
         [TestMethod]
         public void Process_ValidInput_CreatesMirroredImage()
         {
@@ -28,7 +24,9 @@ namespace OCRApplicationTest.PreprocessingTest
             Assert.IsTrue(File.Exists(resultPath), "Mirrored image was not created.");
         }
 
-        // Tests that Process throws an exception for an invalid file path.
+        /// <summary>
+        /// Tests that Process throws an exception for an invalid file path.
+        /// </summary>
         [TestMethod]
         public void Process_InvalidInput_ThrowsException()
         {
@@ -39,7 +37,9 @@ namespace OCRApplicationTest.PreprocessingTest
             Assert.ThrowsExactly<ArgumentException>(() => MirrorImage.Process("invalid_path.jpg", outputImagePath));
         }
 
-        // Cleans up test environment by deleting created images.
+        /// <summary>
+        /// Cleans up test environment by deleting created images. 
+        /// </summary>
         [TestCleanup]
         public void Cleanup()
         {

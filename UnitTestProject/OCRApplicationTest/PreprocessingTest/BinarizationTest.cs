@@ -7,12 +7,31 @@ namespace OCRApplicationTest.PreprocessingTest
     /// Test class for Binarization, verifying image thresholding functionality.
     /// </summary>
     [TestClass]
-    public class BinarizationTest 
+    public class BinarizationTest
     {
         private readonly string outputImagePath = TestUtilityClass.OutputImagePath("binarized.jpg");
 
+        // Sets up test environment input and output image paths.
+        [TestInitialize]
+        public void Setup()
+        {
+        }
+
         /// <summary>
-        /// Tests that ApplyOtsuBinarization throws an exception for an invalid file path
+        /// Tests that ApplyOtsuBinarization correctly processes an image. 
+        /// </summary>
+        [TestMethod]
+        public void ApplyOtsuBinarization_ValidInput_CreatesBinarizedImage()
+        {
+            // Act
+            string? resultPath = Binarization.ApplyOtsuBinarization(TestUtilityClass.InputImagePath("test_image.jpg"), outputImagePath: outputImagePath);
+
+            // Assert
+            Assert.IsTrue(File.Exists(resultPath), "Binarized image was not created.");
+        }
+
+        /// <summary>
+        /// Tests that ApplyOtsuBinarization throws an exception for an invalid file path.
         /// </summary>
         [TestMethod]
         public void ApplyOtsuBinarization_InvalidInput_ThrowsException()
@@ -25,7 +44,7 @@ namespace OCRApplicationTest.PreprocessingTest
         }
 
         /// <summary>
-        /// Cleans up test environment by deleting created images.
+        /// Cleans up test environment by deleting created images. 
         /// </summary>
         [TestCleanup]
         public void Cleanup()

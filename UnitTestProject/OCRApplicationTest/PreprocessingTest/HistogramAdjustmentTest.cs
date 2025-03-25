@@ -7,12 +7,29 @@ namespace OCRApplicationTest.PreprocessingTest
     /// Test class for HistogramAdjustment, verifying image enhancement functionality.
     /// </summary>
     [TestClass]
-    public class HistogramAdjustmentTest 
+    public class HistogramAdjustmentTest
     {
         private readonly string outputImagePath = TestUtilityClass.OutputImagePath("histogram_adjusted.jpg");
 
         /// <summary>
-        /// Tests that ApplyHistogramAdjustment throws an exception for an invalid file path.
+        /// Tests that ApplyHistogramAdjustment correctly processes an image.
+        /// </summary>
+        [TestMethod]
+        public void ApplyHistogramAdjustment_ValidInput_CreatesAdjustedImage()
+        {
+            // Arrange
+            double saturationFactor = 1.2;
+            double intensityFactor = 1.1;
+
+            // Act
+            string resultPath = HistogramAdjustment.ApplyHistogramAdjustment(TestUtilityClass.InputImagePath("test_image.jpg"), outputImagePath, saturationFactor, intensityFactor);
+
+            // Assert
+            Assert.IsTrue(File.Exists(resultPath), "Histogram adjusted image was not created.");
+        }
+
+        /// <summary>
+        /// Tests that ApplyHistogramAdjustment throws an exception for an invalid file path. 
         /// </summary>
         [TestMethod]
         public void ApplyHistogramAdjustment_InvalidInput_ThrowsException()

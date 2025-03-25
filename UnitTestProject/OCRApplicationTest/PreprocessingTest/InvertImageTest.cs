@@ -17,10 +17,6 @@ public class InvertImageTest
     [TestMethod]
     public void InvertingImage_ValidInput_CreatesInvertedImage()
     {
-        // Arrange
-        _ = new        // Arrange
-        InvertImage();
-
         // Act
         string resultPath = InvertImage.InvertingImage(TestUtilityClass.InputImagePath("test_image.jpg"), outputImagePath);
 
@@ -29,7 +25,7 @@ public class InvertImageTest
     }
 
     /// <summary>
-    /// Tests that InvertingImage throws an exception when given an invalid file path.
+    /// Tests that InvertingImage throws an exception when given an invalid file path 
     /// </summary>
     [TestMethod]
     public void InvertingImage_InvalidInput_ThrowsException()
@@ -42,7 +38,7 @@ public class InvertImageTest
     }
 
     /// <summary>
-    /// Cleans up test environment by deleting created images.
+    /// Cleans up test environment by deleting created images. 
     /// </summary>
     [TestCleanup]
     public void Cleanup()

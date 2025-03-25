@@ -11,13 +11,9 @@ namespace OCRApplicationTest.PreprocessingTest
     {
         private readonly string outputImagePath = TestUtilityClass.OutputImagePath("grayscale.jpg");
 
-        // Sets up test environment input and output image paths.
-        [TestInitialize]
-        public void Setup()
-        {
-        }
-
-        // Tests that ConvertToGrayscale correctly processes an image.
+        /// <summary>
+        /// Tests that ConvertToGrayscale correctly processes an image.
+        /// </summary>
         [TestMethod]
         public void ConvertToGrayscale_ValidInput_CreatesGrayscaleImage()
         {
@@ -28,7 +24,9 @@ namespace OCRApplicationTest.PreprocessingTest
             Assert.IsTrue(File.Exists(resultPath), "Grayscale image was not created.");
         }
 
-        // Tests that ConvertToGrayscale throws an exception for an invalid file path.
+        /// <summary>
+        /// Tests that ConvertToGrayscale throws an exception for an invalid file path.
+        /// </summary>
         [TestMethod]
         public void ConvertToGrayscale_InvalidInput_ThrowsException()
         {
@@ -36,7 +34,9 @@ namespace OCRApplicationTest.PreprocessingTest
             Assert.ThrowsExactly<ArgumentException>(() => Grayscale.ConvertToGrayscale("invalid_path.jpg", outputImagePath));
         }
 
-        // Cleans up test environment by deleting created images.
+        /// <summary>
+        /// Cleans up test environment by deleting created images.
+        /// </summary>
         [TestCleanup]
         public void Cleanup()
         {

@@ -11,13 +11,9 @@ namespace OCRApplicationTest.PreprocessingTest
     {
         private readonly string outputImagePath = TestUtilityClass.OutputImagePath("rotation.jpg");
 
-        // Sets up test environment input and output image path.
-        [TestInitialize]
-        public void Setup()
-        {
-        }
-
-        // Tests that ApplyRotation correctly creates a rotated image.
+        /// <summary>
+        /// Tests that ApplyRotation correctly creates a rotated image. 
+        /// </summary>
         [TestMethod]
         public void ApplyRotation_ValidInput_CreatesRotatedImage()
         {
@@ -30,7 +26,9 @@ namespace OCRApplicationTest.PreprocessingTest
             Assert.IsTrue(File.Exists(resultPath), "Output image was not created.");
         }
 
-        // Tests that ApplyRotation throws an exception when given an invalid file path.
+        /// <summary>
+        /// Tests that ApplyRotation throws an exception when given an invalid file path. 
+        /// </summary>
         [TestMethod]
         public void ApplyRotation_InvalidInput_ThrowsException()
         {
@@ -41,7 +39,9 @@ namespace OCRApplicationTest.PreprocessingTest
             Assert.ThrowsExactly<FileNotFoundException>(() => RotateImage.ApplyRotation("invalid_path.jpg", outputImagePath, 45f));
         }
 
-        // Cleans up test environment by deleting created images.
+        /// <summary>
+        /// Cleans up test environment by deleting created images.
+        /// </summary>
         [TestCleanup]
         public void Cleanup()
         {

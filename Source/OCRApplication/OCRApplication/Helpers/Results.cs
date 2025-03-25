@@ -10,12 +10,12 @@ namespace OCRApplication.Helpers
     public class Results
     {
         /// <summary>
-        /// Though Data mining technique read computations from .csv files and 
-        /// compute & display the best preprocessing technique
+        /// Through Data mining technique, reads computations from .csv files 
+        /// and determines & display the best preprocessing technique
         /// </summary>
-        /// <param name="filePath">CosineSimilarityMatrix.csv</param>
-        /// <returns>Best pre-processing technique</returns>
-        public static string PrintResults(string filePath)
+        /// <param name="filePath">CosineSimilarityMatrix.csv filepath</param>
+        /// <param name="ocrTexts">Text extracted from all preprocessed images</param>
+        public static void PrintResults(string filePath, Dictionary<string, string> ocrTexts)
         {
             try
             {
@@ -110,14 +110,14 @@ namespace OCRApplication.Helpers
 
                 Console.WriteLine("================================================================================================");
                 Console.WriteLine($"Best Technique: {bestTechnique.Technique} \nMean Cosine Similarity: {bestTechnique.Mean} \nDictionary Accuracy: {bestTechnique.DictionaryAccuracy} \nMean Confidence: {bestTechnique.MeanConfidence}");
+                Console.WriteLine($"Extracted Text:\n{ocrTexts[bestTechnique.Technique]}");
+                Console.WriteLine("================================================================================================");
 
-                return bestTechnique.Technique;
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Error reading the CSV file: " + ex.Message);
             }
-            return "";
         }
     }
 

@@ -8,7 +8,7 @@ namespace OCRApplication.Preprocesssing
     public class PreprocessingFactory
     {
         /// <summary>
-        /// Preprocesses image based on technique selected for different variation within the technique.
+        /// Produces preprocessed image based on technique selected for different variation within the technique.
         /// </summary>
         /// <param name="imagePath">Path to input image.</param>
         /// <param name="technique">Preprocessing technique.</param>
@@ -25,15 +25,15 @@ namespace OCRApplication.Preprocesssing
             var config = Configuration.Config();
 
             // Define parameter sets for different preprocessing techniques
-            float[] rotateAngles = GetConfigurationArray<float>(config, "PreprocessingSettings:RotateAngles");
-            int[] thresholds = GetConfigurationArray<int>(config, "PreprocessingSettings:Thresholds");
-            int[] targerDPIs = GetConfigurationArray<int>(config, "PreprocessingSettings:TargetDPIs");
-            double[] satFactors = GetConfigurationArray<double>(config, "PreprocessingSettings:SatFactors");
-            double[] intensityFactors = GetConfigurationArray<double>(config, "PreprocessingSettings:IntensityFactors");
+            float[] rotateAngles = UtilityClass.GetConfigurationArray<float>(config, "PreprocessingSettings:RotateAngles");
+            int[] thresholds = UtilityClass.GetConfigurationArray<int>(config, "PreprocessingSettings:Thresholds");
+            int[] targerDPIs = UtilityClass.GetConfigurationArray<int>(config, "PreprocessingSettings:TargetDPIs");
+            double[] satFactors = UtilityClass.GetConfigurationArray<double>(config, "PreprocessingSettings:SatFactors");
+            double[] intensityFactors = UtilityClass.GetConfigurationArray<double>(config, "PreprocessingSettings:IntensityFactors");
 
             switch (technique)
             {
-                case "rotation":
+                case "rotation_resize":
                     // Apply rotation to the image for different angles and resize variations
 
                     foreach (float angle in rotateAngles)
@@ -52,7 +52,7 @@ namespace OCRApplication.Preprocesssing
                     }
                     break;
 
-                case "cannyfilter":
+                case "cannyfilter_invert":
                     // Apply Canny edge detection and invert the resulting image
 
                     foreach (int threshold in thresholds)
@@ -140,11 +140,30 @@ namespace OCRApplication.Preprocesssing
             return processedImages; // Return dictionary containing variations and processed image paths
         }
 
-        // Helper function to safely get configuration arrays
-        private static T[] GetConfigurationArray<T>(IConfiguration config, string key)
+        
+
+        /// <summary>
+        ///  Generates dictionary of all combined preprocessing technique (with variations) as key and value as the processed image path.
+        /// </summary>
+        /// <param name="inputImagePath">Path to input image.</param>
+        /// <param name="techniques">List of preprocessing technique.</param>
+        /// <returns>Combined dictionary of all preprocessing technique with variations</returns>
+        public static Dictionary<string, string>  ApplyPreprocessing(string inputImagePath, List<string> techniques)
         {
-            var array = config.GetSection(key).Get<T[]>();
-            return array ?? [];  // Return an empty array if the section is missing or null
+            Dictionary<string, string> preprocessedImages = [];
+
+            foreach (var technique in techniques)
+            {
+                Dictionary<string, string> processedImages = PreprocessingFactory.PreprocessImage(inputImagePath, technique);
+
+                foreach (var img in processedImages)
+                {
+                    // Store all preprocessed variations
+                    preprocessedImages[img.Key] = img.Value; 
+                }
+            }
+
+            return preprocessedImages;
         }
     }
 }

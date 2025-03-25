@@ -6,77 +6,40 @@ namespace OCRApplication
 {
     class Program
     {
-        static readonly Dictionary<string, string> ocrResults = [];
-
         static async Task Main(string[] args)
         {
             try
             {
                 Console.WriteLine("Computing the best pre-processing technique to extract text from image by tesseract OCR.");
-                // Path to your image file
+
+                // Path to your input image file
                 var config = Configuration.Config();
-                var image = config[key: "InputImage"] ?? throw new KeyNotFoundException("InputImage key is missing or contains an empty value in the configuration.");
-                string inputImagePath = UtilityClass.InputImagePath(image);
+                var imageName = UtilityClass.GetRequiredConfigValue(config, "InputImage");
+                string inputImagePath = UtilityClass.InputImagePath(imageName);
 
-                string cosineSimilarityPath = UtilityClass.CosineSimilarityDirectory("CosineSimilarityMatrix.csv");
+                // Path to output cosine similarity matrix file
+                string cosineSimilarityPath = UtilityClass.GetRequiredConfigValue(config,"CosineSimilarityFileName");
 
-                List<string> techniques =
-                [
-                    "rotation",
-                    "cannyfilter",
-                    "chainfilter",
-                    "invert",
-                    "hsi_adjustment",
-                    "denoise",
-                    "mirror_horizontal",
-                    "default"
-                ];
-
-                Dictionary<string, string> preprocessedImages = [];
-                Dictionary<string, string> ocrTexts = [];
+                //Preprocessing Techniques
+                List<string> techniques = UtilityClass.GetConfigurationList<string>(config, "Techniques");
 
                 // Apply preprocessing techniques
-                foreach (var technique in techniques)
-                {
-                    Dictionary<string, string> processedImages = PreprocessingFactory.PreprocessImage(inputImagePath, technique);
-
-                    foreach (var img in processedImages)
-                    {
-                        preprocessedImages[img.Key] = img.Value; // Store all preprocessed variations
-                    }
-                }
+                Dictionary<string, string> preprocessedImages = PreprocessingFactory.ApplyPreprocessing(inputImagePath, techniques);
 
                 // Perform OCR text extraction on preprocessed images
-                ocrTexts = OcrResults(preprocessedImages);
-
-                // Generate embeddings
-                Dictionary<string, List<double>> embeddings = [];
+                Dictionary<string, string>  ocrTexts = TextExtraction.GetTexts(preprocessedImages);
 
                 Console.WriteLine("Computing Embeddings for extracted text and then calculating cosine similarity between preprocessing techniques...");
 
-                foreach (var item in ocrTexts)
-                {
-                    embeddings[item.Key] = await TextEmbedding.ComputeEmbedding(item.Value);
-                }
+                // Generate embeddings of the extracted texts
+                Dictionary<string, List<double>> textEmbeddings = await TextEmbedding.GetTextEmbeddingsAsync(ocrTexts);
 
-                // Remove entries with List<double> where all values are 0
-                var keysToRemove = embeddings
-                    .Where(pair => pair.Value.All(value => value == 0.0))
-                    .Select(pair => pair.Key)
-                    .ToList();
+                // Compute Cosine Similarity between text embeddings
+                TextSimilarity.GenerateCosineSimilarityMatrix(textEmbeddings, cosineSimilarityPath);
 
-                foreach (var key in keysToRemove)
-                {
-                    embeddings.Remove(key);
-                }
-
-                // Compute Similarity between text embeddings
-                TextSimilarity.GenerateCosineSimilarityMatrix(embeddings, cosineSimilarityPath);
-
-                String bestTechnique = Results.PrintResults(cosineSimilarityPath);
-
-                Console.WriteLine($"Extracted Text:\n{ocrTexts[bestTechnique]}");
-                Console.WriteLine("================================================================================================");
+                // Data mining to determine the best preprocessing technique
+                Results.PrintResults(cosineSimilarityPath, ocrTexts);
+                
                 // Wait for user to press Enter before closing
                 Console.WriteLine("Press Enter to exit...");
                 Console.ReadLine();
@@ -89,20 +52,6 @@ namespace OCRApplication
             {
                 UtilityClass.DeleteAllFiles();
             }
-        }
-
-        static Dictionary<string, string> OcrResults(Dictionary<string, string> preprocessedImages)
-        {
-            TextExtraction textExtraction = new();
-            string extractedText;
-
-            foreach (var technique in preprocessedImages)
-            {
-                extractedText = textExtraction.ExtractText(technique.Value, technique.Key);
-                ocrResults[technique.Key] = extractedText;
-            }
-
-            return ocrResults;
         }
     }        
 }

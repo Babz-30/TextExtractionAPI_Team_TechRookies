@@ -3,12 +3,16 @@
 ## Navigation
 - [Image1](#image1)
 - [Image2](#image2)
-- [Image2](#image3)
-- [Image2](#image4)
-- [Image2](#image5)
-- [Image2](#image6)
-- [Image2](#image7)
-- [Image2](#image8)
+- [Image3](#image3)
+- [Image4](#image4)
+- [Image5](#image5)
+- [Image6](#image6)
+- [Image7](#image7)
+- [Image8](#image8)
+- [Bill misaligned](#image9)
+- [Bill](#image10)
+- [Passport](#image11)
+- [License Plate](#image12)
 
 ---
 
@@ -69,6 +73,9 @@
 }
 ```
 
+### Processed Image
+![Image2](../document_images/Results/processed_image2.jpg)
+
 ### Console Output
 ![Console Output](../document_images/Results/image2_console.png)
 
@@ -83,7 +90,7 @@
 ## Image3
 
 ### Original Image
-![Image2](../document_images/Results/image3.jpg)
+![Image3](../document_images/Results/image3.jpg)
 
 ### Configuration (appsettings.json)
 ```json
@@ -117,7 +124,7 @@
 ## Image4
 
 ### Original Image
-![Image2](../document_images/Results/image4.jpg)
+![Image4](../document_images/Results/image4.jpg)
 
 ### Configuration (appsettings.json)
 ```json
@@ -151,7 +158,7 @@
 ## Image5
 
 ### Original Image
-![Image2](../document_images/Results/image5.jpg)
+![Image5](../document_images/Results/image5.jpg)
 
 ### Configuration (appsettings.json)
 ```json
@@ -185,7 +192,7 @@
 ## Image6
 
 ### Original Image
-![Image2](../document_images/Results/image6.png)
+![Image6](../document_images/Results/image6.png)
 
 ### Configuration (appsettings.json)
 ```json
@@ -205,6 +212,9 @@
 }
 ```
 
+### Processed Image
+![Image6](../document_images/Results/processed_image6.jpg)
+
 ### Console Output
 ![Console Output](../document_images/Results/image6_console.png)
 
@@ -219,7 +229,7 @@
 ## Image7
 
 ### Original Image
-![Image2](../document_images/Results/image7.png)
+![Image7](../document_images/Results/image7.png)
 
 ### Configuration (appsettings.json)
 ```json
@@ -253,7 +263,7 @@
 ## Image8
 
 ### Original Image
-![Image2](../document_images/Results/image8.jpg)
+![Image8](../document_images/Results/image8.jpg)
 
 ### Configuration (appsettings.json)
 ```json
@@ -281,3 +291,153 @@
 
 ### Graph Representation
 ![Graph](../document_images/Results/image8_graph.png)
+
+---
+
+## Bill misaligned
+
+### Original Image
+![Image9](../document_images/Results/image9.png)
+
+### Configuration (appsettings.json)
+```json
+{
+  "InputImage": "image9.jpg",
+  "PreprocessingSettings": {
+    "RotateAngles": [ -45.0, -30.0, -20.0, -10.0, 0, 10, 20, 30, 45 ],
+    "Thresholds": [ 50, 100, 200 ],
+    "TargetDPIs": [ 50, 100, 200,300 ],
+    "SatFactors": [ 2.0, 1.5, 0.5 ],
+    "IntensityFactors": [ 5.0, 2.0, 1.5, 0.5 ]
+  },
+  "Max": 10, 
+  "API_URL": "https://api.openai.com/v1/embeddings",
+  "EMBEDDING_MODEL": "text-embedding-ada-002",
+  "MEDIA_TYPE": "application/json"
+}
+```
+
+### Processed Image
+![Image9](../document_images/Results/processed_image9.jpg)
+
+### Console Output
+![Console Output](../document_images/Results/image9_console.png)
+
+### Metrics
+![Metrics](../document_images/Results/image9_metrics.png)
+
+### Graph Representation
+![Graph](../document_images/Results/image9_graph.png)
+
+---
+
+## Bill
+
+### Original Image
+![Image10](../document_images/Results/image10.png)
+
+### Configuration (appsettings.json)
+```json
+{
+  "InputImage": "image10.png",
+  "PreprocessingSettings": {
+    "RotateAngles": [ -30.0, -15.0, 15.0, 30.0 ],
+    "Thresholds": [ 50, 100, 150, 200, 250 ],
+    "TargetDPIs": [50, 100, 200, 300 ],
+    "SatFactors": [ 20, 10, 5, 2, 1.5 ],
+    "IntensityFactors": [ 2, 1.5, 0.5, 0.2]
+  },
+  "Max": 15,
+  "API_URL": "https://api.openai.com/v1/embeddings",
+  "EMBEDDING_MODEL": "text-embedding-ada-002",
+  "MEDIA_TYPE": "application/json"
+}
+```
+
+### Processed Image
+![Image10](../document_images/Results/processed_image10.jpg)
+
+### Console Output
+![Console Output](../document_images/Results/image10_console.png)
+
+### Metrics
+![Metrics](../document_images/Results/image10_metrics.png)
+
+### Graph Representation
+![Graph](../document_images/Results/image10_graph.png)
+
+---
+
+## Passport
+
+### Original Image
+![Image11](../document_images/Results/image11.jpg)
+
+### Configuration (appsettings.json)
+```json
+{
+  "InputImage": "image11.jpg",
+  "PreprocessingSettings": {
+    "RotateAngles": [ -30.0, -15.0, 15.0, 30.0 ],
+    "Thresholds": [ 50, 100, 150, 200, 250 ],
+    "TargetDPIs": [50, 70, 100, 200, 300 ],
+    "SatFactors": [ 20, 10, 5, 2, 1.5 ],
+    "IntensityFactors": [ 2, 1.5, 0.5, 0.2]
+  },
+  "Max": 10,
+  "API_URL": "https://api.openai.com/v1/embeddings",
+  "EMBEDDING_MODEL": "text-embedding-ada-002",
+  "MEDIA_TYPE": "application/json"
+}
+```
+
+### Processed Image
+![Image11](../document_images/Results/processed_image11.jpg)
+
+### Console Output
+![Console Output](../document_images/Results/image11_console.png)
+
+### Metrics
+![Metrics](../document_images/Results/image11_metrics.png)
+
+### Graph Representation
+![Graph](../document_images/Results/image11_graph.png)
+
+---
+
+## License Plate
+
+### Original Image
+![Image11](../document_images/Results/image12.jpg)
+
+### Configuration (appsettings.json)
+```json
+{
+  "InputImage": "image12.jpg",
+  "PreprocessingSettings": {
+    "RotateAngles": [ -45.0, -30.0, -20.0, -10.0, 0, 10, 20, 30, 45 ],
+    "Thresholds": [ 50, 100, 200 ],
+    "TargetDPIs": [ 50, 100, 200,300 ],
+    "SatFactors": [ 2.0, 1.5, 0.5 ],
+    "IntensityFactors": [ 5.0, 2.0, 1.5, 0.5 ]
+  },
+  "Max": 10,
+  "API_URL": "https://api.openai.com/v1/embeddings",
+  "EMBEDDING_MODEL": "text-embedding-ada-002",
+  "MEDIA_TYPE": "application/json"
+}
+```
+
+### Processed Image
+![Image11](../document_images/Results/processed_image12.jpg)
+
+### Console Output
+![Console Output](../document_images/Results/image12_console.png)
+
+### Metrics
+![Metrics](../document_images/Results/image12_metrics.png)
+
+### Graph Representation
+![Graph](../document_images/Results/image12_graph.png)
+
+---

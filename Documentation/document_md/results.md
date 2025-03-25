@@ -9,10 +9,10 @@
 - [Image6](#image6)
 - [Image7](#image7)
 - [Image8](#image8)
-- [Bill misaligned](#image9)
-- [Bill](#image10)
-- [Passport](#image11)
-- [License Plate](#image12)
+- [Bill misaligned](#bill-misaligned)
+- [Bill](#bill)
+- [Passport](#passport)
+- [License Plate](#license-plate)
 
 ---
 

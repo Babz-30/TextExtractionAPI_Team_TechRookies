@@ -9,10 +9,10 @@
 - [Image6](#image6)
 - [Image7](#image7)
 - [Image8](#image8)
-- [Image9](#image9)
-- [Image10](#image10)
-- [Image11](#image11)
-- [Image12](#image12)
+- [Bill misaligned](#image9)
+- [Bill](#image10)
+- [Passport](#image11)
+- [License Plate](#image12)
 
 ---
 
@@ -294,7 +294,7 @@
 
 ---
 
-## Image9
+## Bill misaligned
 
 ### Original Image
 ![Image9](../document_images/Results/image9.png)
@@ -331,7 +331,7 @@
 
 ---
 
-## Image10
+## Bill
 
 ### Original Image
 ![Image10](../document_images/Results/image10.png)
@@ -368,7 +368,7 @@
 
 ---
 
-## Image11
+## Passport
 
 ### Original Image
 ![Image11](../document_images/Results/image11.jpg)
@@ -405,7 +405,7 @@
 
 ---
 
-## Image12
+## License Plate
 
 ### Original Image
 ![Image11](../document_images/Results/image12.jpg)

@@ -11,18 +11,13 @@ namespace OCRApplicationTest.PreprocessingTest
     {
         private readonly string outputImagePath = TestUtilityClass.OutputImagePath("histogram_adjusted.jpg");
 
-        // Sets up test environment input and output image paths.
-        [TestInitialize]
-        public void Setup()
-        {
-        }
-
-        // Tests that ApplyHistogramAdjustment correctly processes an image.
+        /// <summary>
+        /// Tests that ApplyHistogramAdjustment correctly processes an image.
+        /// </summary>
         [TestMethod]
         public void ApplyHistogramAdjustment_ValidInput_CreatesAdjustedImage()
         {
             // Arrange
-            HistogramAdjustment histogramAdjustment = new();
             double saturationFactor = 1.2;
             double intensityFactor = 1.1;
 
@@ -33,7 +28,9 @@ namespace OCRApplicationTest.PreprocessingTest
             Assert.IsTrue(File.Exists(resultPath), "Histogram adjusted image was not created.");
         }
 
-        // Tests that ApplyHistogramAdjustment throws an exception for an invalid file path.
+        /// <summary>
+        /// Tests that ApplyHistogramAdjustment throws an exception for an invalid file path. 
+        /// </summary>
         [TestMethod]
         public void ApplyHistogramAdjustment_InvalidInput_ThrowsException()
         {
@@ -44,7 +41,9 @@ namespace OCRApplicationTest.PreprocessingTest
             Assert.ThrowsExactly<ArgumentException>(() => HistogramAdjustment.ApplyHistogramAdjustment("invalid_path.jpg", outputImagePath, 1.2, 1.1));
         }
 
-        // Cleans up test environment by deleting created images.
+        /// <summary>
+        /// Cleans up test environment by deleting created images.
+        /// </summary>
         [TestCleanup]
         public void Cleanup()
         {

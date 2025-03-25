@@ -11,14 +11,10 @@ public class CannyFilterTest
 {
     private readonly string outputImagePath = TestUtilityClass.OutputImagePath("canny.jpg");
 
-    // Sets up test environment input and output image path.
-    [TestInitialize]
-    public void Setup()
-    {
 
-    }
-
-    // Tests that ApplyCannyEdgeDetection correctly processes an image.
+    /// <summary>
+    /// Tests that ApplyCannyEdgeDetection correctly processes an image.
+    /// </summary>
     [TestMethod]
     public void ApplyCannyEdgeDetection_ValidInput_CreatesEdgeDetectedImage()
     {
@@ -33,7 +29,9 @@ public class CannyFilterTest
         Assert.IsTrue(File.Exists(resultPath), "Edge detected image was not created.");
     }
 
-    // Tests that ApplyCannyEdgeDetection throws an exception for an invalid file path.
+    /// <summary>
+    /// Tests that ApplyCannyEdgeDetection throws an exception for an invalid file path.
+    /// </summary>
     [TestMethod]
     public void ApplyCannyEdgeDetection_InvalidInput_ThrowsException()
     {
@@ -41,7 +39,9 @@ public class CannyFilterTest
         Assert.ThrowsExactly<ArgumentException>(() => CannyFilter.ApplyCannyEdgeDetection("invalid_path.jpg", outputImagePath, 100, 200));
     }
 
-    // Cleans up test environment by deleting created images.
+    /// <summary>
+    /// Cleans up test environment by deleting created images.
+    /// </summary>
     [TestCleanup]
     public void Cleanup()
     {

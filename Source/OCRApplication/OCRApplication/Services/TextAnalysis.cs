@@ -79,7 +79,11 @@ namespace OCRApplication.Services
             }
         }
 
-        // Load dictionary words from a file into a HashSet
+        /// <summary>
+        /// Load dictionary words from a file into a HashSet 
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <returns>List of correct words from dictionary</returns
         static HashSet<string> LoadDictionary(string filePath)
         {
             HashSet<string> words = [];

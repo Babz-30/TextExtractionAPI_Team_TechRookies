@@ -30,7 +30,12 @@ namespace OCRApplication.Preprocesssing
 
         }
 
-        // Complete implementation for improving resolution.
+        /// <summary>
+        /// Complete implementation for improving resolution. 
+        /// </summary>
+        /// <param name="inputPath"></param>
+        /// <param name="outputPath"></param>
+        /// <param name="targetDPI"></param>
         static void ResizeAndSetDPI(string inputPath, string outputPath, int targetDPI)
         {
             using Bitmap original = new(inputPath);

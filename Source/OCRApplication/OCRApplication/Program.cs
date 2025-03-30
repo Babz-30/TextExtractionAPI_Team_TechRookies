@@ -4,8 +4,20 @@ using OCRApplication.Services;
 
 namespace OCRApplication
 {
+
+    /// <summary>
+    /// Main entry point of the OCR application. 
+    /// This program applies multiple preprocessing techniques to an image,
+    /// extracts text using Tesseract OCR, computes embeddings, and evaluates
+    /// the effectiveness of different preprocessing techniques using cosine similarity.
+    /// </summary>
     class Program
     {
+        /// <summary>
+        /// Main method
+        /// </summary>
+        /// <param name="args">Command-line arguments (not used in this implementation).</param>
+        /// <returns>An asynchronous task.</returns>
         static async Task Main(string[] args)
         {
             try

@@ -25,8 +25,10 @@ namespace OCRApplication.Helpers
 
         static readonly string CosineSimilarityFolder = @"Output/Cosine_Similarity_Output";
 
-
-        // Retrieves the root directory of the solution.
+        /// <summary>
+        /// Retrieves the root directory of the solution. 
+        /// </summary>
+        /// <returns>string</returns>
         public static string SolutionDirectory()
         {
             string currentDirectory = Directory.GetCurrentDirectory();
@@ -38,7 +40,10 @@ namespace OCRApplication.Helpers
             return parentFullName;
 
         }
-        // Retrieves or creates the input image directory.
+        /// <summary>
+        /// Retrieves or creates the input image directory. 
+        /// </summary>
+        /// <returns>string</returns>
         public static string InputImageDirectory()
         {
             string directoryPath = Path.Combine(SolutionDirectory(), InputImageFolder);
@@ -49,7 +54,10 @@ namespace OCRApplication.Helpers
             return directoryPath;
         }
 
-        // Retrieves or creates the output image directory.
+        /// <summary>
+        /// Retrieves or creates the output image directory. 
+        /// </summary>
+        /// <returns>string</returns>
         public static string OutputImageDirectory()
         {
             string directoryPath = Path.Combine(SolutionDirectory(), OutputImageFolder);
@@ -60,7 +68,10 @@ namespace OCRApplication.Helpers
             return directoryPath;
         }
 
-        // Retrieves or creates the Tesseract OCR output directory.
+        /// <summary>
+        /// Retrieves or creates the Tesseract OCR output directory 
+        /// </summary>
+        /// <returns>string</returns>
         public static string TesseractOutputDirectory()
         {
             string directoryPath = Path.Combine(SolutionDirectory(), TesseractOutputFolder);
@@ -71,7 +82,11 @@ namespace OCRApplication.Helpers
             return directoryPath;
         }
 
-        // Constructs the full path of an input image.
+        /// <summary>
+        /// Constructs the full path of an input image.
+        /// </summary>
+        /// <param name="filename"></param>
+        /// <returns>string</returns>
         public static string InputImagePath(string filename)
         {
             string imagePath = Path.Combine(InputImageDirectory(), filename);

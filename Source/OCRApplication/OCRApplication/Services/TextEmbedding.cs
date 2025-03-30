@@ -13,7 +13,7 @@ namespace OCRApplication.Services
         /// Call OpenAI API to get text embedding of the input text.
         /// </summary>
         /// <param name="text">Text extracted from processed image.</param>
-        /// <returns>List of double of the received text embeddings.</returns>
+        /// <returns>List of type double of the received text embeddings.</returns>
         public static async Task<List<double>> ComputeEmbedding(string text)
         {
             if (string.IsNullOrWhiteSpace(text))
@@ -61,5 +61,19 @@ namespace OCRApplication.Services
             }
         }
 
+        /// <summary>
+        /// Generates Dictionary of all the techniques as key and its embeddings as value
+        /// </summary>
+        /// <param name="ocrTexts"></param>
+        /// <returns>Dictionary of technique and it corressponding embeddings</returns>
+        public static async Task<Dictionary<string, List<double>>> GetTextEmbeddingsAsync(Dictionary<string, string> ocrTexts)
+        {
+            Dictionary<string, List<double>> textEmbeddings = [];
+            foreach (var item in ocrTexts)
+            {
+                textEmbeddings[item.Key] = await ComputeEmbedding(item.Value);
+            }
+            return textEmbeddings;
+        }
     }
 }

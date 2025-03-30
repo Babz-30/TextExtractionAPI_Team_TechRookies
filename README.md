@@ -3,6 +3,9 @@
 ## Problem Statement
 The goal of this project is to implement an OCR solution that leverages the Tesseract SDK. The C# application should load images from an input folder. The task is to develop an application that preprocesses images by shifting, rotating, or applying other suitable transformations. After preprocessing, the application should extract text using the Tesseract API. The quality of the extracted text depends on factors such as image quality, lighting conditions, the angle of the image, and potentially other variables, which should be assessed during the project. The final solution must function as a console application that accepts various parameters. The output should be clear and include the extracted text from different pre-processed images. Additionally, the final result must provide a comparison of the extraction quality between various preprocessing approaches.
 
+## Abstract
+Optical Character Recognition (OCR) is a technology used for text extraction from images, but low-quality images, noise, and distortion affect its performance. This paper discusses an efficient method of enhancing the OCR accuracy to extract printed text from images by applying combinations of preprocessing techniques. OpenAI is used for computing text embeddings of the extracted text which is further used to calculate Cosine Similarity between preprocessing techniques. The study is performed on images of bills, and passport documents. The text from each of the preprocessing techniques like binarization, grayscale, rotate, invert, canny, mirror, and histogram shall be assessed through cosine similarity, dictionary-based accuracy, and confidence score for mean page word count to determine the best preprocessing methodology. There is a ranking method that ranks procedures based on text similarity, dictionary accuracy, and confidence without allowing misleading similarities and low-accuracy results. The proposed method ensures that only the most accurate preprocessing technique is chosen, resulting in higher OCR accuracy.
+
 ## Introduction
 We have developed an advanced text extraction application that leverages the Tesseract OCR SDK for extracting text from images. The process begins with a series of preprocessing techniques designed to enhance the quality of the image and improve OCR accuracy. These preprocessing steps include combination of:
 
@@ -20,7 +23,12 @@ Once the image is processed, text is extracted using the Tesseract OCR engine, w
 - **Dictionary accuracy**: Measuring the proportion of recognized words that exist in a predefined dictionary.
 - **Mean word confidence**: The average confidence score of the words detected by the OCR system.
 
-The calculated metrics are then saved in a [`ExtractedTextMeanConfidence.csv`](Source/OCRApplication/OCRApplication/Output/Tesseract_Output/ExtractedTextMeanConfidence.csv) and [`CosineSimilarityMatrix.csv`](Source/OCRApplication/OCRApplication/Output/Cosine_Similarity_Output/CosineSimilarityMatrix.csv) file for further analysis and reporting. Through data mining techniques, we handle and filter out false similarity results to improve accuracy. The best preprocessing technique is identified based on the above metrics, and the extracted text is displayed on the console for the user to review. This application provides an efficient and reliable solution for text extraction from images, offering a detailed analysis of OCR accuracy through computational metrics.
+The calculated metrics are then saved in a [`ExtractedTextMeanConfidence.csv`](Source/OCRApplication/OCRApplication/Output/Tesseract_Output/ExtractedTextMeanConfidence.csv) and [`CosineSimilarityMatrix.csv`](Source/OCRApplication/OCRApplication/Output/Cosine_Similarity_Output/CosineSimilarityMatrix.csv) file for further analysis and reporting. Through data mining techniques, we handle and filter out false similarity results to improve accuracy. The best preprocessing technique is identified based on the above metrics, and the extracted text is displayed on the console for the user to review. This application provides an efficient and reliable solution for text extraction from images, offering a detailed analysis of OCR accuracy through computational metrics. The extracted text, preprocessed images, and computational metrics are stored in the `Output` folder.
+
+### **Output 📂**
+- 📷 **Preprocessed Images:** [`Output/Preprocessed_Image_Output`](Source/OCRApplication/OCRApplication/Output/Preprocessed_Image_Output)
+- 📝 **Extracted Text & Metrics:** [`Output/Tesseract_Output`](Source/OCRApplication/OCRApplication/Output/Tesseract_Output)
+- 🎛️ **Cosine Similarity Matrix:** [`Output/Cosine_Similarity_Output/CosineSimilarityMatrix.csv`](Source/OCRApplication/OCRApplication/Output/Cosine_Similarity_Output/)
 
 ## Flowchart
 <p align="center">
@@ -29,18 +37,10 @@ The calculated metrics are then saved in a [`ExtractedTextMeanConfidence.csv`](S
 <p align="center"><i>Figure 1: Project Overview</i></p>
 
 ## Code Overview
-**🖥️** Refer [Documentation](/Documentation/document_md/code_overview.md) for methodology and code overview.
+🖥️ Refer [Documentation](/Documentation/document_md/code_overview.md) for methodology and code overview.
+
+## Results
+📊 Refer [Results](/Documentation/document_md/results.md) for project experiment image, input and output. 
 
 ## Getting Started
 Refer to the [Getting Started Guide](/Documentation/document_md/getting_started.md) for instructions on how to set up and run the application.
-
-## Results
-The extracted text, preprocessed images, and computational metrics are stored in the `Output` folder.
-
-### **📌 Access the Results**
-- 📷 **Preprocessed Images:** [`Output/Preprocessed_Image_Output`](Source/OCRApplication/OCRApplication/Output/Preprocessed_Image_Output)
-- 📝 **Extracted Text & Metrics:** [`Output/Tesseract_Output`](Source/OCRApplication/OCRApplication/Output/Tesseract_Output)
-- 🎛️ **Cosine Similarity Matrix:** [`Output/Cosine_Similarity_Output/CosineSimilarityMatrix.csv`](Source/OCRApplication/OCRApplication/Output/Cosine_Similarity_Output/)
-
-### 📊 Test Results Documented
-Refer [Results](/Documentation/document_md/results.md) for sample image input and output. 

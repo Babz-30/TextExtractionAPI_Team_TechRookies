@@ -1,4 +1,6 @@
-﻿namespace OCRApplication.Helpers
+﻿using Microsoft.Extensions.Configuration;
+
+namespace OCRApplication.Helpers
 {
     /// <summary>
     /// Utility class providing helper methods for directory and file management within the OCR application.
@@ -177,6 +179,31 @@
             {
                 Console.WriteLine($"Unable to delete files in Folder: {ex.Message}");
             }
+        }
+
+        // Helper function to safely get configuration arrays
+        public static T[] GetConfigurationArray<T>(IConfiguration config, string key)
+        {
+            var array = config.GetSection(key).Get<T[]>();
+            return array ?? [];  // Return an empty array if the section is missing or null
+        }
+
+        public static List<T> GetConfigurationList<T>(IConfiguration config, string key)
+        {
+            var array = config.GetSection(key).Get<List<T>>();
+            return array ?? [];  // Return an empty List if the section is missing or null
+        }
+
+        public static string GetRequiredConfigValue(IConfiguration config, string key)
+        {
+            string? value = config[key];
+
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                throw new KeyNotFoundException($"'{key}' key is missing or contains an empty value in the configuration.");
+            }
+
+            return value;
         }
     }
 }

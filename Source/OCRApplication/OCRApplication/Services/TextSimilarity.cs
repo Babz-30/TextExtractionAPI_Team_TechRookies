@@ -29,9 +29,24 @@
             return (magA == 0 || magB == 0) ? 0 : dotProduct / (Math.Sqrt(magA) * Math.Sqrt(magB));
         }
 
-        // Function to generate the cosine similarity matrix and save it to a CSV
+        /// <summary>
+        /// Generates the cosine similarity matrix and saves it to a CSV
+        /// </summary>
+        /// <param name="preprocessingEmbeddings"></param>
+        /// <param name="filePath">File path of saved cosine similarity matrix</param>
         public static void GenerateCosineSimilarityMatrix(Dictionary<string, List<double>> preprocessingEmbeddings, string filePath)
         {
+            // Remove entries with List<double> where all values are 0
+            var keysToRemove = preprocessingEmbeddings
+                .Where(pair => pair.Value.All(value => value == 0.0))
+                .Select(pair => pair.Key)
+                .ToList();
+
+            foreach (var key in keysToRemove)
+            {
+                preprocessingEmbeddings.Remove(key);
+            }
+
             // Get the list of preprocessing techniques (keys)
             var techniques = preprocessingEmbeddings.Keys.ToList();
 

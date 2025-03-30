@@ -1,6 +1,4 @@
 ﻿using OCRApplication.Helpers;
-using OCRApplication.Preprocesssing;
-using System.ComponentModel.DataAnnotations;
 using Tesseract;
 
 namespace OCRApplication.Services
@@ -10,12 +8,17 @@ namespace OCRApplication.Services
     /// </summary>
     internal class TextExtraction
     {
-        /// <summary>
-        /// Path to the trained Tesseract data folder.
-        /// </summary>
+
         // Path to the trained tessdata folder
         readonly string TrainedDataPath = UtilityClass.TrainedDataPath();
-        
+
+        /// <summary>
+        /// Extracts text from images using tesseract api
+        /// </summary>
+        /// <param name="imagePath">Path to input image.</param>
+        /// <param name="technique">Preprocessing technique.</param>
+        /// <param name="language">Language used for text extraction default english</param>
+        /// <returns></returns>
         public string ExtractText(string imagePath, string technique, string language = "eng")
         {
             try
@@ -37,7 +40,7 @@ namespace OCRApplication.Services
                 UtilityClass.SaveToFile(tesseractOutputFilePath, extractedText);
 
                 TextAnalysis.SaveConfidence(technique, page);
-                
+
                 return extractedText;
             }
             catch (Exception ex)
@@ -45,6 +48,26 @@ namespace OCRApplication.Services
                 Console.WriteLine($"Error during text extraction by tesseract: {ex.Message}");
                 throw;
             }
+        }
+
+        /// <summary>
+        /// Combines text extracted from all the preprocessed images
+        /// </summary>
+        /// <param name="preprocessedImages">Preprocessed Images</param>
+        /// <returns>Combined dictionary of Text extracted from all preprocessed images</returns>
+        public static Dictionary<string, string> GetTexts(Dictionary<string, string> preprocessedImages)
+        {
+            Dictionary<string, string> ocrResults = [];
+            TextExtraction textExtraction = new();
+            string extractedText;
+
+            foreach (var technique in preprocessedImages)
+            {
+                extractedText = textExtraction.ExtractText(technique.Value, technique.Key);
+                ocrResults[technique.Key] = extractedText;
+            }
+
+            return ocrResults;
         }
     }
 }

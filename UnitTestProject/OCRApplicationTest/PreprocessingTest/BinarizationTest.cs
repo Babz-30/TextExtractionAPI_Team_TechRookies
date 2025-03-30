@@ -11,12 +11,6 @@ namespace OCRApplicationTest.PreprocessingTest
     {
         private readonly string outputImagePath = TestUtilityClass.OutputImagePath("binarized.jpg");
 
-        // Sets up test environment input and output image paths.
-        [TestInitialize]
-        public void Setup()
-        {
-        }
-
         /// <summary>
         /// Tests that ApplyOtsuBinarization correctly processes an image. 
         /// </summary>

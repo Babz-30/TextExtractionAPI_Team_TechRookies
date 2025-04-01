@@ -46,7 +46,11 @@
    ```
    - Input Parameter Description
      
-   ![Input Parameter](/Documentation/document_images/InputParameters.png)
+   <p align="center">
+      <img src="/Documentation/document_images/InputParameters.png" alt="inputParameters">
+   </p>
+   <p align="center"><i>Table 1. Adjustable Input Parameter Description</i></p>
+
 
 7. **Run the Application**
    - Execute the application on IDE.
@@ -65,4 +69,8 @@
 ## Directory Structure
    Below displays the directory structure for input and output files:
 
-   ![Directory Structure](../document_images/InputOutput.png)
+   <p align="center">
+   <img src="../document_images/InputOutput.png" alt="IOFolder">
+   </p>
+   <p align="center"><i>Fig 1. Input Output folder structure</i></p>
+

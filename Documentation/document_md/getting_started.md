@@ -12,22 +12,61 @@
 
 3. **Install NuGet Packages, Clean, and Build**
    - Install all required NuGet Packages.
+     ```
+      CsvHelper
+      Emgu.CV
+      Emgu.CV.runtime.windows
+      Microsoft.CodeCoverage
+      Microsoft.Extensions.Configuration
+      Microsoft.Extensions.Configuration.Binder
+      Microsoft.Extensions.Configuration.CommandLine
+      Microsoft.Extensions.Configuration.EnvironmentVariables
+      Microsoft.Extensions.Configuration.FileExtensions
+      Microsoft.Extensions.Configuration.Json
+      Newtonsoft.Json
+      NUnit
+      OpenAI
+      System.Drawing.Common
+      Tesseract
+      Tesseract.Drawing
+      xunit
+     ```
    - Clean and build the application.
+     
+     OR
+     
+   - Run the following command to restore dependencies already listed in .csproj file:
+     ```sh
+     dotnet restore
+     ```
 
 4. **Set Launch Profile with Environment Variable**
-   - Name: `authtoken`
-   - Value: `Bearer {Your OpenAI Key}`
+   In Solution Explorer, navigate to OCRApplication > Properties > launchSettings.json
+   If the file does not exist, create it manually under the Properties folder.
+   ```json
+   {
+     "profiles": {
+       "OCRApplication": {
+         "commandName": "Project",
+         "environmentVariables": {
+           "authtoken": "Bearer {Your OpenAI Key}"
+         }
+       }
+     }
+   }
+   ```
+   Replace Your OpenAI Key with your actual API key.
    
    **Note:** This is used for computing text embeddings.
 
-5. **Load the Image for Text Extraction**
+6. **Load the Image for Text Extraction**
    - Place the image in the following folder:
      ```
      TextExtractionAPI_Team_TechRookies\Source\OCRApplication\OCRApplication\Input\Input_Images
      ```
 
-6. **Modify `appsettings.json`**
-   - Set the image file name and adjust preprocessing settings:
+7. **Modify `appsettings.json`**
+   - Set the image file name and adjust preprocessing settings and don't modify other settings that are not listed below:
    ```json
    {
      "InputImage": "image1.jpg",
@@ -38,7 +77,7 @@
        "SatFactors": [ 2.0, 1.5, 0.5 ],
        "IntensityFactors": [ 2.0, 1.5, 0.5 ]
      },
-      "Max": 10,
+      "Max": 15,
       "API_URL": "https://api.openai.com/v1/embeddings",
       "EMBEDDING_MODEL": "text-embedding-ada-002",
       "MEDIA_TYPE": "application/json"
@@ -52,10 +91,10 @@
    <p align="center"><i>Table 1. Adjustable Input Parameter Description</i></p>
 
 
-7. **Run the Application**
+8. **Run the Application**
    - Execute the application on IDE.
 
-8. **View the Results**
+9. **View the Results**
    - The extracted text is displayed on the console.
    - Processed files are stored in the output folder:
      ```

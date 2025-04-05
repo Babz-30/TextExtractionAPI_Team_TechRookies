@@ -1,8 +1,8 @@
 
 # **📜** Table of Contents
 
-1. [Project Overview](#project-overview)
-2. [Methodology](#methodology)
+1. [Project Overview](#-project-overview)
+2. [Methodology](#-methodology)
    - [Image Preprocessing](#image-preprocessing)
      - [Rotation and Resize](#rotation-combined-with-resize)
      - [CannyFilter and Invert](#cannyfilter-combined-with-invert)
@@ -16,7 +16,7 @@
    - [Similarity Computation](#similarity-computation)
    - [Performance Evaluation](#performance-evaluation)
    - [Final Selection](#final-selection)
-3. [Experiment Results](#experiment-results)
+3. [Experiment Results](#-experiment-results)
 
 
 # **🛠️** Project Overview

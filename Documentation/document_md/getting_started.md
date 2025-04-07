@@ -41,7 +41,7 @@
      ```
 
 4. **Set Launch Profile with Environment Variable**
-   In Solution Explorer, navigate to OCRApplication > Properties > launchSettings.json
+   In Solution Explorer, navigate to TextExtractionAPI_Team_TechRookies > Source > OCRApplication > OCRApplication > Properties > launchSettings.json
    If the file does not exist, create it manually under the Properties folder.
    ```json
    {
@@ -56,6 +56,11 @@
    }
    ```
    Replace Your OpenAI Key with your actual API key.
+
+   <p align="center">
+   <img src="../document_images/envprop.png" alt="envprop">
+   </p>
+   <p align="center"><i>Fig 1. Location of file in solution explorer</i></p>
    
    **Note:** This is used for computing text embeddings.
 
@@ -111,5 +116,5 @@
    <p align="center">
    <img src="../document_images/InputOutput.png" alt="IOFolder">
    </p>
-   <p align="center"><i>Fig 1. Input Output folder structure</i></p>
+   <p align="center"><i>Fig 2. Input Output folder structure</i></p>
 
